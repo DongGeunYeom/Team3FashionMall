@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<!-- appender : 화면출력, 파일출력 
+	 로깅 레벨 : error > warn > info > debug(개발 시) > trace(개발 시 - 모두 추적)
+-->
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+     <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+  
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>myApp.log</file>
+
+    <encoder>
+      <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+    </encoder>
+  </appender>
+  
+  <logger name="org.springframework.context" level="info"/>
+  <logger name="org.springframework.jdbc" level="debug"/>
+  <logger name="com.stydy.mapper" level="debug"/>
+
+  <root level="info">
+    <appender-ref ref="STDOUT" />
+    <appender-ref ref="FILE" />
+  </root>
+</configuration>
