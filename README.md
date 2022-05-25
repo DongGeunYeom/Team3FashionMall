@@ -16,7 +16,7 @@ Back-End
 - Spring Framework
 - Java 11
 - Spring MVC
-- Spring Boot Security
+- Spring Framework Security
 --------------------------------   
 Build tool
 - Maven
