@@ -32,13 +32,8 @@ target/
 MANIFEST.MF 
 catalina.policy
 *.properties
-bootstrap-4.6.1-dist/
-bootstrap/
-metisMenu/
-font-awesome/
 
 sb-admin-2.*
-jquery-3.6.0.min.js
 
 # External tool builders
 .externalToolBuilders/
