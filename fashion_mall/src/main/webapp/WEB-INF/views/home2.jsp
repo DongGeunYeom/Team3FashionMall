@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>
-	깃 브랜치 테스트
+	테스트 두번째
 </h1>
 <P>  The time on the server is ${serverTime}. </P>
 </body>
