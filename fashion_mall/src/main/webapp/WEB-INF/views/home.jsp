@@ -19,7 +19,7 @@
 			<li style="margin:13px; left:-45px;"><a href="#" class="search-btn"><i class="fa fa-search" aria-hidden="true" style="font-size:20px;"></i></a></li>
             </ul>
   
-  <!-- 네비게이션(nav) 컨트롤에 사요하는 드롭다운. -->
+  <!-- 네비게이션(nav) 컨트롤에 사용하는 드롭다운. -->
   <div style="margin:20px; text-align:right;">
     <nav>
       <div class="container-fluid">
