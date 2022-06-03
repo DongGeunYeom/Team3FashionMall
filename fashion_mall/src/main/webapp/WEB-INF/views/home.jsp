@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>	
 <html>
 <head>
@@ -24,7 +26,7 @@
         <!-- 메뉴 설정 -->
         <div class="collapse navbar-collapse">
           <!-- 메뉴 삽입 -->
-          <ul class="nav navbar-nav">
+          <ul id="aa" class="nav navbar-nav">
             <!-- 메뉴 => 판매자  -->
             <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
