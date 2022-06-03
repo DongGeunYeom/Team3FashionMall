@@ -1,8 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>	
 <html>
 <head>
   <title>title</title>
-  <!-- Bootstrap cdn 설정 -->
+  <!-- Bootstrap cdn ì¤ì  -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -17,15 +19,15 @@
 			<li style="margin:13px; left:-45px;"><a href="#" class="search-btn"><i class="fa fa-search" aria-hidden="true" style="font-size:20px;"></i></a></li>
             </ul>
   
-  <!-- 네비게이션(nav) 컨트롤에 사요하는 드롭다운. -->
+  <!-- ë¤ë¹ê²ì´ì(nav) ì»¨í¸ë¡¤ì ì¬ìíë ëë¡­ë¤ì´. -->
   <div style="margin:20px; text-align:right;">
     <nav>
       <div class="container-fluid">
-        <!-- 메뉴 설정 -->
+        <!-- ë©ë´ ì¤ì  -->
         <div class="collapse navbar-collapse">
-          <!-- 메뉴 삽입 -->
+          <!-- ë©ë´ ì½ì -->
           <ul class="nav navbar-nav">
-            <!-- 메뉴 => 판매자  -->
+            <!-- ë©ë´ => íë§¤ì  -->
             <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
                 <i class="bi bi-person-lines-fill" style="font-size:25px; color:black;"></i>
@@ -35,7 +37,7 @@
                 <li><a href="#">login(seller)</a></li>
               </ul>
             </li>
-            <!-- 메뉴 => 사용자 -->
+            <!-- ë©ë´ => ì¬ì©ì -->
             <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                <i class="bi bi-person" style="font-size:25px; color:black;"></i>
@@ -45,7 +47,7 @@
                 <li><a href="https://www.daum.net/">login</a></li>
               </ul>
             </li>
-            <!-- 메뉴 => 카트 -->
+            <!-- ë©ë´ => ì¹´í¸ -->
             <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                <i class="bi bi-cart" style="font-size:25px; color:black;"></i>
@@ -62,7 +64,7 @@
   </div>
   
   <div class="loggo">
-	<center><img class="brand" src="/resources/FAimage/brand.png" alt="브랜드로고" /></center>
+	<center><img class="brand" src="/resources/FAimage/brand.png" alt="ë¸ëëë¡ê³ " /></center>
 	
 	</div>
 
