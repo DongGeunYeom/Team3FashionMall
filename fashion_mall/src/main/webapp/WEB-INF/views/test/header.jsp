@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="resources/css/style.css">
+  <link rel="stylesheet" href="../resources/css/style.css">
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
@@ -99,22 +99,3 @@
             </nav>
         </header>
         
-        
-        <div>여기여기여기</div>
-        
-        
-        
-          <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="center">대표자:염동근 <br>Email shop@soldesk.com <br>  Contact 000-0000-0000<i class="fa fa-love"></i>
-</p>
-                        
-                    </div>
-                </div>
-            </div>
-        </footer>
-  
-</body>	
-</html>

@@ -8,10 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/views/*")
-public class menuController {
+@RequestMapping("/admin/*")
+public class adminController {
 	
-	@GetMapping("/test")
+	@GetMapping("/admin_register")
 	public void test() {
 		log.info("테스트");
 	}
