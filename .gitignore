@@ -15,6 +15,17 @@ local.properties
 .loadpath
 .recommenders
 
+# resources 파일들(editable)
+img/
+sass/
+fonts/
+ashion/
+css/
+vendor/
+MANIFEST.MF
+assets/
+*.php
+
 # External tool builders
 .externalToolBuilders/
 

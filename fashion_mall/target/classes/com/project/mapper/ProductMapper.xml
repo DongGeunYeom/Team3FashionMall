@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.ProductMapper">
+
+	<!-- 상품 등록 -->
+	<insert id="register">
+		insert into product(p_code, p_name, p_price, p_type, p_content) values(product_seq.nextval, #{pname}, #{price}, #{ptype}, #{pcontent})
+	</insert>
+	
+	<select id="getCode" resultType="com.project.dto.ProductDTO">
+		select p_code from product where p_name = #{pname} and p_price = #{price}
+	</select>
+	
+	<!-- 상품 옵션 등록 -->
+	<insert id="registerOption">
+		<selectKey keyProperty="pcode" resultType="int" order="BEFORE" >
+        	select max(p_code) from product
+   		</selectKey>
+		insert into productopt(p_code, po_size, po_color, p_amount) values(#{pcode}, #{psize}, #{pcolor}, #{pamount})
+	</insert> 
+	
+	
+	
+</mapper>

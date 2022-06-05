@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.MemberMapper">
+
+	<!-- 회원 가입 -->
+	<insert id="register">
+		insert into member(user_id, password, name, regdate, person_num1, person_num2, phone_num) 
+		values(#{userid}, #{password}, #{name}, sysdate, #{personnum1}, #{personnum2}, #{phonenum})
+	</insert>
+	
+	<!-- 로그인 -->
+	<resultMap type="com.project.dto.MemberDTO" id="memberMap">
+		<id property="userid" column="userid"/>
+		<result property="userid" column="user_id"/>
+		<result property="password" column="password"/>
+		<result property="name" column="name"/>
+		<result property="regdate" column="regdate"/>
+		<result property="personnum1" column="person_num1"/>
+		<result property="personnum2" column="person_num2"/>
+		<result property="enabled" column="enabled" /> 
+		<result property="phonenum" column="phone_num"/>
+		<collection property="authList" resultMap="authMap"/>
+	</resultMap>
+	
+	<resultMap type="com.project.dto.AuthDTO" id="authMap">
+		<result property="userid" column="user_id"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+	
+	<select id="read" resultMap="memberMap">
+		select mem1.user_id, password, name, regdate, person_num1, person_num2, phone_num, enabled, auth 
+		from member mem1 left outer join auth auth1 on mem1.user_id = auth1.user_id
+		where mem1.user_id = #{userid}  
+	</select>
+	<!-- 로그인 끝 -->
+	
+	<!-- 권한 부여 -->
+	<insert id="registerAuth">
+		insert into Auth(user_id, auth) values(#{userid}, #{auth})
+	</insert>
+	
+	<!-- 아이디 중복확인 -->
+	<!-- 아이디 중복 반환값 String일 시 : resultType="java.lang.String -->
+	<select id="dupId" resultType="java.lang.String">
+		select user_id 
+		from member 
+		where user_id = #{userid} 
+	</select>
+	
+	
+	<!-- 새로운 로직 테스트  -->
+	<select id="beforeFindId" resultType="com.project.dto.MemberDTO">
+		select user_id, person_num1, person_num2
+		from member
+		where name = #{name} and person_num1 = #{personnum1}
+	</select>
+	
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="findPwd" resultType="java.lang.String">
+		select password
+		from member
+		where name = #{name} and person)num1 = #{personnum1} and user)id = #{userid} 
+	</select>
+	
+	
+</mapper>
