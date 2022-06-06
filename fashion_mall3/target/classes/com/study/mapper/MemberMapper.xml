@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.MemberMapper">
+	
+	
+	<resultMap type="com.study.dto.MemberDTO" id="memberMap">
+		<id property="userid" column="userid" />
+		<result property="userpw" column="userpw" /> 
+		<result property="username" column="username" /> 
+		<result property="regdate" column="regdate" /> 
+		<result property="updatedate" column="updatedate" /> 
+		<result property="enabled" column="enabled" /> 
+		<collection property="authList" resultMap="authMap" /> 
+	</resultMap>
+	
+	<resultMap type="com.study.dto.AuthDTO" id="authMap">
+		<result property="userid" column="userid" /> 
+		<result property="auth" column="auth" />  
+	</resultMap>
+	
+	<select id="read" resultMap="memberMap">
+		select mem.userid, userpw, username, regdate, updatedate, enabled, auth 
+		from spring_member mem left outer join spring_member_auth auth on mem.userid = auth.userid
+		where mem.userid=#{userid}
+	</select>
+</mapper>

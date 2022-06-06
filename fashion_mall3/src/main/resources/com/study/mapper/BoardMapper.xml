@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.BoardMapper">
+
+	<!-- 페이지 나누기 개념 없을 때 -->
+	<!-- <select id="listall" resultType="com.study.dto.BoardDTO">
+		select bno, title, writer, regdate, updatedate from spring_board where bno>0 order by bno desc
+		</select>
+	-->
+	
+	<select id="listall" resultType="com.study.dto.BoardDTO">
+		<![CDATA[
+		select bno, title, writer, regdate, updatedate, replycnt 
+		from (select /*+INDEX_DESC(spring_board pk_spring_board)*/ rownum rn, bno, title, writer, regdate, updatedate, replycnt  
+			  from spring_board 
+	 		  where 
+	 	]]>
+	 		<include refid="criteria"></include>
+	 	
+	 	<![CDATA[  
+	 		  bno>0 and rownum <= (#{pageNum} * #{amount})) 
+		where rn > (#{pageNum} - 1 ) * #{amount}
+		]]>
+	</select>
+	
+	<select id="totalCnt" resultType="int">
+		select count(*) from spring_board where
+		
+		<include refid="criteria"></include>
+		
+		bno>0
+	</select>
+	
+	<!-- 댓글 수 수정 -->
+	<update id="updateReplyCnt">
+		update spring_board 
+		set replycnt = replycnt + #{amount} 
+		where bno=#{bno}
+	</update>
+	
+	<!-- foreach collection은 무조건 getter를 찾게 되어있음 -->
+	<!-- 동적 SQL -->
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND"  prefixOverrides="OR">
+			<foreach collection="typeArr" item="type">
+				<trim prefix="OR">
+					<choose>
+						<when test="type=='T'.toString()">
+							title like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='C'.toString()">
+							content like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='W'.toString()">
+							writer like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>	
+	</sql>	
+		
+	<select id="read" resultType="com.study.dto.BoardDTO">
+		select bno, title, content, writer from spring_board where bno=#{bno}
+	</select>
+	
+	<insert id="register">
+		<!-- selectKey : 주로 pk 값을 미리 실행 한 후 특정 이름으로 보관 
+				- keyProperty : 결과값이 세팅될 대상 프로퍼티
+				- order : 키를 먼저 조회
+		-->
+		<!-- bno 발행 -->
+		<selectKey keyProperty ="bno" order="BEFORE" resultType="int">
+			select seq_board.nextval from dual
+		</selectKey>
+		insert into spring_board(bno, title, content, writer) values(#{bno}, #{title}, #{content}, #{writer})
+	</insert>
+	
+	<!-- bno 가 일치하면 content, title, updatedate 수정 -->
+	<update id="update">
+		update spring_board set title=#{title}, content=#{content}, updatedate=sysdate where bno=#{bno}
+	</update>
+	
+	<delete id="delete">
+		delete from spring_board where bno=#{bno}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- @Service 활성화 -->
+	<context:component-scan base-package="com.study.service" />
+	
+	<!-- mybatis/ interface, mapper 활성화 -->
+	<mybatis-spring:scan base-package="com.study.mapper"/>
+	
+	<!-- @Component 활성화 -->
+	<context:component-scan base-package="com.study.task"/>
+	<!-- @Scheduled 활성화 -->
+	<task:annotation-driven/>
+	
+	<!-- transaction 처리 -->
+	<!-- 트랜잭션 매니저 등록 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="ds"/>
+	</bean>
+	
+	<!-- 트랜잭션 어노테이션 활성화 -->
+	<tx:annotation-driven/>
+	
+	<!-- 커넥션 풀 설정 -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="javadb" />
+		<property name="password" value="12345" />
+	</bean>
+	
+	<!-- HikariCP 설정 -->
+	<bean id="ds" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<constructor-arg ref ="hikariConfig" />
+	</bean>
+	
+	<!-- mybatis sql 작업을 해주는 객체 생성 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds"/>
+	</bean>			
+</beans>

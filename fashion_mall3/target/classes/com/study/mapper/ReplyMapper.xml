@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ReplyMapper">
+	
+	<!-- 댓글 등록 -->
+	<insert id="insert">
+		insert into spring_reply(rno, bno, reply, replyer) values(seq_reply.nextval,#{bno},#{reply},#{replyer})
+	</insert>
+
+	<!-- 댓글 하나 가져오기 : read -->
+	<select id="read" resultType="com.study.dto.ReplyDTO">
+		select * from spring_reply where rno=#{rno}
+	</select>
+	
+	<!-- 댓글 전체 가져오기 : list -->
+	<select id="select" resultType="com.study.dto.ReplyDTO">
+		<![CDATA[
+		select rno, bno, reply, replyer, replydate, updatedate 
+		from (select /*+INDEX(spring_reply idx_reply)*/ rownum rn, rno, bno, reply, replyer, replydate, updatedate 
+			  from spring_reply 
+	 		  where bno=#{bno} and 
+	 		  rno>0 and rownum <= (#{cri.pageNum} * #{cri.amount})) 
+		where rn > (#{cri.pageNum} - 1 ) * #{cri.amount}
+		]]>
+	</select>
+	
+	<select id="getCountBno" resultType="int">
+		select count(*) from spring_reply where bno=#{bno}
+	</select>
+	
+	<!-- 댓글 수정 : update(댓글내용, 댓글수정날짜) -->
+	<update id="update">
+		update spring_reply set reply=#{reply}, updatedate=sysdate where rno=#{rno}
+	</update>
+	
+	<delete id="delete">
+		delete from spring_reply where rno=#{rno}
+	</delete>
+	
+	<delete id="deleteAll">
+		delete from spring_reply where bno=#{bno}
+	</delete>
+	
+</mapper>

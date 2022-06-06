@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.AttachMapper">
+	
+	<insert id="insert">
+		insert into spring_attach(uuid, uploadpath, filename, filetype, bno) 
+		values(#{uuid},#{uploadPath},#{fileName},#{fileType},#{bno})
+	</insert>
+	
+	<!--  bno 첨부파일 목록 추출 -->
+	<select id="list" resultType="com.study.dto.AttachDTO">
+		select * from spring_attach where bno=#{bno}
+	</select>
+	
+	<!--  bno가 일치하는 첨부파일 모두 삭제 -->
+	<delete id="deleteAll">
+		delete from spring_attach where bno = #{bno}
+	</delete>
+	
+	<!-- 어제 날짜로 등록된 첨부 파일 목록 가져오기 -->
+	<select id="getOldFiles" resultType="com.study.dto.AttachDTO">
+		select * from spring_attach where uploadpath = to_char(sysdate-1,'yyyy\mm\dd')
+	</select>
+</mapper>

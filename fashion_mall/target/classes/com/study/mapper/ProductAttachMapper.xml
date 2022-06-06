@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ProductAttachMapper">
+
+	<select id="select" resultType="com.study.dto.ProductAttachDTO" >
+		select uuid, uploadpath, filename, p_a.p_code, p_price, p_name, p_type
+    	from productattach p_a left outer join product p on p_a.p_code = p.p_code
+    	where t_amount > 0
+    	order by p_sale
+	</select>
+
+	<select id="selectPop" resultType="com.study.dto.ProductAttachDTO">
+		select 
+	</select>
+
+	<select id="selectTop" resultType="com.study.dto.ProductAttachDTO" >
+		select uuid, uploadpath, filename, p_a.p_code, p_price, p_name, p_type
+    	from productattach p_a left outer join product p on p_a.p_code = p.p_code
+    	where t_amount > 0 and p_type LIKE '%'||#{p_type}||'%'
+    	order by p_sale
+	</select>
+
+</mapper>
+
+
+
+
+
