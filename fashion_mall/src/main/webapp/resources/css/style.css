@@ -289,6 +289,9 @@ html, body, .wrapper{
 /*
     HEADER TOP SECTION
  */
+ 
+
+ 
 .header-top-section{
     display: block;
     width: 100%;
@@ -342,6 +345,8 @@ html, body, .wrapper{
     padding: 20px 0;
     position: relative;
     transition: all 1s;
+    
+    /*얘 수정하면 로고쪽 백그라운드 색이 바뀜 */
     background: #fff;
 }
  

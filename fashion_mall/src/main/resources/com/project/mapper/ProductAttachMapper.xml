@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.ProductAttachMapper">
+	
+	<insert id="insert">
+		insert into ProductAttach(uuid,uploadpath,filename,p_code)
+		values(#{uuid},#{uploadpath},#{filename},1234)
+	</insert>
+
+	<!-- p_code 첨부파일 목록 추출 -->
+	<select id="list" resultType="com.project.dto.ProductAttachDTO">
+		select * from ProductAttach where p_code=#{p_code}
+	</select>
+	
+
+	<!-- 어제 날짜로 등록된 첨부파일 목록 가져오기 -->
+	<select id="getOldFiles" resultType="com.project.dto.ProductAttachDTO">
+		select * from ProductAttach
+		where uploadpath = to_char(sysdate-1,'yyyy\mm\dd')
+	</select>
+</mapper>

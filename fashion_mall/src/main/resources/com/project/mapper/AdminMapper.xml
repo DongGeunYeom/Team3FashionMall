@@ -3,6 +3,35 @@
 <mapper namespace="com.project.mapper.AdminMapper">
 
 	
-
+	
+	<insert id="insert">
+		<!-- selectKey : 주로 pk 값을 미리 실행 한 후 특정 이름으로 보관
+		      - keyProperty : 결과값이 세팅될 대상 프로퍼티
+		      - order : 키를 먼저 조회
+		 -->
+		<!-- p_code 발행 -->
+	<!-- 	<selectKey keyProperty="p_code" order="BEFORE" resultType="int">
+			select seq_board.nextval from dual
+		</selectKey>	 -->
+		insert into Product(p_code,p_name,p_price,p_type,p_content)
+		values(13,#{p_name},#{p_price},#{p_type},#{p_content})
+	</insert>
+	
+	
+<!-- 	<insert id="ProductOptInsert">
+		insert into ProductOpt(p_code,po_size,po_color,p_amount)
+		values(#{p_code},#{po_size},#{po_color},#{p_type},#{p_content},#{p_type}) 
+	</insert>
+	 -->
+	 
+	 <!-- 리스트 불러오는 어쩌고 -->
+	 <select id="selectList" resultType="com.project.dto.ProductDTO">
+	 	select p_code,p_name,p_sale,reg_date from product
+	 </select>
+	 
+	 <select id="selectProduct" resultType="com.project.dto.ProductDTO">
+	 	select p_code from product
+	 </select>
+	
 	
 </mapper>

@@ -33,8 +33,8 @@
                 <i class="bi bi-person-lines-fill" style="font-size:25px; color:black;"></i>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="#">상품 등록</a></li>
-                <li><a href="#">상품 관리</a></li>
+                <li><a href="/admin/admin_register">상품 등록</a></li>
+                <li><a href="/admin/admin_list">상품 관리</a></li>
               </ul>
             </li>
             <!-- 메뉴 => 사용자 -->
@@ -63,7 +63,7 @@
   
   <div class="loggo">
 	<center>
-		<a href="https://www.naver.com/">
+		<a href="/">
 		<img class="brand" src="/resources/FAimage/brand.png" alt="브랜드로고" /></a>
 		</center>
 	</div>
