@@ -8,7 +8,7 @@ $(function(){
 		
 		let str = "";
 		
-		//li 태그 정보 수집하기
+		//첨부파일 li 태그 정보 수집하기
 		$(".uploadResult ul li").each(function(idx,obj){
 			var job = $(obj);
 			
@@ -58,28 +58,45 @@ $(function(){
 	// 옵션 추가하면 밑에 어떤 어떤 옵션 추가했는지 보여주는 div
 	
 	 function append_to_div(div_name, data){
-            document.getElementById(div_name).innerText += data;
+            document.getElementById(div_name).innerHTML += data;
         }
           
         document.getElementById("my_button")
                 .addEventListener('click', function() {
               
-            var user_size = document.getElementById("size");
+			var radio=$(":radio:checked").val();
+			
+			
+			if(radio=="cloth"){
+				var user_size = document.getElementById("C_size");
+			}
+			else if(radio=="shoes"){
+				var user_size = document.getElementById("S_size");
+			}	
             var value1 = user_size.value.trim();
             var user_color = document.getElementById("color");
             var value2 = user_color.value.trim();
             var user_amount = document.getElementById("amount");
             var value3 = user_amount.value.trim();
               
+
+			let str2="";
+			var idx2=0;
+			str2+="<li><input type='text' class='form-control' name='optList["+idx2+"].po_size' style='width: 200px;' value='"+value1;
+			str2+="'><input type='text' class='form-control' name='optList["+idx2+"].po_color' style='width: 200px;' value='" +value2;
+			str2+="'><input type='text' class='form-control' name='optList["+(idx2++)+"].p_amount' style='width: 200px;' value='"+value3+"'></li>";
+			
             if(!value1)
                 alert("사이즈를 입력해주세요.");
             else if(!value2)
-            	alert("색상을 입력해주세요.")
+            	alert("색상을 입력해주세요.");
             else if(!value3)
-            	alert("수량을 입력해주세요.")
-            else
-                append_to_div("my_div", value1+"\t,\t"+value2+"\t,\t"+value3+"\n");
-            
+            	alert("수량을 입력해주세요.");
+            else{
+	/*append_to_div("my_div","<li>"+value1+"\t,\t"+value2+"\t,\t"+value3+"</li>");*/
+            	append_to_div("my_div",str2);
+}
+			
             user_size.value = "";
             user_color.value = "";
             user_amount.value = "";

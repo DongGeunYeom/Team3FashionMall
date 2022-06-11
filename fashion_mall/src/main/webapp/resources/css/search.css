@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+/* @media only screen and (min-width : 1224px) { */
+
+.search{
+	display : flex;
+	justify-content : center;
+	margin-top : 50px;
+}
+
+.search-1{
+	margin : 7px;
+	cursor : pointer;
+}	
+.search-2{
+	border : 2px solid #d3d3d3;
+	height : 300px;
+}
+.search-img{
+	float : left;
+	padding : 10px;
+}
+.search-text{
+	padding : 10px;
+}
+.search-price{
+	float : right;
+	margin : 10px;
+	position : relative;
+	top : 30px;
+}
+
+input[type=radio]{
+	background-color: #FFFF;
+}
+#search{
+	padding: 0 0 0 20px;
+	background: url('/resources/images/arrow3.png') no-repeat;
+	background-position:130px;
+	background-color:#fff;
+	width:160px;
+	height: 35px;
+	663
+}
+
+.aaa{
+	text-align:center; 
+	width: 90px; 
+	background-color:#666; 
+	border: 2px solid #666;
+	color:#fff;
+	transition-property:background-color;
+	transition-duration: 4s;
+}
+
+div.aaa:hover{
+	background-color:#fff;
+	color:black;
+}
+
+a.bbb:hover{
+	color:black;
+}
+/* } */
+
+/* @media only screen and (min-width : 1824px) {
+
+.search{
+	display : flex;
+	justify-content : center;
+}
+
+.search-1{
+	margin : 7px;
+	cursor : pointer;
+}	
+.search-2{
+	border : 2px solid #d3d3d3;
+	height : 280px;
+}
+.search-img{
+	float : left;
+	padding : 10px;
+}
+.search-text{
+	padding : 10px;
+}
+.search-price{
+	float : right;
+	margin : 10px;
+	position : relative;
+	top : 30px;
+}
+} */

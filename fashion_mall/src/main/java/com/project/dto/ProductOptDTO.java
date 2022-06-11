@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class ProductOptDTO {
 	
-	private String p_code;
+	private int p_code;
 	private String po_size;
 	private String po_color;
 	private int p_amount;

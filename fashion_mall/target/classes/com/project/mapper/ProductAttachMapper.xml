@@ -3,8 +3,11 @@
 <mapper namespace="com.project.mapper.ProductAttachMapper">
 	
 	<insert id="insert">
+		<selectKey keyProperty="p_code" order="BEFORE" resultType="int">
+			select max(p_code) from product
+		</selectKey>
 		insert into ProductAttach(uuid,uploadpath,filename,p_code)
-		values(#{uuid},#{uploadpath},#{filename},1234)
+		values(#{uuid},#{uploadpath},#{filename},#{p_code})
 	</insert>
 
 	<!-- p_code 첨부파일 목록 추출 -->

@@ -1,11 +1,13 @@
 package com.project.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.dto.ProductDTO;
+import com.project.dto.ProductOptDTO;
 import com.project.mapper.AdminMapper;
 import com.project.mapper.ProductAttachMapper;
 
@@ -14,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class AdminServiceImpl implements AdminService {
-	
+
 	@Autowired
 	private AdminMapper adminMapper;
 	
@@ -25,6 +27,24 @@ public class AdminServiceImpl implements AdminService {
 		//새글등록
 		adminMapper.insert(insertDto);
 		
+		
+		log.info("여기 서비스 단인데 들어옴?"+insertDto.getOptList());
+		if(
+				
+				insertDto.getOptList() == null || insertDto.getOptList().size() <= 0) {
+				return;
+			}
+			
+		//옵션도 등록
+
+		//옵션 개수만큼 루프 돌기
+		insertDto.getOptList().forEach(opt -> {
+			opt.setP_code(insertDto.getP_code());
+			//옵션 삽입
+			adminMapper.OptInsert(opt);			
+		});			
+		
+		
 		//첨부파일이 없다면 되돌려 보내기 (왜 되돌려 보내는거지?)
 		log.info("여기 들어오긴 함?"+insertDto.getAttachList());
 				if(
@@ -32,8 +52,7 @@ public class AdminServiceImpl implements AdminService {
 					insertDto.getAttachList() == null || insertDto.getAttachList().size() <= 0) {
 					return;
 				}
-				
-				
+
 				//첨부 파일 개수만큼 루프 돌기
 				insertDto.getAttachList().forEach(attach -> {
 					attach.setP_code(insertDto.getP_code());
@@ -41,11 +60,16 @@ public class AdminServiceImpl implements AdminService {
 					attachMapper.insert(attach);			
 				});			
 				
+				
 	}
 	
 	@Override
 	public List<ProductDTO> selectList() {
 		return adminMapper.selectList();
 	}
+
+	
+
+
 	
 }

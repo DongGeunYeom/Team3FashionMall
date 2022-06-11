@@ -3,8 +3,8 @@
 <mapper namespace="com.project.mapper.AdminMapper">
 
 	
-	
-	<insert id="insert">
+	<!-- product 입력 -->
+	<insert id="insert" parameterType="com.project.dto.ProductDTO">
 		<!-- selectKey : 주로 pk 값을 미리 실행 한 후 특정 이름으로 보관
 		      - keyProperty : 결과값이 세팅될 대상 프로퍼티
 		      - order : 키를 먼저 조회
@@ -13,22 +13,43 @@
 	<!-- 	<selectKey keyProperty="p_code" order="BEFORE" resultType="int">
 			select seq_board.nextval from dual
 		</selectKey>	 -->
-		insert into Product(p_code,p_name,p_price,p_type,p_content)
-		values(13,#{p_name},#{p_price},#{p_type},#{p_content})
-	</insert>
+		<selectKey keyProperty="p_code" order="BEFORE" resultType="int">
+			select product_seq.nextval from dual
+		</selectKey> 
+			 insert into Product(p_code,p_name,p_price,p_type,p_content)
+		values(#{p_code},#{p_name},#{p_price},#{p_type},#{p_content})
+		</insert>
+		
 	
-	
-<!-- 	<insert id="ProductOptInsert">
-		insert into ProductOpt(p_code,po_size,po_color,p_amount)
-		values(#{p_code},#{po_size},#{po_color},#{p_type},#{p_content},#{p_type}) 
-	</insert>
-	 -->
+
+    <!-- 상품 옵션 등록 -->
+    <insert id="OptInsert">
+    
+        <selectKey keyProperty="p_code" order="BEFORE" resultType="int">
+			select max(p_code) from product
+		</selectKey>
+        insert into ProductOpt(p_code, po_size, po_color, p_amount) values(#{p_code}, #{po_size}, #{po_color}, #{p_amount})
+    </insert>
+		
+<!-- 	옵션 insert 해주는거 
+  	<insert id="OptInsert">
+  	<selectKey keyProperty="p_code" order="BEFORE" resultType="int">
+			select p_code from product 
+		</selectKey>
+		insert into ProductOpt(p_code,po_size,po_color,p_amount) values((
+			select from 
+		),#{po_size},#{po_color},#{p_amount}) 
+  	
+		 -->
+<!-- 	</insert> -->
+	  
 	 
 	 <!-- 리스트 불러오는 어쩌고 -->
 	 <select id="selectList" resultType="com.project.dto.ProductDTO">
-	 	select p_code,p_name,p_sale,reg_date from product
+	 	select p_code,p_name,p_sale,reg_date from product order by reg_date desc
 	 </select>
 	 
+	 <!-- 리스트 read 페이지 -->
 	 <select id="selectProduct" resultType="com.project.dto.ProductDTO">
 	 	select p_code from product
 	 </select>

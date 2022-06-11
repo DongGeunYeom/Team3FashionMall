@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.dto.ProductDTO;
+import com.project.dto.ProductOptDTO;
 import com.project.service.AdminService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ public class adminController {
 	
 	@PostMapping("/admin_register")
 	public String registerPost(ProductDTO insertDto) {
-		log.info("판매자 상품 등록 요청"+insertDto);
+		log.info("판매자 상품 등록 요청"+insertDto+"이거 값 들어오긴 함?"+insertDto.getOptList());
 		service.insert(insertDto);
 		return "redirect:/";
 	}
@@ -48,6 +49,10 @@ public class adminController {
 		log.info("판매자 상품 리스트 페이지 요청");
 	}
 	
+	@GetMapping("/search")
+	public void search() {
+		log.info("검색 페이지 요청");
+	}
 	
 	
 }

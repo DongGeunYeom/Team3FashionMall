@@ -3,7 +3,6 @@ package com.project.dto;
 import java.util.Date;
 import java.util.List;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +20,10 @@ public class ProductDTO {
 	private int p_sale;
 	private int t_amount;
 	private Date reg_date;
-	
-	//첨부파일 정보
+
+	// 첨부파일 정보
 	private List<ProductAttachDTO> attachList;
+	
+	//옵션 정보
+	private List<ProductOptDTO> optList;
 }
