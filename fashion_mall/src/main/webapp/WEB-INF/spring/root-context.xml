@@ -1,26 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
-	<!-- 커넥션 풀 설정 -->
+	<context:component-scan base-package="com.study.handler"/>
+	<!-- config.xml 과 비슷한 역할 -->
+	
+	<!-- @Service 활성화 -->	
+	<context:component-scan base-package="com.study.service"/>
+	
+	<!-- mybatis 인터페이스, Mapper 활성화  -->
+	<mybatis-spring:scan base-package="com.study.mapper"/>
+	
+	<!-- @Component 활성화 -->
+	<context:component-scan base-package="com.study.task"/>
+	
+	<!-- @Scheduled 활성화 -->
+	<task:annotation-driven/>
+	
+	<!-- 트랜잭션 처리 -->
+	<!-- 트랙잭션 매니저 등록 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="ds"></property>
+	</bean>
+	
+	<!-- 트랜잭션 어노테이션 활성화 -->
+	<tx:annotation-driven/>
+	
+	<!-- 커넥션 풀 설정(bean : 스프링 프레임워크가 관리하는 객체) -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe" />
-		<property name="username" value="javadb" />
-		<property name="password" value="12345" />
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="javadb1"/>
+		<property name="password" value="12345"/>
 	</bean>
 	
-	<!-- HikariCP 설정 -->
+	<!-- HikariCP 설정(커넥션 풀 설정시 들어간 객체 정보 주입?) -->
 	<bean id="ds" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-		<constructor-arg ref ="hikariConfig" />
+		<constructor-arg ref="hikariConfig"/>
 	</bean>
-	
+
 	<!-- mybatis sql 작업을 해주는 객체 생성 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="ds"/>
-	</bean>			
-	
+	</bean>		
 </beans>

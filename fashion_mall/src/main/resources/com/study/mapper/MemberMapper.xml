@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.MemberMapper">
+
+	<resultMap type="com.study.dto.MemberDTO" id="memberMap">
+		<id property="user_id" column="user_id"/>
+		<result property="user_id" column="user_id"/>
+		<result property="password" column="password"/>
+		<result property="name" column="name"/>
+		<result property="person_num1" column="person_num1"/>
+		<result property="person_num2" column="person_num2"/>
+		<result property="email" column="email"/>
+		<result property="phone_num" column="phone_num"/>
+		<result property="address" column="address"/>
+		<collection property="authList" resultMap="authMap"/>
+	</resultMap>
+	
+	<resultMap type="com.study.dto.AuthDTO" id="authMap">
+		<result property="user_id" column="user_id"/>
+		<result property="auth" column="auth"/>
+	</resultMap> 
+	
+	<select id="read" resultMap="memberMap">
+		select mem.user_id, password, name, person_num1, person_num2, email, phone_num, address, auth
+		from member mem left outer join auth a on mem.user_id = a.user_id
+		where mem.user_id = #{user_id}  
+	</select>
+	
+	<insert id="registerAuth">
+		insert into auth(user_id, auth) values(#{user_id}, #{auth})
+	</insert>
+	
+	<!-- 회원가입 -->
+	<insert id="insert">
+		insert into member
+		(user_id, password, name, person_num1, person_num2, email, phone_num, address)
+		values(#{user_id}, #{password}, #{name}, #{person_num1}, #{person_num2}, #{email}, #{phone_num}, #{address})
+	</insert>
+
+	<!-- 아이디 중복체크 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(user_id) from member where user_id=#{user_id}
+	</select>
+	
+	<!-- 아이디 찾기 -->
+   <!-- 아이디 찾기 할시 resultType이 명확해야 함 -->
+   <select id="findId" resultType="com.study.dto.MemberDTO">
+      select user_id, person_num1, person_num2
+      from member
+      where name = #{name} and person_num1 = #{person_num1}
+   </select>
+   
+   <!-- 비밀번호 찾기 -->
+   <select id="findPwd" resultType="com.study.dto.MemberDTO">
+      select password, person_num2
+      from member
+      where name = #{name} and person_num1 = #{person_num1} and user_id = #{user_id} 
+   </select>
+   
+   <!-- 비밀번호 수정 -->
+   <update id="pwdmodify">
+      update member
+      set password = #{password}
+      where user_id = #{user_id}
+   </update>
+
+	<!-- 회원정보 가져오기 -->
+	<select id="myinfo" resultType="com.study.dto.MemberDTO">
+		select * from member where user_id = #{user_id}
+	</select>
+	
+	<!-- 회원 정보 삭제 -->
+	<delete id="delete">
+		delete from member where user_id = #{user_id}
+	</delete>
+	
+
+</mapper>

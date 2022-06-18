@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.AdminMapper">
+
+	<!-- product 입력 -->
+	<insert id="insert" parameterType="com.study.dto.ProductDTO">
+		<!-- selectKey : 주로 pk 값을 미리 실행 한 후 특정 이름으로 보관
+		      - keyProperty : 결과값이 세팅될 대상 프로퍼티
+		      - order : 키를 먼저 조회
+		 -->
+		<!-- p_code 발행 -->
+	<!-- 	<selectKey keyProperty="p_code" order="BEFORE" resultType="int">
+			select seq_board.nextval from dual
+		</selectKey>	 -->
+		<selectKey keyProperty="p_code" order="BEFORE" resultType="int">
+			select product_seq.nextval from dual
+		</selectKey> 
+		insert into Product(p_code,p_name,p_price,p_type,p_content)
+		values(#{p_code},#{p_name},#{p_price},#{p_type},#{p_content})
+		</insert>
+		
+	<select id="getPcode" resultType="int">
+		select max(p_code) from product
+	</select>
+	
+		<!-- product board -->
+	<insert id="insertBoard" parameterType="com.study.dto.ProductDTO">
+		<selectKey keyProperty="bno" order="BEFORE" resultType="int">
+				select bno_seq.nextval from dual
+		</selectKey> 
+		insert into ProductBoard(p_code,bno,pb_content)
+		values(#{p_code},#{bno},#{pb_content})
+	</insert>
+	
+	
+    <!-- 상품 옵션 등록 -->
+    <insert id="OptInsert">
+        
+		<selectKey resultType="int" keyProperty="p_code" order="BEFORE">
+        select max(p_code) FROM product        
+    </selectKey>
+        insert into ProductOpt(p_code, po_size, po_color, p_amount) 
+        values(#{p_code}, #{po_size}, #{po_color}, #{p_amount})
+    </insert>
+	 
+	 <!-- 리스트 불러오는 어쩌고 -->
+	 <select id="selectList" resultType="com.study.dto.ProductDTO">
+	 	select p_code,p_name,p_sale,reg_date from product order by reg_date desc
+	 	<![CDATA[
+		select p_code, p_name, p_sale, reg_date, p_content, p_type, p_price, p_disprice, t_amount
+		from (select /*+INDEX_DESC(product pk_product)*/ rownum rn, p_code, p_name, p_sale, reg_date, p_content, p_type, p_price, p_disprice, t_amount
+	  		  from product
+	  		  where 
+	  	]]>	  
+	  		  <include refid="criteria"></include>
+	  	<![CDATA[  
+	  		  p_code > 0 and rownum <= (#{pageNum} * #{amount}) )
+		where rn > (#{pageNum} - 1) * #{amount}
+		]]>
+	 
+	 </select>
+
+	
+	 <!-- _____________________________________ -->
+	<!-- 페이지 나누기 + ( 검색어 ) -->
+	<select id="select" resultType="com.study.dto.ProductDTO">
+		<![CDATA[
+		select p_code, p_name, p_sale, reg_date, p_content, p_type, p_price, p_disprice, t_amount
+		from (select /*+INDEX_DESC(product pk_product)*/ rownum rn, p_code, p_name, p_sale, reg_date, p_content, p_type, p_price, p_disprice, t_amount
+	  		  from product
+	  		  where 
+	  	]]>	  
+	  		  <include refid="criteria"></include>
+	  	<![CDATA[  
+	  		  p_code > 0 and rownum <= (#{pageNum} * #{amount}) )
+		where rn > (#{pageNum} - 1) * #{amount}
+		]]>
+	</select>
+	
+	<!-- total 구하기 -->
+	<select id="totalCnt" resultType="int">
+		select count(*)
+		from product
+		where
+		<include refid="criteria"></include>
+		p_code > 0
+	</select>
+	
+	<!-- 동적 sql -->
+	<sql id="criteria">
+		<!-- 시작과 끝에 ( ) AND로 끝난다 
+			 prefixOverrides="OR" : where or 로 시작하면 막아 달라는 의미
+	 	-->
+		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+			<!-- collection="typeArr" : 배열을 돌림
+				 prefix="OR" : 시작을 할때 or로 해주어라 
+				 title like '%'||#{keyword}'%' or content like '%'||#{keyword}'%'
+				 -->
+			<foreach collection="typeArr" item="type">
+				<!-- criteria.java에 있는 getTypeArr를 이용해서 반복문을 돌림 -->
+				<trim prefix="OR">
+					<choose>
+						<when test="type=='N'.toString()">
+							p_name like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='C'.toString()">
+							p_content like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='T'.toString()">
+							p_type like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
+	<select id="read" resultType="com.study.dto.ProductDTO">
+		select p.p_code, p_name, p_sale, b.reg_date, p_content, p_type, p_price, p_disprice, t_amount , bno
+		from product p left outer join productboard b on p.p_code = b.p_code
+		where p.p_code = #{p_code} 
+	</select>
+	
+	<!-- option list 불러오기 -->
+	<select id="selectOpt" resultType="com.study.dto.ProductOptDTO">
+		select po_size,po_color,p_amount from productopt where p_code=#{p_code}
+	</select>
+	
+	<!-- update 구문들 -->
+	
+	<update id="updateProduct">
+		update product set p_price=#{p_price},p_disprice=#{p_disprice} where p_code=#{p_code}
+	</update>
+	
+	<update id="updateOpt">
+		update productOpt set p_amount=#{p_amount} where p_code=#{p_code} and po_size=#{po_size} and po_color=#{po_color}
+	</update>
+	
+	<!-- t_amount 재고량 올려주는 sql (이건 조인문 써야될 것 같음) -->
+	<!-- 얘는 insert할때 update 시켜주는 역할 -->
+	<update id="insertAmount">
+		update product set t_amount=t_amount+#{p_amount} where p_code=#{p_code}
+	</update>
+	<!-- 얘는 board에서 수정해줄때 update 시켜주는 역할 -->
+	<update id="updateAmount">
+		update product set t_amount=t_amount+(#{p_amount}-(select p_amount from productopt where p_code=#{p_code} and po_size=#{po_size} and po_color=#{po_color}))
+		where p_code=#{p_code}
+	</update>
+</mapper>

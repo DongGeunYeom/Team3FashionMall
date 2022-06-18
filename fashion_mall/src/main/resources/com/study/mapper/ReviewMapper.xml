@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ReviewMapper">
+	
+	<!-- 리뷰글 최신순, 페이징 -->
+	<select id="reviewGetList" resultType="com.study.dto.ReviewDTO">
+		<![CDATA[
+		select bno, rno, r_title, user_id, reg_date
+		from (select /*+INDEX_DESC(review idx_review)*/ rownum rn, bno, rno, r_title, user_id, reg_date
+			  from review where bno = '${bno}' and
+	 		  rno > 0 and rownum <= ('${cri.rvpageNum}' * '${cri.rvamount}')) 
+		where rn > ('${cri.rvpageNum}' - 1 ) * '${cri.rvamount}'
+		]]>
+	</select>
+
+	<!-- 리뷰글 총 개수 -->
+	<select id="getCountRno" resultType="int">
+		select count(*) from review where bno = '${bno}'
+	</select>
+	
+	<!-- 리뷰글 등록 -->
+	<insert id="reviewRegister">
+		<selectKey keyProperty ="rno" order="BEFORE" resultType="int">
+			select review_seq.nextval from dual
+		</selectKey>
+		insert into review(bno, rno, r_title, r_content, user_id) 
+		values('${bno}', '${rno}', '${r_title}','${r_content}','${user_id}')
+	</insert>
+	
+	<!-- 리뷰글 조회 -->
+	<select id="reviewGetDetail" resultType="com.study.dto.ReviewDTO">
+		select * from review where rno = '${rno}'
+	</select>
+	
+	<!-- 리뷰글 수정 -->
+	<update id="reviewModify">
+		update review set r_title='${r_title}', r_content='${r_content}'
+		where rno = '${rno}'and user_id='${user_id}'
+	</update>
+	
+	<!-- 리뷰글 삭제  -->
+	<delete id="reviewDelete">
+		delete from review where rno='${rno}'and user_id='${user_id}'
+	</delete>
+	
+	
+</mapper>

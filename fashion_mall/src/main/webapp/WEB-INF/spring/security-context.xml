@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.6.xsd">
+
+	<!-- 비밀번호 암호화 -->
+	<bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	<!-- 로그인 성공 후 다음 작업을 담당 -->
+	<bean id="customLoginSuccessHandler" class="com.study.handler.CustomLoginSuccessHandler"/>
+	<!-- 접근 권한이 없는 경우 다음 작업을 담당 -->
+	<bean id="customAccessDeniedHandler" class="com.study.handler.CustomAccessDeniedHandler"/>
+	<!-- 로그인 이후 정보를 가지고 있는 객체  -->
+	<bean id="customUserDetailService" class="com.study.service.CustomUserDetailService"/>
+	<bean id="egovStrictHttpFirewall" class="org.springframework.security.web.firewall.StrictHttpFirewall">
+		<property name="allowUrlEncodedDoubleSlash" value="true"/>
+	</bean>
+	
+	<security:http-firewall ref="egovStrictHttpFirewall"/>
+	
+	<!-- 기본 -->
+	<security:http>
+		<security:form-login login-page="/member/login" authentication-success-handler-ref="customLoginSuccessHandler"
+														authentication-failure-forward-url="/member/login-error"/>
+		
+		<!-- /logout 로그아웃 필터 + post -->
+		<security:logout logout-url="/member/logout" invalidate-session="true" logout-success-url="/index"/>
+		<!-- remember-me -->
+		<security:remember-me data-source-ref="ds" token-validity-seconds="604800"/>
+		
+		 <!-- <security:intercept-url pattern="/user-page" access="hasRole('ROLE_USER')"/> -->
+      <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+       <security:access-denied-handler error-page="/access-denied" />  
+       <security:access-denied-handler ref="customAccessDeniedHandler" /> 
+	</security:http>
+	
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="customUserDetailService">
+			<security:password-encoder ref="encoder"/>
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+	
+	
+	
+
+
+	
+</beans>

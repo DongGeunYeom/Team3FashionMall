@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.CartMapper">
+
+	<!-- 카트 dto가져오기 -->
+<!-- <resultMap type="com.study.dto.CartDTO" id="cartMap">
+		<id property="user_id" column="user_id"/>
+		<result property="user_id" column="user_id"/>
+		<result property="p_code" column="p_code"/>
+		<result property="p_name" column="p_name"/>
+		<result property="p_price" column="p_price"/>
+		<result property="po_size" column="po_size"/>
+		<result property="po_color" column="po_color"/>
+		<result property="p_amount" column="p_amount"/>
+		<collection property="Attach" resultMap="attachMap"/>
+	</resultMap>
+	
+	<resultMap type="com.study.dto.ProductAttachDTO" id="attachMap">
+		<result property="uuid" column="uuid"/>
+		<result property="uploadpath" column="uploadtpath"/>
+		<result property="filename" column="filename"/> 
+	</resultMap>-->
+	
+	<!-- 장바구니 만들기 -->
+	<insert id="addCart">
+		insert into cart(user_id, p_code, po_size, po_color, p_amount, p_price, p_name, valid_price) 
+		values(#{user_id}, #{p_code}, #{po_size}, #{po_color}, #{p_amount}, #{p_price}, #{p_name}, ${valid_price})
+	</insert>
+
+	<!--  장바구니 중복 체크 -->
+	<select id="checkCart" resultType="int">	
+		select count(*) from cart where user_id = '${user_id}'
+		and p_code = #{p_code} and po_size = #{po_size} and po_color = #{po_color}
+ 	</select> 
+	
+	<!-- 카트 테이블 가져오기 -->
+	<select id="selectCart" resultType="com.study.dto.CartDTO">
+		select row_num, user_id, p_code, p_name, p_price, valid_price, po_size, po_color, p_amount, uuid, uploadpath, filename 
+		from
+		(select ROW_NUMBER() OVER(PARTITION BY cart.p_code, cart.po_size, cart.po_color order by cart.p_code, cart.po_size, cart.po_color) row_num, cart.user_id,cart.p_code, p_name, p_price, valid_price, po_size, po_color, p_amount, uuid, uploadpath, filename
+		from Cart cart left join ProductAttach attach on cart.p_code = attach.p_code
+		where user_id = '${user_id}')
+		where row_num = 1
+	</select>
+
+	<!-- 상품의 재고가 있는지 확인 -->
+	<select id="selectAmount" resultType="Int">
+		select p_amount 
+		from ProductOpt 
+		where po_color = #{color} and po_size = #{size} and p_code = #{p_code}
+	</select>
+	
+	<!-- 카트에 수량 업데이트 -->
+	<update id="amountUpdate">
+		update Cart 
+		set p_amount = #{p_amount} 
+		where user_id = #{user_id} and po_color = #{po_color} and po_size = #{po_size} and p_code = #{p_code}
+	</update>
+	
+	<!-- 카트의 최종 수량 x 가격 업데이트 -->
+	<update id="validPriceUpdate">
+		update Cart 
+		set valid_price = #{valid_price} 
+		where user_id = #{user_id} and po_color = #{po_color} and po_size = #{po_size} and p_code = #{p_code}
+	</update>
+
+	<!-- 장바구니 전부 삭제 -->
+	<delete id="cartDelete">
+		delete from Cart where user_id = #{user_id}
+	</delete>
+	
+	<!-- 하나만 삭제 -->
+	<delete id="cartProductDelete">
+		delete from Cart 
+		where user_id = #{user_id} and po_size = #{po_size} and p_code = #{p_code} and po_color = #{po_color}
+	</delete>
+
+	<!-- 주소 업데이트 -->
+	<update id="addrUpdate">
+		update member set address = #{address} where user_id = #{user_id}
+	</update>
+		
+	<!-- 판매량 가져오기 조인 문 -->
+	<select id="selectPsale" resultType="Int">
+		select p_sale 
+		from product 
+		where p_code = #{p_code}
+	</select>
+	
+	<!-- 상품 재고 업데이트 -->
+	<update id="updateProductAmount">
+		update ProductOpt 
+		set p_amount = #{p_amount} 
+		where po_color = #{po_color} and po_size = #{po_size} and p_code = #{p_code}
+	</update>
+	
+	<!-- 판매량 업데이트 -->
+	<update id="updatePsale">
+		update product 
+		set p_sale = #{p_sale} 
+		where p_code = #{p_code}
+	</update>
+	
+	<!-- 오더인포에 정보 넣어주기 -->
+	<insert id="orderListInsert">
+		insert into OrderInfo(order_num, user_id, p_code, p_name, po_size, po_color, p_amount, p_price) 
+		values(#{order_num}, #{user_id}, #{p_code}, #{p_name}, #{po_size}, #{po_color}, #{p_amount}, #{p_price})
+	</insert> 
+	
+	<!-- 내 주문리스트 부르기 -->
+	<select id="myOrderList" resultType="com.study.dto.OrderInfoDTO" >
+		select row_num, uuid, uploadpath, filename, p_code, p_price, p_name, user_id, po_color, po_size, order_num, p_amount, oreg_date
+		from (select ROW_NUMBER() OVER(PARTITION BY orderinfo.p_code, orderinfo.po_size, orderinfo.po_color order by orderinfo.p_code, orderinfo.po_size, orderinfo.po_color) 
+		row_num, uuid, uploadpath, filename, 
+		orderinfo.p_code, p_price, p_name, user_id, po_color, po_size, order_num, p_amount, oreg_date
+		from OrderInfo orderinfo left outer join ProductAttach p on orderinfo.p_code = p.p_code
+		where user_id = '${user_id}'
+		order by oreg_date desc)
+		where row_num = 1
+	</select>
+	
+	<!-- 총 수량 가져오기 -->
+	<select id="selectTamount" resultType="Int">
+		select t_amount 
+		from product
+		where p_code = #{p_code}
+	</select>
+	
+	<!-- 총 수량 업데이트 -->
+	<update id="updateTamunt">
+		update product set t_amount = #{t_amount} where p_code = #{p_code}
+	</update>
+	
+</mapper>

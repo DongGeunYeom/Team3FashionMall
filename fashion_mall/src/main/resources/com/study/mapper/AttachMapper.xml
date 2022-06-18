@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.AttachMapper">
+	
+	
+	<!--  리뷰 첨부파일 목록 추출 -->
+	<select id="reviewAttachList" resultType="com.study.dto.ReviewAttachDTO">
+		select * from ReviewAttach where rno='${rno}'
+	</select>
+	
+	<!-- 리뷰 첨부파일 등록 -->
+	<insert id="reviewAttachRegister">
+		insert into ReviewAttach(rno, r_uuid, r_uploadpath, r_filename) 
+		values(#{rno},#{r_uuid},#{r_uploadpath},#{r_filename})
+	</insert>
+	
+	<!-- rno가 일치하는 첨부파일 모두 삭제 -->
+	<delete id="deleteAll">
+		delete from ReviewAttach where rno = '${rno}'
+	</delete>
+	
+</mapper>

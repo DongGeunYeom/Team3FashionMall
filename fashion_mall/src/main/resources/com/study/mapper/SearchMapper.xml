@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.SearchMapper">
+
+
+	 
+	<select id="searchList"  resultType="com.study.dto.ProductDTO">
+		 	select p_code,p_name,p_price,p_content,p_type,reg_date,bno
+		 	from (select /*+INDEX_DESC(product pk_product)*/ rownum rn, p.p_code,p_name,p_price,p_content,p_type,b.reg_date,b.bno 
+	  		  from product p 
+	  		  left outer join productboard b on p.p_code = b.p_code 
+			 	<include refid="criteria"></include>
+			 	
+			 	
+			<![CDATA[  
+	  		  and p.p_code > 0 and rownum <= (#{pageNum} * #{amount})
+	  		  ]]>
+	  		  
+	  		  <if test="sort!=null">
+					<choose>
+			 			<when test="sort=='N'.toString()">
+							order by p.reg_date
+						</when>
+						<when test="sort=='H'.toString()">
+							order by p_price desc
+						</when>
+						<when test="sort=='L'.toString()">
+							order by p_price
+						</when>
+						<when test="sort=='S'.toString()">
+							order by p_sale desc
+						</when>
+						<when test="sort=='T'.toString()">
+							order by p_name
+						</when>
+		 		</choose>
+				</if>)
+				<![CDATA[  
+		where rn > (#{pageNum} - 1) * #{amount}
+		]]>
+	</select>
+	
+	 	<!-- 동적 sql -->
+	<sql id="criteria">
+		<trim prefix="where" >
+			<trim  prefixOverrides="and">
+				<if test="cate!=null">
+					<choose>
+						<when test="cate=='all'.toString()">
+							
+						</when>
+						<otherwise>
+							 and p_type=#{cate}
+						</otherwise>
+					</choose>
+				</if>
+				
+				<if test="keyword!=null">
+					and p_name like '%'||#{keyword}||'%'
+				</if>
+				<if test="content!=null">
+					and p_content like '%'||#{content}||'%'
+				</if>
+			</trim>
+		</trim>
+	</sql>
+	<!-- total 구하기 -->
+	<select id="searchTotalCnt" resultType="int">
+		select count(*)
+		from product
+		<include refid="criteria"></include>
+	</select>
+	
+	<!-- 사진 한개 불러오는거 -->
+ 	<select id="selectAttach" resultType="com.study.dto.ProductAttachDTO">
+		select filename,p_code,uuid,uploadpath from PRODUCTATTACH
+		where rowid in (select max(rowid) from PRODUCTATTACH group by p_code)
+	</select> 
+	
+	
+	 
+	
+</mapper>

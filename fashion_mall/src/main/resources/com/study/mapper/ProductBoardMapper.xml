@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ProductBoardMapper">
+	
+	<!-- 상품상세페이지 불러오기 -->
+	<!-- <resultMap type="com.study.dto.ProductAttachDTO" id="attachMap">
+		<result property="p_code" column="p_code" />
+		<result property="uuid" column="uuid" />
+		<result property="uploadpath" column="uploadpath" />
+		<result property="filename" column="filename" />
+	</resultMap>
+	
+	<resultMap type="com.study.dto.ProductBoardDTO" id="boardMap">
+		<id property="bno" column="bno" />
+		<result property="p_code" column="p_code" /> 
+		<result property="pb_content" column="pb_content" /> 
+		<result property="reg_date" column="reg_date" /> 
+		<collection property="attachList" resultMap="attachMap" /> 
+	</resultMap> -->
+	
+	<select id="getDetailPage" resultType="com.study.dto.ProductBoardDTO">	
+		select * from productboard where bno='${bno}'
+ 	</select> 
+ 	
+	<resultMap type="com.study.dto.ProductOptDTO" id="optMap">
+		<result property="p_code" column="p_code" /> 
+		<result property="po_size" column="po_size" />  
+		<result property="po_color" column="po_color" />  
+		<result property="p_amount" column="p_amount" />  
+	</resultMap>
+	
+	<resultMap type="com.study.dto.ProductDTO" id="productMap">
+		<id property="p_code" column="p_code" />
+		<result property="p_name" column="p_name" /> 
+		<result property="p_price" column="p_price" /> 
+		<result property="p_type" column="p_type" /> 
+		<result property="p_content" column="p_content" /> 
+		<collection property="optList" resultMap="optMap" /> 
+	</resultMap>
+	
+	<select id="getDetailProduct" resultMap="productMap">
+		select p.p_code, p_name, p_price, p_type, p_content, o.po_size, 
+		po_color, p_amount from product p 
+		left join productopt o on p.p_code = o.p_code 
+		where p.p_code='${p_code}'
+	</select> 
+	
+	<!-- 사이즈 확인 -->
+	<select id="checkSize" resultType="string">
+		select po_size from productopt where po_color = '${po_color}' and p_code = '${p_code}'
+	</select>
+	
+	<select id="checkAmount" resultType="_int">
+		select p_amount from productopt where po_color = '${po_color}' and p_code = '${p_code}' and po_size = '${po_size}'
+	</select>
+</mapper>
+
