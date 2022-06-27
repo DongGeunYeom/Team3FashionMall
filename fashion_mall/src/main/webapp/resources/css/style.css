@@ -397,6 +397,13 @@ ul.navbar-nav{
     display: inline-block;
     float: none;
 }
+#aa ul.navbar-nav li a{
+    font-size: 20px;
+    font-weight: 700;
+    color: #000000 !important;
+    background: transparent !important;
+    text-transform: uppercase;
+}
 #bs-example-navbar-collapse-1 ul.navbar-nav li a{
     font-size: 20px;
     font-weight: 700;

@@ -19,15 +19,16 @@
 			<li style="margin:13px; left:-45px;"><a href="#" class="search-btn"><i class="fa fa-search" aria-hidden="true" style="font-size:20px;"></i></a></li>
             </ul>
   
+  
   <!-- ë¤ë¹ê²ì´ì(nav) ì»¨í¸ë¡¤ì ì¬ìíë ëë¡­ë¤ì´. -->
   <div style="margin:20px; text-align:right;">
     <nav>
       <div class="container-fluid">
         <!-- ë©ë´ ì¤ì  -->
         <div class="collapse navbar-collapse">
-          <!-- ë©ë´ ì½ì -->
-          <ul class="nav navbar-nav">
-            <!-- ë©ë´ => íë§¤ì  -->
+          <!-- 메뉴 삽입 -->
+          <ul id="aa" class="nav navbar-nav">
+            <!-- 메뉴 => 판매자  -->
             <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
                 <i class="bi bi-person-lines-fill" style="font-size:25px; color:black;"></i>
@@ -62,10 +63,8 @@
       </div>
     </nav>
   </div>
-  
   <div class="loggo">
-	<center><img class="brand" src="/resources/FAimage/brand.png" alt="ë¸ëëë¡ê³ " /></center>
-	
+	<center><img class="brand" src="/resources/FAimage/brand.png" alt="사진" /></center>	
 	</div>
 
         <header class="header-section">
@@ -97,6 +96,11 @@
                 </div><!-- /.container -->
             </nav>
         </header>
+  
+  
+ 
+  
+  
   
 </body>	
 </html>
