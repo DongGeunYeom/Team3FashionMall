@@ -19,7 +19,7 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                			<form action="" role="form">
+                			<form action="" method="post" role="form">
                 				<div class="form-group">
                 					<label>상품 코드</label>
                 					<input class="form-control" name="p_code" readonly="readonly" value="${dto.p_code}">                				
@@ -34,26 +34,32 @@
                 				</div>  
                 				<div class="form-group">
                 					<label>상품 가격</label>
-                					<input class="form-control" name="p_price" readonly="readonly" value="${dto.p_price}">                				
+                					<input class="form-control" name="p_price"  value="${dto.p_price}">                				
                 				</div>  
                 				<div class="form-group">
                 					<label>상품 할인 가격</label>
-                					<input class="form-control" name="p_price" readonly="readonly" value="${dto.p_disprice}">                				
+                					<input class="form-control" name="p_price" value="${dto.p_disprice}">                				
                 				</div>  
                 				<div class="form-group">
                 					<label>상품 설명</label>
-                					<textarea class="form-control" rows="3" name="p_content" style="resize: none;"readonly="readonly">${dto.p_content}</textarea>               				
+                					<textarea class="form-control" rows="3" name="p_content" readonly="readonly" style="resize: none;">${dto.p_content}</textarea>               				
                 				</div> 
-                						<!-- 상품 옵션 div -->
+                				<div class="form-group">
+                					<label>상품 상세 설명</label>
+                					<textarea class="form-control" rows="3" name="pb_content" readonly="readonly" style="resize: none;">${dto.pb_content}</textarea>               				
+                				</div> 
+                					<!-- 상품 옵션 div -->
 		                			<label>옵션</label>
 		                			<br>
+		                			<ul>
 		                		<c:forEach var="dto" items="${optlist}" >
 		                			<div class="form-inline" style="display:inline-block;">
                 					   <input class="form-control" name="po_size"  value="${dto.po_size}" readonly="readonly" style="width:100px;">
                 					   <input class="form-control" name="po_color"  value="${dto.po_color}" readonly="readonly" style="width:100px;">
-                					   <input class="form-control" name="p_amount"  value="${dto.p_amount}" readonly="readonly" style="width:100px;">        				
-                				</div> 	
+                					   <input class="form-control" name="p_amount"  value="${dto.p_amount}"  style="width:100px;">  				
+                				</div> 
 		                		</c:forEach>
+		                		</ul>
 		                				
 		                		<!-- 
 		                		
@@ -64,8 +70,8 @@
                 				</c:if>
                 				</sec:authorize>   			
 		                		 -->
-		                		 <br><br>
-		                		<button type="button" class="btn btn-default">Modify</button>		
+		                		<br><br>
+		                		<button type="submit" data-oper="modify" class="btn btn-default">Modify</button>  	
                 				<button type="reset" class="btn btn-info">List</button>          			
                 			</form>
                 		</div>
@@ -91,13 +97,12 @@
 
 </div>        
 <%-- modify / list 버튼 클릭시 이동할 폼 --%>            
-<form action="/admin/admin_modify" method="post" id="operForm">
+<form action="/admin/admin_list" id="operForm">
 	<input type="hidden" value="${dto.p_code}" name="p_code"/>
 	<input type="hidden" value="${cri.pageNum}" name="pageNum"/>
 	<input type="hidden" value="${cri.amount}" name="amount"/>
 	<input type="hidden" value="${cri.type}" name="type"/>
 	<input type="hidden" value="${cri.keyword}" name="keyword"/>
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>    
 <script>
 	//현재 글 번호
@@ -105,13 +110,15 @@
 	//로그인 사용자 가져오기
 	
 	let replyer=null;
-	
+	<sec:authorize access="isAuthenticated()">
+		replyer='<sec:authentication property="principal.username"/>';
+	</sec:authorize>
 	//csrf토큰
 	let csrfHeaderName="${_csrf.headerName}";
    	let csrfTokenValue="${_csrf.token}"; 
 </script>        
 <!-- <script src="/resources/js/adminRead.js"></script>    -->       
-<script src="/resources/js/adminRead.js"></script>
+<script src="/resources/js/adminModify.js"></script>
 <%@include file="../test/footer.jsp" %>     
 
 

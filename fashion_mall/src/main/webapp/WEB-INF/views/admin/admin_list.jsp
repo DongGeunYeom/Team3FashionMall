@@ -16,7 +16,7 @@ pageEncoding="UTF-8"%>
 		  <div class="col-lg-12">
 		    <div class="panel panel-default">
 		      <div class="panel-heading">
-		        Board List Page
+		        Admin List Page
 		        <button id="regBtn" type="button" class="btn btn-xs pull-right">
 		          Register New Board
 		        </button>
@@ -27,7 +27,8 @@ pageEncoding="UTF-8"%>
 		        <table class="table table-striped table-bordered table-hover">
 		          <thead>
 		            <tr>
-		              <th style="width: 400px;" >여기에 bno 넣을지 말지 고민중ㅇ</th>
+		              <th>상품코드</th>
+		              <th>카테고리</th>
 		              <th>상품 이름</th>
 		              <th>판매량</th>
 		              <th>작성일</th>
@@ -38,6 +39,7 @@ pageEncoding="UTF-8"%>
 		            <c:forEach var="dto" items="${list}">
 			          	<tr>
 			          		<td>${dto.p_code }</td>
+			          		<td>${dto.p_type}</td>
 			          		<td>
 			          			<a href="${dto.p_code}" class="move">${dto.p_name}</a>
 			          		</td>
@@ -57,8 +59,9 @@ pageEncoding="UTF-8"%>
 							<input type="hidden" name="amount" value="${cri.amount}" />            	
 		            		<select name="type" id="">
 		            			<option value=""  <c:out value="${cri.type == '' ? 'selected':'' }"/>>---------</option>
-		            			<option value="T" <c:out value="${cri.type == 'T' ? 'selected':'' }"/>>제목</option>
-		            			<option value="C" <c:out value="${cri.type == 'C' ? 'selected':'' }"/>>내용</option>
+		            			<option value="N" <c:out value="${cri.type == 'N' ? 'selected':'' }"/>>상품 이름</option>
+		            			<option value="C" <c:out value="${cri.type == 'C' ? 'selected':'' }"/>>상품 설명</option>
+		            			<option value="C" <c:out value="${cri.type == 'T' ? 'selected':'' }"/>>상품 카테고리</option>
 		            		</select>            
 		            		<input type="text" name="keyword" id=""  value="${cri.keyword}"/>
 		            		<button class="btn btn-default" type="submit">Search</button>	
@@ -77,7 +80,7 @@ pageEncoding="UTF-8"%>
 		        </div>
 		        <!-- end search -->
 		        <!-- start Pagination -->
-		<%--         <div class="text-center">
+				<div class="text-center">
 		          <ul class="pagination">
 		            <c:if test="${pageDto.prev}">
 		            	<li class="paginate_button previous"><a href="${pageDto.startPage-1}">Previous</a></li>
@@ -89,7 +92,7 @@ pageEncoding="UTF-8"%>
 		            	<li class="paginate_button next"><a href="${pageDto.endPage+1}">Next</a></li>
 		            </c:if>
 		          </ul>
-		        </div> --%>
+		        </div>
 		        <!-- end Pagination -->
 		      </div>
 		      <!-- end panel-body -->
@@ -99,7 +102,7 @@ pageEncoding="UTF-8"%>
 		</div>
 		<!-- /.row -->
 		<%-- 페이지 링크를 처리할 폼 --%>
-		<form action="/board/list" id="actionForm">
+		<form action="/admin/admin_list" id="actionForm">
 			<!-- pageNum, amount, type, keyword 값을 부를 때 
 			     ① pageDto(pageDto.cri.pageNum) 
 		     	 ② cri(criteria.pageNum(ModelAttribute 가 사용 안된 경우), cri.pageNum)     	 
@@ -123,7 +126,7 @@ pageEncoding="UTF-8"%>
 	let result = '${result}';
 	
 </script>
-<script src="/resources/js/list.js"></script>
+<script src="/resources/js/adminList.js"></script>
 
 <%@include file="../test/footer.jsp" %>
 

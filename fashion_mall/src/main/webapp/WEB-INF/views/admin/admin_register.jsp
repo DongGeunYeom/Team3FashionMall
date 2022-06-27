@@ -19,40 +19,45 @@
                 <div class="col-lg-12">
                 	<div class="panel panel-default">
                         <div class="panel-heading">
-                           상품 등록
+                           상품 수정
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body" style="padding:50px;">
-                			<form action="" method="post" role="form" style="padding:50px;">
+                			<form id="regist" action="" method="post" role="form" style="padding:50px;">
                 				
                 				
                 				<div class="container">
                 				<div class="form-group">
                 					<label>상품 이름</label>
-                					<input class="form-control" name="p_name" style="width:80%;">                				
+                					<input class="form-control" id="p_name" name="p_name" style="width:80%;">
+                					<small id="p_name" class="text-info"></small>
                 				</div>  
                 				<div class="form-group">
                 					<label>카테고리</label>
                 					<br>
-                					<select name="p_type" id="">
+                					<select name="p_type" id="p_type">
                 						<option value="top">상의</option>
                 						<option value="pants">하의</option>
                 						<option value="outer">아우터</option>
                 						<option value="shoes">신발</option>
                 						<option value="stuff">잡화</option>
                 					</select>
+                					<small id="p_type" class="text-info"></small>
+                					
                 				</div>  
                 				<div class="form-group">
                 					<label>상품 가격</label>
-                					<input class="form-control" name="p_price" style="width:80%;">                				
+                					<input class="form-control" name="p_price" id="p_price" style="width:80%;">                				
+                					<small id="p_price" class="text-info"></small>
                 				</div>  
                 				<div class="form-group">
                 					<label>상품 설명</label>
-                					<textarea class="form-control" rows="3" name="p_content" style="resize: none; width:80%;"></textarea>               				
+                					<textarea class="form-control" rows="3" name="p_content" id="p_content" style="resize: none; width:80%;"></textarea>               				
+                					<small id="p_content" class="text-info"></small>
                 				</div> 
                 				<div class="form-group">
                 					<label>상품 상세 내용</label>
-                					<textarea class="form-control" rows="3" name="content" style="resize: none; width:80%;"></textarea>               				
+                					<textarea class="form-control" rows="3" name="pb_content" style="resize: none; width:80%;"></textarea>               				
                 				</div> 
                 				
                 				
@@ -60,7 +65,7 @@
                 				
                 				
 		                				<div class="form-group" style="display:flex;">
-		                					<table style="letter-spacing:10px; border-collapse: separate; border-spacing: 20px;">
+		                					<table style="letter-spacing:5px; border-collapse: separate; border-spacing: 20px;">
 		                						<tr>
 		                							<td><label>사이즈</label>
 		                							<div>
@@ -87,11 +92,13 @@
 					                					</td>
 				                					<td>
 						                					<label>색상</label>
-						                					<input class="form-control" id="color" style="width: 200px;" >
+						                					<input class="form-control" id="color" name="color" style="width: 200px;" >
+                											<small id="color" class="text-info"></small>
 				                					</td>
 				                					<td>
 					                					<label>재고량</label>
-					                					<input class="form-control" id="amount" style="width: 200px;" >  
+					                					<input class="form-control" id="amount" name="amount" style="width: 200px;" >  
+                										<small id="amount" class="text-info"></small>
 					                				</td>
 					                				<td>
 					                				
@@ -116,6 +123,7 @@
 		                					</ul>
 		                				</div>  -->
 		                				<div>
+		                				
 			                				<ul id="my_div" style="display:flex; list-style:none;">
 			                				<!-- 	<li>
 			                					<input class="form-control" id="size" style="width: 200px;" value="" >
@@ -204,18 +212,12 @@
             user_name.value = "";
         });
     </script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script src="../resources/js/adminUpload.js"></script>  
 <script src="../resources/js/adminRegister.js"></script>  
+<script src="../resources/js/adminRegister2.js"></script>
 <%@include file="../test/footer.jsp" %>
-
-
-
-
-
-
-
-
-
 
 
 

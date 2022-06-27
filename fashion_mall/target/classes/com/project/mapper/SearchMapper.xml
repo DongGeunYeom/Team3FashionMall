@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.SearchMapper">
+
+<!--  	 <select id="searchList" resultType="com.project.dto.ProductDTO">
+	 	select p_code,p_name,p_price,p_content,p_type from product order by reg_date desc
+	 	where p_type like #{cate}, p_name like '%'||#{keyword}||'%',p_content like '%'||#{content}||'%'
+	 </select>  -->
+	
+<!-- 	 <select id="searchAttach" resultType="com.project.dto.ProductDTO">
+	 	select p_code, from product order by reg_date desc
+	 </select> -->
+	 
+	<select id="searchList"  resultType="com.project.dto.ProductDTO">
+		 	select p_code,p_name,p_price,p_content,p_type,reg_date 
+		 	from (select /*+INDEX_DESC(product pk_product)*/ rownum rn, p_code,p_name,p_price,p_content,p_type,reg_date 
+	  		  from product
+		 	
+			 	<include refid="criteria"></include>
+			 	
+			 	<if test="sort!=null">
+					<choose>
+			 			<when test="sort=='N'.toString()">
+							order by reg_date
+						</when>
+						<when test="sort=='H'.toString()">
+							order by p_price desc
+						</when>
+						<when test="sort=='L'.toString()">
+							order by p_price
+						</when>
+						<when test="sort=='S'.toString()">
+							order by p_sale desc
+						</when>
+						<when test="sort=='T'.toString()">
+							order by p_name
+						</when>
+		 		</choose>
+				</if>
+			<![CDATA[  
+	  		  and p_code > 0 and rownum <= (#{pageNum} * #{amount}) )
+		where rn > (#{pageNum} - 1) * #{amount}
+		]]>
+	</select>
+	
+	 	<!-- 동적 sql -->
+	<sql id="criteria">
+		<trim prefix="where" >
+			<trim  prefixOverrides="and">
+				<if test="cate!=null">
+					<choose>
+						<when test="cate=='all'.toString()">
+							
+						</when>
+						<otherwise>
+							 and p_type=#{cate}
+						</otherwise>
+					</choose>
+				</if>
+				
+				<if test="keyword!=null">
+					and p_name like '%'||#{keyword}||'%'
+				</if>
+				<if test="content!=null">
+					and p_content like '%'||#{content}||'%'
+				</if>
+			</trim>
+		</trim>
+	</sql>
+	
+	<!-- total 구하기 -->
+	<select id="searchTotalCnt" resultType="int">
+		select count(*)
+		from product
+		<include refid="criteria"></include>
+	</select>
+	
+	
+	<!-- 사진 한개 불러오는거 -->
+ 	<select id="selectAttach" resultType="com.project.dto.ProductAttachDTO">
+		select filename,p_code,uuid,uploadpath 
+		from (select filename,p_code,uuid,uploadpath from productAttach group by filename,p_code,uuid,uploadpath) 
+		<!-- <![CDATA[where rownum<=1]]> -->
+	</select> 
+	<!-- 사진 여러개 불러오는거 -->
+ 	<select id="selectAttachList" resultType="com.project.dto.ProductAttachDTO">
+		select filename,p_code,uuid,uploadpath from productAttach where p_code=#{p_code}
+	</select> 
+	
+	
+	 
+	
+</mapper>

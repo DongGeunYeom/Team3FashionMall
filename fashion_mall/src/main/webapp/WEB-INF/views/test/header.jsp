@@ -25,11 +25,11 @@
   
   
   <div class="loggo">
-	<center>
-		<a href="/">
-		 <img class="brand" src="/resources/FAimage/brand_test.png" alt="브랜드로고" style="width:700px;"/></a>
-		<!-- <img class="brand" src="/resources/FAimage/test.gif" alt="브랜드로고" /></a> -->
-	</center>
+		<center>
+			<a href="/">
+			 <img class="brand" src="/resources/FAimage/brand_test.png" alt="브랜드로고" style="width:700px;"/></a>
+			<!-- <img class="brand" src="/resources/FAimage/test.gif" alt="브랜드로고" /></a> -->
+		</center>
 	</div>
 
         <header class="header-section">
@@ -37,8 +37,9 @@
             <nav class="navbar navbar-default">
             
             <ul class="nav nav-pills navbar-left">
-            <li style="padding:20px;"><input type="text" name="" id="" /> &nbsp  &nbsp</li>
-			<li style="margin:13px; left:-45px;"><a href="#" class="search-btn"><i class="fa fa-search" aria-hidden="true" style="font-size:20px;"></i></a></li>
+            <li style="padding:20px;">
+            <input type="text" name="search" id="searchI" /> &nbsp  &nbsp </li>
+			<li style="margin:13px; left:-45px;"><a href="/admin/search?keyword=" class="search-btn" id="searchB"><i class="fa fa-search" aria-hidden="true" style="font-size:20px;"></i></a></li>
             </ul>
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
@@ -59,17 +60,15 @@
                         <ul class="nav navbar-nav">
                         <!--     <li class="active"><a href="#">home</a></li> -->
                         <!-- 해당 페이지로 넘어가는 링크 달아주세요 -->
-                            <li><a href="https://www.naver.com/">상의</a></li>
-                            <li><a href="#">하의</a></li>
-                            <li><a href="#">아우터</a></li>
-                            <li><a href="#">신발</a></li>
-                            <li><a href="#">잡화</a></li>
+                            <li><a href="/admin/search?cate=top">상의</a></li>
+                            <li><a href="/admin/search?cate=pants">하의</a></li>
+                            <li><a href="/admin/search?cate=outer">아우터</a></li>
+                            <li><a href="/admin/search?cate=shoes">신발</a></li>
+                            <li><a href="/admin/search?cate=stuff">잡화</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container -->
             </nav>
-    
-    
     
     <div style="margin:20px; text-align:right;">
     <nav>

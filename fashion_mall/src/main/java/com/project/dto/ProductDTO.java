@@ -20,9 +20,13 @@ public class ProductDTO {
 	private int p_sale;
 	private int t_amount;
 	private Date reg_date;
+	
+	private int bno;
+	private String pb_content;
 
 	// 첨부파일 정보
 	private List<ProductAttachDTO> attachList;
+	
 	
 	//옵션 정보
 	private List<ProductOptDTO> optList;

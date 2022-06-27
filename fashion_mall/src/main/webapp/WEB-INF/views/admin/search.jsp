@@ -1,89 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@include file="../test/header.jsp" %>
-
-
-    <!-- <div style="display:flex;">
-		<div class="card mb-3" style="max-width: 580px;">
-	      <div class="row no-gutters" style="border:5px solid #000;">
-	        <div class="col-md-4">
-	          <img src="/resources/images/pic01.jpg" alt="..." style="width: 195px; height: 250px;">
-	        </div>
-	        <div class="col-md-8">
-	          <div class="card-body">
-	            <h5 class="card-title">Card title</h5>
-	            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-	            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-	          </div>
-	        </div>
-	      </div>
-	    </div>
-		<div class="card mb-3" style="max-width: 580px;">
-	      <div class="row no-gutters" style="border:5px solid #000; margin:10px;">
-	        <div class="col-md-4">
-	          <img src="/resources/images/pic01.jpg" alt="..." style="width: 195px; height: 250px;">
-	        </div>
-	        <div class="col-md-8" style="padding:10px;">
-	          <div class="card-body">
-	            <h5 class="card-title">Card title</h5>
-	            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-	            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-	          </div>
-	        </div>
-	      </div>
-	    </div>
-	   </div>  -->
-	   
-	   
-	<!-- <div class="" style="width: 100%; top:10px;">
-		   <div style="justify-content:center; border:5px solid black; width:500px; position: relative; left:50px;">
-	   asdsadsaddsa
-	   </div> -->
-	<!-- <div style="display:flex; border:5px solid black; float:left; position: relative; left:50px;">
-	<div class="container">
-	<ul class="sort" style="list-style:none;">
-		<li style="">
-			<input type="radio" value="1" name="sort" id="price" style="display:none;">
-			<label for="price">낮은가격순</label>
-		</li>
-		<li>
-			<input type="radio" value="2" name="sort" id="price2">
-			<label for="price2">낮은가격순</label>
-		</li>
-		<li>
-			<input type="radio" value="3" name="sort" id="price3">
-			<label for="price3">낮은가격순</label>
-		</li>
-		<li>
-			<input type="radio" value="4" name="sort" id="price4">
-			<label for="price4">낮은가격순</label>
-		</li>
-		
-	</ul>
-	</div> -->
-	
 
 	<!--  -->
 	<div class="container">
     <div>상품검색</div>
 	<fieldset style="padding-top:30px; padding-bottom:0px; border: 2px solid #d3d3d3;">
+	<form action="" method="get" id="searchForm">
 	<p style="border-bottom:1px solid black; text-align:center; padding-bottom:40px;">
-	<span style="border-bottom:1px solid black;"><i class="bi bi-search"></i>검색하신단어 :</span>
+	<span style="border-bottom:1px solid black;"><i class="bi bi-search"></i>검색하신단어 : ${cri.keyword}</span>
 	</p>
 		<table style="margin: 10px;">
+		
 			<tr>
 				<th style="text-align:center; width:15%; height:30px;">
 					<div>상품유형</div>
 				</th>
 				<td style="width:15%;">
 					<div>
-								<select name="" id="search" style="">
-									<option value="1">통합검색</option>
-									<option value="1">상의</option>
-									<option value="2">하의</option>
-									<option value="3">아우터</option>
-									<option value="4">신발</option>
-									<option value="5">잡화</option>
+								<select name="cate" id="search">
+									<option value="all"  <c:out value="${cri.cate == '' ? 'selected':'' }"/>>통합검색</option> 
+									<option value="top" <c:out value="${cri.cate == 'top' ? 'selected':'' }"/>>상의</option>
+									<option value="pants" <c:out value="${cri.cate == 'pants' ? 'selected':'' }"/>>하의</option>
+									<option value="outer" <c:out value="${cri.cate == 'outer' ? 'selected':'' }"/>>아우터</option>
+									<option value="shoes" <c:out value="${cri.cate == 'shoes' ? 'selected':'' }"/>>신발</option>
+									<option value="stuff" <c:out value="${cri.cate == 'stuff' ? 'selected':'' }"/>>잡화</option>
 								</select>
 					</div>
 				</td>
@@ -93,93 +35,103 @@
 				<td style="width:15%;">
 					<div>
 						<ul style="list-style:none; padding-left:0;">
-							<li style="width:100px"><input type="text" name="" id="" placeholder="검색어를 입력하세요" style="text-align:center;"/></li>
+							<li style="width:100px"><input type="text" name="keyword" id="" placeholder="검색어를 입력하세요" style="text-align:center;" value="${cri.keyword}"/></li>
 						</ul>	
 					</div>
 				</td>
 				 <td style="width:15%">
 					<div class="aaa">
 						<a class="bbb" href="">
-							<span >search</span>
+							<!-- <span >search</span> -->
+							<button type="submit">search</button>
 						</a>
 					</div>
 				</td> 
 			</tr>
 			<tr style="">
 			<th style="text-align:center; width:15%; height:30px;">
-					<div>상품유형</div>
+					<div>상품정렬</div>
 				</th>
 				<td style="width:15%;">
 					<div>
-								<select name="" id="search" style="">
-									<option value="1">통합검색</option>
-									<option value="1">상의</option>
-									<option value="2">하의</option>
-									<option value="3">아우터</option>
-									<option value="4">신발</option>
-									<option value="5">잡화</option>
+								<select name="sort" id="search">
+									<option value="" <c:out value="${cri.sort == '' ? 'selected':'' }"/>>-------- </option>
+									<option value="N" <c:out value="${cri.sort == 'N' ? 'selected':'' }"/>>최신순</option>
+									<option value="S" <c:out value="${cri.sort == 'S' ? 'selected':'' }"/>>판매량</option>
+									<option value="H" <c:out value="${cri.sort == 'H' ? 'selected':'' }"/>>높은가격순</option>
+									<option value="L" <c:out value="${cri.sort == 'L' ? 'selected':'' }"/>>낮은가격순</option>
+									<option value="T" <c:out value="${cri.sort == 'T' ? 'selected':'' }"/>>이름순</option>
 								</select>
 					</div>
 				</td>
 				<th style="text-align:center; width:15%;">		
-					<div style="">제품명/키워드</div>	
+					<div style="">상세 내용</div>	
 				</th>
 				<td style="width:15%;">
 					<div>
 						<ul style="list-style:none; padding-left:0;">
-							<li style="width:100px"><input type="text" name="" id="" placeholder="검색어를 입력하세요" style="text-align:center;"/></li>
+							<li style="width:100px"><input type="text" name="content" id="" placeholder="검색어를 입력하세요" style="text-align:center;" value="${cri.content}"/></li>
 						</ul>	
 					</div>
 				</td>
 			</tr>
+			
 		</table>
+	</form>
 	</fieldset>
 	
-	
-	
-	   <div class="search">
+	    	<!-- 게시판 리스트 반복문 -->
+ <c:forEach var="dto" items="${sList}">
+<div class="search">
+	   
 		<div class="search-1" Onclick="location.href=''">
 	      <div class="search-2">
 	        <div class="search-img">
-	          <img src="../resources/images/1.png" alt="..." style="width: 195px; height: 250px;">
+	        	<c:forEach var="attach" items="${attach}">
+	          <img src="C:\upload\${attach.uploadpath}/${attach.uuid}_${attach.filename}" alt="쇼핑몰사진" style="width: 195px; height: 250px;">
+	        	</c:forEach>
 	        </div>
 	        <div class="search-text">
 	          <div class="">
-	            <h5 class="">Card title</h5>
-	            <p class="">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+	            <h5 class="">${dto.p_name}</h5>
+	            <p class="container">${dto.p_content}</p>
 	            <p class=""><small class="">Last updated 3 mins ago</small></p>
 	          </div>
 	        </div>
 	        <div class="search-price">
-	        <h5>price : 10000</h5>
+	        <h5>price : ${dto.p_price}</h5>
 	        </div>
 	      </div>
-	    </div>
-		<div class="search-1" Onclick="location.href=''">
-	      <div class="search-2">
-	        <div class="search-img">
-	          <img src="../resources/images/pic01.jpg" alt="..." style="width: 195px; height: 250px;">
-	        </div>
-	        <div class="search-text">
-	          <div class="">
-	            <h5 class="">Card title</h5>
-	            <p class="">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-	            <p class=""><small class="">Last updated 3 mins ago</small></p>
-	          </div>
-	        </div>
-		        <div class="search-price">
-		        <h5>price : 10000</h5>
-		        </div>
-	      </div>
-	    </div>
-	   </div>
+	    </div>	
  </div>
-	   <!--  -->
+		          	</c:forEach>
+		 
+		<div class="text-center">
+		          <ul class="pagination">
+					   <c:if test="${pageDto.prev}">
+						     <li class="paginate_button previous"><a href="${pageDto.startPage-1}">Previous</a></li>
+						            </c:if>
+						            <c:forEach var="idx" begin="${pageDto.startPage}" end="${pageDto.endPage}">
+						            	<li class="paginate_button  ${pageDto.cri.pageNum==idx?'active':''}"><a href="${idx}">${idx}</a></li>
+						            </c:forEach>
+						            <c:if test="${pageDto.next}">
+						      <li class="paginate_button next"><a href="${pageDto.endPage+1}">Next</a></li>
+			            </c:if>
+		          </ul>
+		        </div>
+	   <!-- criteria 공유 폼 -->
+	   
+	<form action="" id="actionForm">
+ 	<input type="hidden" name="pageNum" value="${cri.pageNum}" />
+	<input type="hidden" name="amount" value="${cri.amount}" /> 
+ 	<input type="hidden" name="cate" value="${cri.cate}" />
+	<input type="hidden" name="keyword" value="${cri.keyword}" />
+	<input type="hidden" name="sort" value="${cri.sort}" />
+	<input type="hidden" name="content" value="${cri.content}" /> 
+</form>
+</div>   
 	   
 	   
-	    
-		
-	
-	
+<script src="/resources/js/searchList.js"></script>
 	
 <%@include file="../test/footer.jsp" %>

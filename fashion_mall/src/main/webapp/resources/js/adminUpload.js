@@ -21,6 +21,7 @@ $(function(){
 				return false;
 			}	
 			
+			console.log(files[i]);
 			formData.append("uploadFile",files[i]);
 		}		
 		
@@ -113,7 +114,7 @@ function showUploadFile(result){
                 let oriPath = obj.uploadpath+"\\"+obj.uuid+"_"+obj.filename;
 			    oriPath = oriPath.replace(new RegExp(/\\/g),"/");				
 				
-				str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.filename+"' data-type='"+obj.filetype+"'>"
+				str += "<li data-path='"+obj.uploadpath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.filename+"' data-type='"+obj.filetype+"'>"
 				str += "<a href=\"javascript:showImage(\'"+oriPath+"\')\">";
 				str += "<img src='/display?fileName="+fileCallPath+"'></a>";
 				str += "<div>"+obj.filename;

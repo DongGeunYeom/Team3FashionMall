@@ -81,10 +81,10 @@ $(function(){
               
 
 			let str2="";
-			var idx2=0;
-			str2+="<li><input type='text' class='form-control' name='optList["+idx2+"].po_size' style='width: 200px;' value='"+value1;
-			str2+="'><input type='text' class='form-control' name='optList["+idx2+"].po_color' style='width: 200px;' value='" +value2;
-			str2+="'><input type='text' class='form-control' name='optList["+(idx2++)+"].p_amount' style='width: 200px;' value='"+value3+"'></li>";
+			var n = $('#my_div li').length;
+			str2+="<li><input type='text' class='form-control' name='optList["+n+"].po_size' style='width: 200px;' value='"+value1;
+			str2+="'><input type='text' class='form-control' name='optList["+n+"].po_color' style='width: 200px;' value='" +value2;
+			str2+="'><input type='text' class='form-control' name='optList["+n+"].p_amount' style='width: 200px;' value='"+value3+"'></li>\n";
 			
             if(!value1)
                 alert("사이즈를 입력해주세요.");
