@@ -37,7 +37,7 @@ public class EmailSend {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom("mdr111333@gmail.com");
 		message.setTo(toEmail);
-		String subject = "회원 가입 인증 이메일 입니다."; // 이메일 제목 
+		String subject = "KED`LOS 회원 가입 인증 이메일 입니다."; // 이메일 제목 
 		String body = 
 				"안녕하세요. 저희 KED`LOS를 방문해주셔서 감사합니다." + 	//html 형식으로 작성 ! 
                 "<br><br>" + 

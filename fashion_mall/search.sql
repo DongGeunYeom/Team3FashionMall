@@ -1,3 +1,5 @@
+-- DB업데이트시 날짜와 시간을 적어주세용~
+
 select filename,p_code from PRODUCTATTACH
 where rowid in (select max(rowid) from PRODUCTATTACH group by p_code);
 
