@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ProductAttachMapper">
+
+	<!--                               인덱스 관련                                    -->
+	<!-- 인기상품 보여주기 -->
+	<select id="select" resultType="com.study.dto.ProductAttachDTO" >
+		select row_num, uuid, uploadpath, filename, p_code, p_price,p_name,p_type,p_content, bno
+		from 
+		(select ROW_NUMBER() OVER(PARTITION BY p.p_code order by p.p_code) row_num, uuid, uploadpath, filename, p_a.p_code, p_price, p_name, p_type, p.p_content, board.bno
+    	from productattach p_a left outer join product p on p_a.p_code = p.p_code INNER JOIN productboard board on p.p_code = board.p_code
+    	where t_amount > 0
+    	order by p_sale desc)
+    	where row_num = 1
+	</select>
+
+	<!-- 제품별 인기순 -->
+	<select id="selectTop" resultType="com.study.dto.ProductAttachDTO" >
+		select row_num, uuid, uploadpath, filename, p_code, p_price, p_name, p_type, p_content, bno
+		from 
+		(select ROW_NUMBER() OVER(PARTITION BY p.p_code order by p.p_code) row_num, uuid, uploadpath, filename, p_a.p_code, p_price, p_name, p_type, p.p_content, board.bno
+    	from productattach p_a left outer join product p on p_a.p_code = p.p_code INNER JOIN productboard board on p.p_code = board.p_code
+    	where t_amount > 0 and p_type LIKE '%'||#{p_type}||'%'
+    	order by p_sale desc)
+    	where row_num = 1
+	</select>
+
+	<!-- 신상품 보여주기 -->
+	<select id="selectNew" resultType="com.study.dto.ProductAttachDTO" >
+		select row_num, uuid, uploadpath, filename, p_code, p_price, p_name, reg_date, p_content, bno
+		from
+		(select ROW_NUMBER() OVER(PARTITION BY p.p_code order by p.p_code) row_num, uuid, uploadpath, filename, p_a.p_code, p_price, p_name, p.reg_date, p.p_content, board.bno
+		from productattach p_a left outer join product p on p_a.p_code = p.p_code INNER JOIN productboard board on p.p_code = board.p_code
+		order by reg_date desc)
+		where row_num = 1
+	</select>
+	<!--                               인덱스 관련                                    -->
+
+
+	<!--                                상품 등록 관련                           -->
+	<insert id="insert">
+		<selectKey keyProperty="p_code" order="BEFORE" resultType="int">
+			select max(p_code) from product
+		</selectKey>
+		insert into ProductAttach(uuid,uploadpath,filename,p_code)
+		values(#{uuid},#{uploadpath},#{filename},#{p_code})
+	</insert>
+
+	<!-- p_code 첨부파일 목록 추출 -->
+	<select id="list" resultType="com.study.dto.ProductAttachDTO">
+		select * from ProductAttach where p_code=#{p_code}
+	</select>
+	
+	
+
+	<!-- 어제 날짜로 등록된 첨부파일 목록 가져오기 -->
+	<select id="getOldFiles" resultType="com.study.dto.ProductAttachDTO">
+		select * from ProductAttach
+		where uploadpath = to_char(sysdate-1,'yyyy\mm\dd')
+	</select>
+    <!--                              상품 등록 관련                       -->
+
+</mapper>
+
+
+
+
+

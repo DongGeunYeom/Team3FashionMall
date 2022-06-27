@@ -38,6 +38,22 @@ Tags: black, green, white, two-columns, fixed-width, threaded-comments, sticky-p
     padding: 0px;
 
 }
+
+.position-sticky{
+	position:sticky;
+	top:0px;
+	z-index:3;
+}
+
+
+/*-----------findId header-----------------------------*/
+/* #testheader {
+	  min-height: 100vh;
+  	  background-color: #f5f5f5;
+} */
+
+/*-----------findId header-----------------------------*/
+
 body {
     font-family: 'Open Sans', sans-serif;
     font-size: 13px;
@@ -73,6 +89,11 @@ body {
     line-height: 0;
     width: 100%;
 }
+
+#aa:hover{
+	color:#000;
+}
+
 ::-moz-selection {
     color: #555252;
     text-shadow: none;
@@ -342,7 +363,6 @@ html, body, .wrapper{
     padding: 20px 0;
     position: relative;
     transition: all 1s;
-    background: #fff;
 }
  
 .header-section {
