@@ -39,7 +39,7 @@ $(function () {
         required: true,
 		validPersonNum2 : true,
       },
-      email : {
+      userEmail1 : {
         required: false,
       },
       address : {
@@ -66,9 +66,8 @@ $(function () {
       phone_num: {
         required: "핸드폰 번호는 필수 입력 요소입니다.",
       },
-      email: {
+      userEmail1: {
         required: "이메일은 필수 입력 요소입니다.",
-        email: "이메일 형식을 확인해 주세요",
       },
       name: {
         required: "이름은 필수 입력 요소입니다.",

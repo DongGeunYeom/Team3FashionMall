@@ -1,11 +1,11 @@
 package com.study.controller;
 
 import java.security.Principal;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.study.dto.MemberDTO;
-import com.study.dto.ProductAttachDTO;
+import com.study.service.EmailSend;
+import com.study.service.MailSendService;
 import com.study.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,14 +37,24 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+	@Autowired
+	private MailSendService mailService;
+	
+	@Autowired
+	private EmailSend senderService;
+	
 	@GetMapping("/regist")
 	public void getRegister() {
 		log.info("regist() 회원가입 폼 호출");
 	}
 		
 	@PostMapping("/regist")
-	public String register(MemberDTO regist) {
+	public String register(MemberDTO regist, String userEmail1, String userEmail2) {
 		log.info("회원가입 요청 " + regist);
+		
+		String email = userEmail1 + userEmail2; 
+		
+		regist.setEmail(email); 
 		
 		if(service.register(regist)) {	// 회원가입 성공 시 
 			return "redirect:/member/login";	// 로그인 페이지 보여주기
@@ -52,21 +63,41 @@ public class MemberController {
 	}
 	
 	
+	//이메일 인증
+	@GetMapping("/mailCheck")
+	@ResponseBody
+	public String mailCheck(String email) {
+		System.out.println("이메일 인증 요청이 들어옴!");
+		System.out.println("이메일 인증 이메일 : " + email);
+		
+		return senderService.sendEmail(email);
+	}
+		
 	// 로그인
 	@GetMapping("/login")
 	public void getLogin() {
 		log.info("login() 로그인 폼 호출");
 	}
 	
+	// 네이버 로그인
+	@GetMapping("/naverlogin")
+	public void naverlogin() {
+		log.info("네이버 로그인");
+	}
 	
+	// 네이버 콜백
+	@GetMapping("/naverlogin_callback")
+	public void naverlogin_callback() {
+		log.info("네이버 콜백");
+	}
+
 	// 로그인 오류시
-	@GetMapping("/login-error")
+	@PostMapping("/login-error")
 	public String loginError(Model model) {
 		model.addAttribute("loginError", "아이디나 비밀번호를 확인해 주세요");
 		return "/member/login";
 	}
 	
-		
 	// regist10.jsp 아이디 중복 체크
 	@PostMapping("/idCheck")
 	@ResponseBody
@@ -86,6 +117,8 @@ public class MemberController {
 	//아이디 찾기
 	@PostMapping("/findid")
 	public String findidPost(MemberDTO memberDto, Model model, RedirectAttributes rttr) {
+		
+		//이메일 인증으로 바꿔주기
 		
 		log.info("아이디 찾기 폼 요청 "+memberDto.getName()+" "+memberDto.getPerson_num1()+" "+memberDto.getPerson_num2());
 		
@@ -126,6 +159,9 @@ public class MemberController {
 	//비밀번호 찾기
 	@PostMapping("/findpwd")
 	public String findpwdPost(MemberDTO memberDto, RedirectAttributes rttr) {
+		
+		//이메일 인증으로 바꿔주기
+		
 		log.info("비밀번호 찾기 폼 요청 "+memberDto.getName()+" "+memberDto.getPerson_num1()+" "+memberDto.getPerson_num1()+" "+memberDto.getUser_id());
 			
 		MemberDTO findpwd = service.findPwd(memberDto.getName(), memberDto.getPerson_num1(), memberDto.getUser_id());
@@ -135,6 +171,7 @@ public class MemberController {
 			if(encoder.matches(memberDto.getPerson_num2(), findpwd.getPerson_num2())) {	
 				//널이 아니라면 일단은 수정 페이지로
 				log.info(memberDto.getUser_id());
+				//아이디 보내는 이유 input hidden으로 하여금 아이디와 일치하는 비밀번호를 바꿔주기 위함
 				rttr.addFlashAttribute("user_id", memberDto.getUser_id());
 				return "redirect:/member/pwdmodify";
 			}
@@ -189,16 +226,17 @@ public class MemberController {
 	
 	//회원 정보 삭제
 	@GetMapping("/deleteMyinfo")
-	public ResponseEntity<Boolean> deleteMyinfo(String user_id, String password,HttpSession session) {
+	public ResponseEntity<Boolean> deleteMyinfo(String user_id, String password, HttpSession session) {
 		log.info("딜리트 삭제");
 		
 		//비밀번호 확인을 위해 한번 더 불러줌
 		MemberDTO myInfodto = service.myinfo(user_id);
 		
 		log.info(myInfodto.toString());
-		
+
 		//비밀번호 일치시 첫번 째 확인 -> 확인 안할시 비밀번호가 달라도 삭제 되어버림
 		if(encoder.matches(password, myInfodto.getPassword())) {
+					
 			//그리고 나서 받은 이름과 아이디로 삭제 
 			if(service.delete(user_id)) {
 				session.invalidate();
@@ -237,15 +275,5 @@ public class MemberController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

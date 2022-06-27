@@ -131,4 +131,9 @@
 		update product set t_amount = #{t_amount} where p_code = #{p_code}
 	</update>
 	
+	<!-- 주문 리스트 삭제 -->
+	<delete id="orderListDelete">
+		delete from ORDERINFO where user_id = #{user_id};
+	</delete>
+	
 </mapper>

@@ -129,7 +129,7 @@ var header = $("meta[name='_csrf_header']").attr("content");
 	    str2 += "<small id='password' class='text-info'></small>";
 	    str2 += "</div></div>";     
 		str2 += "<div class='form-group row justify-content-center'>";
-		str2 += "<div class='col-sm-3'>";
+		str2 += "<div class='col-sm-4'>";
 		str2 += "<button class='btn btn-outline-danger' type='submit' style='margin-right:15px;'>"+"회원 탈퇴"+"</button>";
 		str2 += "<button class='btn btn-outline-secondary' type='reset' style='margin-left:15px;'>"+"취소"+"</button>";
 		str2 += "</div></div>";
@@ -140,11 +140,12 @@ var header = $("meta[name='_csrf_header']").attr("content");
 	})// 회원탈퇴 폼 보여주기
 	
 	// 아이디와 비밀번호를 받고 회원탈퇴 클릭시
-	myinfo.on("click",".input-form-background .input-form #find .form-group .col-sm-3 .btn-outline-danger",function(e){
+	myinfo.on("click",".input-form-background .input-form #find .form-group .col-sm-4 .btn-outline-danger",function(e){
 		e.preventDefault();
 		
 		let user_id = $(".col-8 .input-form-background .input-form #find .form-group #user_id").val();
 		console.log(user_id);
+
 		let password = $(".col-8 .input-form-background .input-form #find .form-group #password").val();
 		console.log(password);
 		

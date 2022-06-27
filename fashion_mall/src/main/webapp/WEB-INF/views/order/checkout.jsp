@@ -333,6 +333,7 @@ $(".btn-outline-info").click(function(){
 })//배송지 저장
 
 //일단 결제 버튼 누를시 수량 체크 및 판매량 증가 및 재고 감소 및 orderinfo정보 전송 되는지 확인
+
 function payment(){
 	
 	//각각의 수량 사이즈 컬러 상품이름 가져오기 
@@ -342,7 +343,7 @@ function payment(){
 		var color = $(this).find("#color em").text();
 		var amount = $(this).find("#amount em").text();
 		var code = $(this).find("#code em").text();
-		
+		console.log(productName,size,color,amount,code)
 		//수량 체크
 		$.getJSON({
 			url:'ProductAmountCheck',
@@ -354,7 +355,7 @@ function payment(){
 			},
 			success:function(data){
 				if (data){
-
+					console.log("데이터 트루"+data);
 				}else{
 					//실패시
 					alert("현재 "+productName+" 제품의 잔고가 부족합니다.");

@@ -62,4 +62,5 @@
 	<intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
 
 
+	
 </web-app>

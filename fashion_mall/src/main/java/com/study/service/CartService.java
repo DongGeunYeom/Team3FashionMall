@@ -55,5 +55,8 @@ public interface CartService {
 	
 	//총 수량 업데이트
 	public boolean updateTamunt(int t_amount, int p_code);
+	
+	//주문 리스트 삭제
+	public boolean orderListDelete(String user_id);
 
 }

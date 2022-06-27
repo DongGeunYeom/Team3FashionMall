@@ -23,6 +23,7 @@
 	<meta name="theme-color" content="#712cf9">
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"charset="utf-8"></script>
 	
 
     <style>
@@ -100,9 +101,11 @@
     	<!-- <a href="/member/findid">아이디/비밀번호 찾기</a> -->
     	<button type="button" class="btn btn-outlien-secondary" id="findid">아이디/비밀번호 찾기</button>
 	        
-	    <div> <p>
+	    <div> 
+	    	<p>    
+	    	</p>
+	    </div>
 	    
-	    </p></div>
 	   	<div class="form-floating" style="width : 100%; text-align : center" >
 		    <div style="display:inline-block"><button class="w-100 btn btn-lg btn-primary" type="submit" >로그인</button></div>
 		    <div style="display:inline-block"><button class="w-100 btn btn-lg btn-success" type="button" onclick="location.href='/member/regist'">회원가입</button></div> 

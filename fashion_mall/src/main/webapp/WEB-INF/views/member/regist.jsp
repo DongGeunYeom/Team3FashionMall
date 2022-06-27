@@ -15,6 +15,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
     
+    <!-- 아임포트 -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+    
     <!-- validation 사용자 작성 코드 삽입-->
     <script src="/resources/js/register1.js"></script>
     <script src="/resources/js/register2.js"></script>
@@ -62,7 +65,16 @@
       <div class="input-form col-md-12 mx-auto">
         <h4 class="mb-3">회원가입</h4>
  		<form id="regist" method="post" action="/member/regist">
- 
+ 			
+ 		  <!-- 이름 -->
+          <div class="row">
+          	<div class="col-md-3 mb-4">
+				<label for="name">이름</label>
+				<input type="text" class="form-control" id="name" name="name" required>
+				<small id="name" class="text-info"></small>
+			</div>
+		  </div>	
+ 		  
  			<!-- 아이디 -->
           <label for="">아이디</label>
           <div class="row">
@@ -113,18 +125,11 @@
           	</div>
           </div>        
           
-          <!-- 이름 -->
-          <div class="row">
-          	<div class="col-md-3 mb-4">
-				<label for="name">이름</label>
-				<input type="text" class="form-control" id="name" name="name" required>
-				<small id="name" class="text-info"></small>
-			</div>
-		  </div>
+          
 			
 			
 			<!-- 주민등록번호 -->
-        	<label for="">주민등록번호</label>
+<!--         	<label for="">주민등록번호</label>
 			<div class="row">
           		<div class="col-md-5 mb-4">
           			<input type="text" class="form-control" id="person_num1" name="person_num1" required />
@@ -135,17 +140,47 @@
           			<input type="password" class="form-control" id="person_num2" name="person_num2" required />
           			<small id="person_num2" class="text-info"></small>
           		</div>
-			</div>
+			</div> -->
 			          
 			<!-- 이메일 -->
-		<div class="row">
+		<!-- <div class="row">
           <div class="col-md-8 mb-3">
             <label for="email">이메일</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="email@example.com">
             <small id="email" class="text-info"></small>
           </div>
-        </div>
-
+        </div> -->
+		<label for="email">이메일</label>
+        <div class="row">
+        	<div class="col-md-8 mb-3">
+	            <div class="form-group email-form">
+					 <div class="input-group">
+						<input type="text" class="form-control" name="userEmail1" id="userEmail1" placeholder="이메일" >
+						<select class="form-control" name="userEmail2" id="userEmail2" >
+						<option>@naver.com</option>
+						<option>@daum.net</option>
+						<option>@gmail.com</option>
+						<option>@hanmail.com</option>
+						 <option>@yahoo.co.kr</option>
+						</select>
+						<small id="userEmail1" class="text-info"></small>
+					</div> 
+				</div>
+			</div>
+			<div class="col-md-4 mb-3">  
+				<div class="input-group-addon">
+					<button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button>
+				</div>
+			</div>
+			<div class="col-md-8 mb-3">
+					<div class="mail-check-box">
+					<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+					</div>
+					<span id="mail-check-warn"></span>
+				</div>
+			</div>
+		
+		
 
           <div class="mb-3">
             <label for="address">주소</label>
@@ -244,7 +279,7 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
           
           
           <div class="mb-4"></div>
-          <button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button>
+          <button class="btn btn-primary btn-lg btn-block" type="submit" id="regist_submit">가입 완료</button>
           
           <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }" />
         </form>
@@ -255,9 +290,69 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
     </footer>
   </div>
 <script>
-//js에서 post방식을 사용할 때 headerName과 Token을 함께 보내주기 위함
+// js에서 post방식을 사용할 때 headerName과 Token을 함께 보내주기 위함
 let csrfHeaderName = "${_csrf.headerName}";
 let csrfTokenValue = "${_csrf.token}";
+
+// 메일 인증
+$('#mail-Check-Btn').click(function() {
+	const email = $('#userEmail1').val() + $('#userEmail2').val(); // 이메일 주소값 얻어오기!
+	console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
+	const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+	
+	$.ajax({
+		type:'get',
+		url : 'mailCheck?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+		success : function (data) {
+			console.log("data : " +  data);
+			checkInput.attr('disabled',false);
+			code = data;
+			alert('인증번호가 전송되었습니다.')
+		},
+	}); // end ajax
+	
+}); // end send eamil
+// 메일 인증
+
+// 인증번호가 왔을 시
+$('.mail-check-input').blur(function () {
+	const inputCode = $(this).val();
+	const $resultMsg = $('#mail-check-warn');
+	
+	if(inputCode === code){
+		$resultMsg.html('인증번호가 일치합니다.');
+		$resultMsg.css('color','green');
+		$('#mail-Check-Btn').attr('disabled',true);
+		$('#userEamil1').attr('readonly',true);
+		$('#userEamil2').attr('readonly',true);
+		$('#userEmail2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
+        $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+	}else{
+		$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!');
+		$resultMsg.css('color','red');
+	}
+	
+});
+// 인증번호가 왔을 시
+
+// 가입버튼 클릭시 인증번호가 같을 때 와 다를때
+$("#regist_submit").click(function(e){
+	e.preventDefault();
+	
+	const $resultMsg = $('#mail-check-warn').html();
+	
+	if($resultMsg == '인증번호가 일치합니다.'){
+		$("#regist").submit();
+	}else if($resultMsg == ''){
+		//나중에 빈칸인건 register1.js에 유효성 검증으로 넘겨줘도 됨 
+		alert('본인 인증을 해주세요.');
+	}else{
+		alert('인증번호를 확인해 주세요.');
+	}
+	
+})
+// 가입버튼 클릭시 인증번호가 같을 때 와 다를때 끝
+
 
 </script>   
   

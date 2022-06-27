@@ -177,6 +177,8 @@ public class OrderController {
     	
     	//다시 한번 수량 체크
     	if(service.selectAmount(color, size, code) >= amount) {
+    		
+    		log.info("제품 재고"+service.selectAmount(color, size, code));
     		//성공시
     		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     	};

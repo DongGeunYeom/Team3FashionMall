@@ -30,10 +30,13 @@ public class MemberServiceImpl implements MemberService {
 		register.setPassword(encoder.encode(register.getPassword()));
 		
 		// 주민번호 뒷자리 암호화
-		register.setPerson_num2(encoder.encode(register.getPerson_num2()));
+		// register.setPerson_num2(encoder.encode(register.getPerson_num2()));
 		
 		// 회원가입
 		boolean result = mapper.insert(register)==1?true:false;
+		
+		// AuthDTO auth = new AuthDTO(register.getUser_id(), "ROLE_ADMIN");
+		// mapper.registerAuth(auth);
 		
 		// 권한 부여
 		AuthDTO auth = new AuthDTO(register.getUser_id(), "ROLE_USER");

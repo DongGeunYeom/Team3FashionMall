@@ -112,6 +112,12 @@ public class CartServiceImpl implements CartService {
 		return mapper.updateTamunt(t_amount, p_code);
 	}
 
+	//주문 리스트 삭제
+	@Override
+	public boolean orderListDelete(String user_id) {
+		return mapper.orderListDelete(user_id);
+	}
+
 	
 	
 }
