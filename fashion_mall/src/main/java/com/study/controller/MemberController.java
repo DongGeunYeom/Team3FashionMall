@@ -120,14 +120,12 @@ public class MemberController {
 		
 		//이메일 인증으로 바꿔주기
 		
-		log.info("아이디 찾기 폼 요청 "+memberDto.getName()+" "+memberDto.getPerson_num1()+" "+memberDto.getPerson_num2());
+		log.info("아이디 찾기 폼 요청 "+memberDto.getName());
 		
-		MemberDTO findid = service.findId(memberDto.getName(), memberDto.getPerson_num1());
+		MemberDTO findid = service.findId(memberDto.getName());
 		
 		if(findid != null) {
 			
-			log.info("주민번호 뒷자리 확인");
-			log.info("db에서 불러 온거 "+findid.getPerson_num2()+" 지금 받은거 : "+memberDto.getPerson_num2());
 			if(encoder.matches(memberDto.getPerson_num2(), findid.getPerson_num2())) {
 				
 				rttr.addFlashAttribute("name", memberDto.getName());
