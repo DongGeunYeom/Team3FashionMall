@@ -13,10 +13,10 @@ public interface MemberService {
 	// --------------------------------------------
 
    //아이디 찾기
-   public MemberDTO findId(String name, int person_num1);
+   public MemberDTO findId(String name, String email);
 
    //비밀번호 찾기
-   public MemberDTO findPwd(String name, int person_num1, String userid);
+   public MemberDTO findPwd(String name, String userid);
    
    //비밀번호 수정
    public boolean pwdModify(String userid, String password);

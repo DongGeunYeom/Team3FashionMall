@@ -63,7 +63,7 @@
 					<button class="btn btn-outline-secondary" type="submit" id="findpwd">비밀번호 수정</button>
 		        </div>
 		    </div>
-		    <input type="hidden" name="userid" id="userid" value="${userid}"/>
+		    <input type="hidden" name="user_id" id="user_id" value="${user_id}"/>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }" />
 		</form>
 	   </div>

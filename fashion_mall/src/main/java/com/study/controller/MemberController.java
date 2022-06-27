@@ -116,31 +116,23 @@ public class MemberController {
 	
 	//아이디 찾기
 	@PostMapping("/findid")
-	public String findidPost(MemberDTO memberDto, Model model, RedirectAttributes rttr) {
+	public String findidPost(MemberDTO memberDto, Model model, RedirectAttributes rttr, String userEmail1, String userEmail2) {
 		
 		//이메일 인증으로 바꿔주기
 		
-		log.info("아이디 찾기 폼 요청 "+memberDto.getName());
+		String email = userEmail1 + userEmail2;
 		
-		MemberDTO findid = service.findId(memberDto.getName());
+		log.info("아이디 찾기 폼 요청 "+memberDto.getName()+" "+ email);
 		
-		if(findid != null) {
-			
-			if(encoder.matches(memberDto.getPerson_num2(), findid.getPerson_num2())) {
-				
-				rttr.addFlashAttribute("name", memberDto.getName());
-				rttr.addFlashAttribute("user_id", findid.getUser_id());
-				return "redirect:/member/findSid";
-			}
-			
-			//입력정보가 틀렸다고 정보 띄워주기
-			rttr.addFlashAttribute("check", "false");
-			return "redirect:/member/findid";
-					
+		MemberDTO findid = service.findId(memberDto.getName(), email);
+		
+		if(findid != null) {				
+			rttr.addFlashAttribute("name", memberDto.getName());
+			rttr.addFlashAttribute("user_id", findid.getUser_id());
+			return "redirect:/member/findSid";					
 		}
 		
 		//입력정보가 틀렸다고 정보 띄워주기
-		rttr.addFlashAttribute("check", "false");
 		return "redirect:/member/findid";
 	}
 	
@@ -156,31 +148,26 @@ public class MemberController {
 	
 	//비밀번호 찾기
 	@PostMapping("/findpwd")
-	public String findpwdPost(MemberDTO memberDto, RedirectAttributes rttr) {
+	public String findpwdPost(MemberDTO memberDto, RedirectAttributes rttr, String userEmail1, String userEmail2) {
 		
 		//이메일 인증으로 바꿔주기
+		String email = userEmail1 + userEmail2;
 		
-		log.info("비밀번호 찾기 폼 요청 "+memberDto.getName()+" "+memberDto.getPerson_num1()+" "+memberDto.getPerson_num1()+" "+memberDto.getUser_id());
+		log.info("비밀번호 찾기 폼 요청 "+memberDto.getName()+" "+memberDto.getUser_id()+" "+email);
 			
-		MemberDTO findpwd = service.findPwd(memberDto.getName(), memberDto.getPerson_num1(), memberDto.getUser_id());
+		MemberDTO findpwd = service.myinfo(memberDto.getUser_id());
 		
-		if(findpwd != null) {
+		log.info(findpwd.toString());
+		
+		//현재 내가 친 이메일과 db상 이메일이 맞는지 확인
+		if(findpwd.getEmail() != email) {
+			//아이디 보내는 이유 input hidden으로 하여금 아이디와 일치하는 비밀번호를 바꿔주기 위함
+			rttr.addFlashAttribute("user_id", memberDto.getUser_id());
+			return "redirect:/member/pwdmodify";
 			
-			if(encoder.matches(memberDto.getPerson_num2(), findpwd.getPerson_num2())) {	
-				//널이 아니라면 일단은 수정 페이지로
-				log.info(memberDto.getUser_id());
-				//아이디 보내는 이유 input hidden으로 하여금 아이디와 일치하는 비밀번호를 바꿔주기 위함
-				rttr.addFlashAttribute("user_id", memberDto.getUser_id());
-				return "redirect:/member/pwdmodify";
-			}
-			
-			//입력정보가 틀리면 다시 찾기 페이지로
-			rttr.addFlashAttribute("check", "false");
-			return "redirect:/member/findid";
 		}
 		
 		//입력정보가 틀리면 다시 찾기 페이지로
-		rttr.addFlashAttribute("check", "false");
 		return "redirect:/member/findpwd";
 	}
 	
@@ -193,7 +180,7 @@ public class MemberController {
 	//비밀번호 수정
 	@PostMapping("/pwdmodify")
 	public String pwdmodifyPost(String user_id, String password) {
-		log.info("비밀번호 수정 요청");
+		log.info("비밀번호 수정 요청"+user_id);
 		
 		service.pwdModify(user_id, password);
 		

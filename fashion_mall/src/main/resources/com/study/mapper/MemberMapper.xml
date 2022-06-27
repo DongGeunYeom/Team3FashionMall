@@ -43,19 +43,17 @@
 	<!-- 아이디 찾기 -->
    <!-- 아이디 찾기 할시 resultType이 명확해야 함 -->
    <select id="findId" resultType="com.study.dto.MemberDTO">
-      select user_id, person_num1, person_num2
+      select user_id
       from member
-      where name = #{name} and person_num1 = #{person_num1}
+      where name = #{name} and email = #{email}
    </select>
    
    <!-- 비밀번호 찾기 -->
    <select id="findPwd" resultType="com.study.dto.MemberDTO">
-      select password, person_num2
+      select password
       from member
-      where name = #{name} and person_num1 = #{person_num1} and user_id = #{user_id} 
+      where name = #{name} and user_id = #{user_id} 
    </select>
-   
-   
    
    <!-- 비밀번호 수정 -->
    <update id="pwdmodify">

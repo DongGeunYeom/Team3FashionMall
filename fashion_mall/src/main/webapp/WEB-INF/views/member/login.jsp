@@ -99,7 +99,8 @@
 	    </div>
 	    
     	<!-- <a href="/member/findid">아이디/비밀번호 찾기</a> -->
-    	<button type="button" class="btn btn-outlien-secondary" id="findid">아이디/비밀번호 찾기</button>
+    	<button type="button" class="btn btn-outline-secondary" id="findid">아이디 찾기</button>
+    	<button type="button" class="btn btn-outline-secondary" id="findpwd">비밀번호 찾기</button>
 	        
 	    <div> 
 	    	<p>    
@@ -120,6 +121,12 @@ $("#findid").click(function(){
 	// 아이디 찾기로 이동
 	$("#login").attr("action","/member/findid");
 	location.href="/member/findid";
+})
+
+$("#findpwd").click(function(){
+	// 아이디 찾기로 이동
+	$("#login").attr("action","/member/findpwd");
+	location.href="/member/findpwd";
 })
 </script>
 </body>

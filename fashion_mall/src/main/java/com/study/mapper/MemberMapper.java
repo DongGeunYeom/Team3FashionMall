@@ -22,10 +22,10 @@ public interface MemberMapper {
 	// ------------------------------
 	
    //아이디 찾기
-   public MemberDTO findId(@Param("name") String name, @Param("person_num1") int person_num1);
+   public MemberDTO findId(@Param("name") String name, @Param("email") String email);
    
    //비밀번호 찾기
-   public MemberDTO findPwd(@Param("name") String name, @Param("person_num1") int person_num1, @Param("user_id") String userid);
+   public MemberDTO findPwd(@Param("name") String name, @Param("user_id") String userid);
    
    //비밀번호 수정
    public boolean pwdmodify(@Param("user_id") String userid, @Param("password") String password);

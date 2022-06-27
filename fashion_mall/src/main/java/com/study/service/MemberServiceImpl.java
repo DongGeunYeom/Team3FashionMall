@@ -59,14 +59,14 @@ public class MemberServiceImpl implements MemberService {
 	
    //아이디 찾기
    @Override
-   public MemberDTO findId(String name, int person_num1) {
-      return mapper.findId(name, person_num1);
+   public MemberDTO findId(String name, String email) {
+      return mapper.findId(name, email);
    }
 
    //비밀번호 찾기
    @Override
-   public MemberDTO findPwd(String name, int person_num1, String userid) {
-      return mapper.findPwd(name, person_num1, userid);
+   public MemberDTO findPwd(String name, String userid) {
+      return mapper.findPwd(name,userid);
    }
 
    // 비밀번호 수정
