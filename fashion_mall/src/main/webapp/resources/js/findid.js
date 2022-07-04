@@ -14,7 +14,7 @@ $(function(){
 		
 		$.ajax({
 			type:'get',
-			url : 'mailCheck?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+			url : 'mailCheck1?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
 			success : function (data) {
 				console.log("data : " +  data);
 				checkInput.attr('disabled',false);

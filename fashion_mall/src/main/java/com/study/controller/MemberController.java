@@ -63,8 +63,8 @@ public class MemberController {
 	}
 	
 	
-	//이메일 인증
-	@GetMapping("/mailCheck")
+	//이메일 인증 아이디 찾기 / 비번 찾기
+	@GetMapping("/mailCheck1")
 	@ResponseBody
 	public String mailCheck(String email) {
 		System.out.println("이메일 인증 요청이 들어옴!");
@@ -119,7 +119,6 @@ public class MemberController {
 	public String findidPost(MemberDTO memberDto, Model model, RedirectAttributes rttr, String userEmail1, String userEmail2) {
 		
 		//이메일 인증으로 바꿔주기
-		
 		String email = userEmail1 + userEmail2;
 		
 		log.info("아이디 찾기 폼 요청 "+memberDto.getName()+" "+ email);
