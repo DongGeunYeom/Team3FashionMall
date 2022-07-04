@@ -125,7 +125,8 @@ public class MemberController {
 		
 		MemberDTO findid = service.findId(memberDto.getName(), email);
 		
-		if(findid != null) {				
+		if(findid != null) {	
+			log.info(findid.getUser_id());
 			rttr.addFlashAttribute("name", memberDto.getName());
 			rttr.addFlashAttribute("user_id", findid.getUser_id());
 			return "redirect:/member/findSid";					

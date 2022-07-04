@@ -67,7 +67,6 @@ select count(userid) from Member;
 
 select * from member;
 
-
 -- Product 테이블에 reg_date 컬럼 추가
 ALTER TABLE Product ADD reg_date 	date default sysdate;
 
