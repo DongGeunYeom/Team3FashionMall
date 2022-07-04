@@ -1,6 +1,7 @@
 package com.study.controller;
 
 import java.security.Principal;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,6 +27,14 @@ import com.study.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
 
+import javax.mail.Message;
+import javax.mail.internet.MimeMessage;
+
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+
+
 @Slf4j
 @Controller
 @RequestMapping("/member/*")
@@ -43,18 +52,19 @@ public class MemberController {
 	@Autowired
 	private EmailSend senderService;
 	
+	
+	@Autowired
+	private JavaMailSender mailSender;
+	
+	
 	@GetMapping("/regist")
 	public void getRegister() {
 		log.info("regist() 회원가입 폼 호출");
 	}
 		
 	@PostMapping("/regist")
-	public String register(MemberDTO regist, String userEmail1, String userEmail2) {
+	public String register(MemberDTO regist) {
 		log.info("회원가입 요청 " + regist);
-		
-		String email = userEmail1 + userEmail2; 
-		
-		regist.setEmail(email); 
 		
 		if(service.register(regist)) {	// 회원가입 성공 시 
 			return "redirect:/member/login";	// 로그인 페이지 보여주기
@@ -62,9 +72,8 @@ public class MemberController {
 		return "/member/register";
 	}
 	
-	
-	//이메일 인증
-	@GetMapping("/mailCheck")
+	//이메일 인증 아이디 찾기 / 비번 찾기
+	@GetMapping("/mailCheck1")
 	@ResponseBody
 	public String mailCheck(String email) {
 		System.out.println("이메일 인증 요청이 들어옴!");
@@ -72,6 +81,59 @@ public class MemberController {
 		
 		return senderService.sendEmail(email);
 	}
+	
+	
+	// --------------------------------------------------------------
+	// 회원가입 시 인증메일 전송
+	/* 이메일 인증 */
+    @GetMapping("/mailCheck")
+    @ResponseBody
+    public String mailCheckGET(String email) throws Exception{
+        
+        /* 뷰(View)로부터 넘어온 데이터 확인 */
+        log.info("이메일 데이터 전송 확인");
+        log.info("인증 메일 주소 : " + email);
+        
+        /* 인증번호(난수) 생성 */
+        Random random = new Random();
+        int checkNum = random.nextInt(888888) + 111111;
+        log.info("인증번호 : " + checkNum);
+        
+        
+        /* 이메일 보내기 */
+        String setFrom = "mdr111333@gmail.com";		// 아이디말고 이메일 전체 주소		ex) hong123@gmail.com
+        String toMail = email;	// 수신받을 이메일. regist.jsp에서 받은 이메일 주소인 변수 email 사용.
+        String title = "KED'LOS 회원가입 인증 이메일 입니다.";	// 보낼 이메일의 제목
+        String content = 
+                "KED'LOS를 방문해주셔서 감사합니다." +
+                "<br><br>" + 
+                "인증 번호는 " + checkNum + "입니다." + 
+                "<br>" + 
+                "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+        
+        
+        
+        try {
+            
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            helper.setFrom(setFrom);
+            helper.setTo(toMail);
+            helper.setSubject(title);
+            helper.setText(content,true);
+            mailSender.send(message);
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        // 인증번호(checkNum)를 String 타입으로 형변환 값을 String 타입 변수 num에 할당한다
+        String num = Integer.toString(checkNum);
+        
+        return num;
+    }
+	
+	
 		
 	// 로그인
 	@GetMapping("/login")
@@ -119,12 +181,13 @@ public class MemberController {
 	public String findidPost(MemberDTO memberDto, Model model, RedirectAttributes rttr, String userEmail1, String userEmail2) {
 		
 		//이메일 인증으로 바꿔주기
-		
 		String email = userEmail1 + userEmail2;
 		
 		log.info("아이디 찾기 폼 요청 "+memberDto.getName()+" "+ email);
 		
 		MemberDTO findid = service.findId(memberDto.getName(), email);
+		
+		log.info(findid.toString());
 		
 		if(findid != null) {				
 			rttr.addFlashAttribute("name", memberDto.getName());
