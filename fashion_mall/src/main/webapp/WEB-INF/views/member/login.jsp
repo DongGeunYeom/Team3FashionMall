@@ -98,14 +98,18 @@
 	      <label for="password">Password</label>
 	    </div>
 	    
+	    <!-- 로그인 에러 -->
+	      <div>
+	        <p style="color: red;">${loginError}</p>
+	      </div>
+
     	<!-- <a href="/member/findid">아이디/비밀번호 찾기</a> -->
     	<button type="button" class="btn btn-outline-secondary" id="findid">아이디 찾기</button>
     	<button type="button" class="btn btn-outline-secondary" id="findpwd">비밀번호 찾기</button>
 	        
-	    <div> 
-	    	<p>    
-	    	</p>
-	    </div>
+	    <div> <p>
+	    
+	    </p></div>
 	    
 	   	<div class="form-floating" style="width : 100%; text-align : center" >
 		    <div style="display:inline-block"><button class="w-100 btn btn-lg btn-primary" type="submit" >로그인</button></div>

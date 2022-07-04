@@ -55,6 +55,22 @@
     	display: none;
     }
     
+ 	/* 인증 메일 발송 관련 css */
+	#mail_check_input_box_false{
+	    background-color:#ebebe4;
+	}
+	 
+	#mail_check_input_box_true{
+	    background-color:white;
+	}
+     
+    .correct{
+    	color : green;
+	}
+	.incorrect{
+	    color : red;
+	}
+    
   </style>
   
 </head>
@@ -150,6 +166,7 @@
             <small id="email" class="text-info"></small>
           </div>
         </div> -->
+        <!--  
 		<label for="email">이메일</label>
         <div class="row">
         	<div class="col-md-8 mb-3">
@@ -179,7 +196,31 @@
 					<span id="mail-check-warn"></span>
 				</div>
 			</div>
+		-->
 		
+		
+		 <!-- 이메일 -->
+        <div class="mail_wrap">
+	         <label for="email">이메일</label>
+	          <div class="row mail_input_box">
+	          	<div class="col-md-4 mb-4">
+		        	<input type="email" class="form-control mail_input" id="email" name="email" placeholder="email@example.com">
+	            	<small id="email" class="text-info"></small>
+		        </div>
+	          	<div class="col-md-3 mb-4">
+		        	<button type="button" id="mail_check_button" class="btn btn-info btn-md btn-block">인증번호 전송</button>
+		        </div>
+	          </div> 
+	           <div class="row mail_check_wrap">
+		          <div class="col-md-4 mb-4 mail_check_input_box" id="mail_check_input_box_false" >
+			        <input type="text" class="form-control mail_check_input" name="email_check" id="email_check" disabled="disabled" required>
+		            <small id="email_check" class="text-info"></small>
+			      </div> 
+			      <div class="clearfix"></div>
+	              <span id="mail_check_input_box_warn"></span>
+			  </div>    
+		  </div>  		  
+		  
 		
 
           <div class="mb-3">
@@ -294,64 +335,68 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
 let csrfHeaderName = "${_csrf.headerName}";
 let csrfTokenValue = "${_csrf.token}";
 
-// 메일 인증
-$('#mail-Check-Btn').click(function() {
-	const email = $('#userEmail1').val() + $('#userEmail2').val(); // 이메일 주소값 얻어오기!
-	console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
-	const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
-	
-	$.ajax({
-		type:'get',
-		url : 'mailCheck?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
-		success : function (data) {
-			console.log("data : " +  data);
-			checkInput.attr('disabled',false);
-			code = data;
-			alert('인증번호가 전송되었습니다.')
-		},
-	}); // end ajax
-	
-}); // end send eamil
-// 메일 인증
 
-// 인증번호가 왔을 시
-$('.mail-check-input').blur(function () {
-	const inputCode = $(this).val();
-	const $resultMsg = $('#mail-check-warn');
+
+//---------------------------------------------------------
+//이메일 전송 관련 스크립트
+
+//인증번호 입력란관련 기능 2가지 - 인증번호 전송이 정상적으로 작동했을 때에만 진행.
+// 1) 인증번호 입력란 태그의 속성 disabled 속성 값이 변경
+//    
+// 2) 인증번호 입력란의 배경색 변경
+
+
+//Controller 로 부터 전달받은 인증번호를 뷰에 저장하는 코드.
+//사용자가 입력한 인증번호와 비교할 수 있도록 하기위해서.
+var code = "";		// 이메일 인증번호 저장를 저장하기 위해서 선언.
+
+/* 인증번호 이메일 전송 */
+$("#mail_check_button").click(function(){
+ 
+	alert('인증메일이 발송되었습니다.');
 	
-	if(inputCode === code){
-		$resultMsg.html('인증번호가 일치합니다.');
-		$resultMsg.css('color','green');
-		$('#mail-Check-Btn').attr('disabled',true);
-		$('#userEamil1').attr('readonly',true);
-		$('#userEamil2').attr('readonly',true);
-		$('#userEmail2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
-        $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
-	}else{
-		$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!');
-		$resultMsg.css('color','red');
-	}
-	
+ var email = $("#email").val();        // 입력한 이메일
+ var checkBox = $(".mail_check_input");        // 인증번호 입력란
+ var boxWrap = $(".mail_check_input_box");    // 인증번호 입력란 박스
+ 
+ $.ajax({
+     
+     type:"GET",
+     url:"mailCheck?email=" + email,
+		success:function(data){
+			
+         //console.log("data : " + data);	// 데이터 controller로 정상적으로 반환받았는지 확인하기 위한 코드. 정상적으로 들어왔는지 확인 후 지워주기
+			checkBox.attr("disabled",false);	// 이메일 인증 입력란 (.mail_check_input)이 입력가능하도록 속성 변경
+			boxWrap.attr("id", "mail_check_input_box_true");	// 이메일 인증 번호 입력란의 색상이 변경되도록 id 속성 변경
+         code = data;
+         
+		}		
+             
+ });
+ 
 });
-// 인증번호가 왔을 시
 
-// 가입버튼 클릭시 인증번호가 같을 때 와 다를때
-$("#regist_submit").click(function(e){
-	e.preventDefault();
+
+
+/* 인증번호 비교 */
+
+//해당 메소드는 인증번호 입력란에 데이터를 입력한 뒤 마우스로 다른 곳을 클릭 시에 실행됨.
+$(".mail_check_input").blur(function(){
 	
-	const $resultMsg = $('#mail-check-warn').html();
-	
-	if($resultMsg == '인증번호가 일치합니다.'){
-		$("#regist").submit();
-	}else if($resultMsg == ''){
-		//나중에 빈칸인건 register1.js에 유효성 검증으로 넘겨줘도 됨 
-		alert('본인 인증을 해주세요.');
-	}else{
-		alert('인증번호를 확인해 주세요.');
-	}
-	
-})
-// 가입버튼 클릭시 인증번호가 같을 때 와 다를때 끝
+	var inputCode = $(".mail_check_input").val();        // 입력코드    
+ var checkResult = $("#mail_check_input_box_warn");    // 비교 결과     
+ 
+ // inputCode : 사용자 입력 번호 / code : 이메일로 전송된 인증번호
+ if(inputCode == code){                            // 일치할 경우
+     checkResult.html("인증번호가 일치합니다.");
+     checkResult.attr("class", "correct");        
+ } else {                                            // 일치하지 않을 경우
+     checkResult.html("인증번호를 다시 확인해주세요.");
+     checkResult.attr("class", "incorrect");
+ }   
+ 
+});
+
 
 
 </script>   

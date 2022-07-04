@@ -398,3 +398,7 @@ select uuid, uploadpath, filename, p_a.p_code, p_price, p_name, p_type, p.p_cont
 from productattach p_a left outer join product p on p_a.p_code = p.p_code
 where t_amount > 0
 order by p.p_sale desc;
+
+
+
+select * from member;
