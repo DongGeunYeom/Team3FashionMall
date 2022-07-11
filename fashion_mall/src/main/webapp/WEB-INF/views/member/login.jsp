@@ -86,7 +86,9 @@
 <body class="text-center">
 	<main class="form-signin w-100 m-auto">
 	  <form id="login" method="post" action="/login">
+	  <a href='/'>
 	    <img class="mb-4" src="/resources/images/logo_01.png" alt="" width="200">
+	  </a>
 	    <h1 class="h3 mb-3 fw-normal">Login</h1>
 	
 	    <div class="form-floating">
