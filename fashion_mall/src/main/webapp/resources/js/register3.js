@@ -96,8 +96,6 @@ $(function() {
 		
 		var inputCode = $(".mail_check_input").val();        // 입력코드    
 		
-		const idCheckResult2 = $('#id_check').html();			
-
 		const checkResult2 = $("#mail_check_input_box_warn").html();
 		
 	 	if(inputCode != code){                            // 일치X
@@ -108,12 +106,7 @@ $(function() {
 		console.log('-----------------------------------')
 		console.log('메일 인증 확인')
 		console.log('inputCode : ' + inputCode );
-		console.log('checkResult2 값 : ' + checkResult2);
-		// 확인용
-		console.log('-----------------------------------')
-		console.log('아이디 중복 확인')
-		console.log('idCheckResult2 값 : ' + idCheckResult2);
-		
+		console.log('checkResult2 값 : ' + checkResult2);		
 
 
 		if(checkResult2 == '인증번호가 일치합니다.' ){
