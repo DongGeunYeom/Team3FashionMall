@@ -60,11 +60,23 @@
 	
     <!-- 이메일 인증 관련 빈 등록 -->
      <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+     
+     <!-- 
        <property name="host" value="smtp.gmail.com" />
        <property name="port" value="587" />
        <property name="username" value="mdr111333@gmail.com" />
        <property name="password" value="" />                                                              
        <property name="javaMailProperties">
+     
+      -->
+       
+       
+      <property name="host" value="smtp.gmail.com"/> <!-- 메인서버 호스트 -->
+      <property name="port" value="465"/> <!-- 메인서버 포트번호 -->
+      <property name="username" value="soooohyuneeee"/> <!-- 자신의 이메일 아이디 -->
+      <property name="password" value="vulrysoforoxvroy"/> <!-- 자신의 비밀번호 -->
+       <property name="javaMailProperties">
+       
             <props>
            		<prop key="mail.transport.protocol">smtp</prop>
                 <prop key="mail.smtp.auth">true</prop>

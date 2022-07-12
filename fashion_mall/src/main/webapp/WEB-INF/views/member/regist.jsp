@@ -99,7 +99,7 @@
     <div class="input-form-backgroud row">
       <div class="input-form col-md-12 mx-auto">
         <h4 class="mb-3">회원가입</h4>
- 		<form id="regist" method="post" action="/member/regist" onSubmit="return false;">
+ 		<form id="regist" method="post" action="/member/regist" >
  			
  		  <!-- 이름 -->
           <div class="row">
