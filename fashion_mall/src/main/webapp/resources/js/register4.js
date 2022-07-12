@@ -137,7 +137,6 @@ $(function() {
 	 	var checkResult = $("#mail_check_input_box_warn");    // 비교 결과   
 	
 		var inputCode = $(".mail_check_input").val();        // 입력코드    
-	
 	 
 	 	// inputCode : 사용자 입력 번호 / code : 이메일로 전송된 인증번호
 	 	if(inputCode == code){                            // 일치할 경우
