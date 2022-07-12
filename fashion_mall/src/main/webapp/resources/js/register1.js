@@ -31,17 +31,12 @@ $(function () {
 		required: true,
 		validName : true,
 	  },
-      person_num1 : {
+     email : {
         required: true,
-		validPersonNum1 : true,
       },
-      person_num2 : {
+	 email_check : {
         required: true,
-		validPersonNum2 : true,
-      },
-      userEmail1 : {
-        required: false,
-      },
+	  },
       address : {
         required: false,
       },
@@ -66,17 +61,15 @@ $(function () {
       phone_num: {
         required: "핸드폰 번호는 필수 입력 요소입니다.",
       },
-      userEmail1: {
+      email: {
         required: "이메일은 필수 입력 요소입니다.",
+        email: "이메일 형식을 확인해 주세요",
       },
+	  email_check: {
+        required: "이메일 인증번호는 필수 입력 요소입니다.",
+	  },
       name: {
         required: "이름은 필수 입력 요소입니다.",
-      },
-      person_num1 : {
-        required: "주민등록 번호 앞자리는 필수 입력 요소입니다.",
-      },
-      person_num2 : {
-        required:  "주민등록 번호 뒷자리는 필수 입력 요소입니다.",
       },
       aggrement : {
         required:  "이용약관에 동의해주세요.",
@@ -133,25 +126,10 @@ $.validator.addMethod(
 );
 
 
-$.validator.addMethod(
-  "validPersonNum1",
-  function (data) {
-    const regPerNum1 =
-      /^(?=.*[0-9])[0-9]{6}$/;
-    return regPerNum1.test(data);
-  },
-  "주민등록번호 앞자리는 6자리 숫자만 가능합니다."
-);
 
-$.validator.addMethod(
-  "validPersonNum2",
-  function (data) {
-    const regPerNum2 =
-      /[1-4]\d{6}/;
-    return regPerNum2.test(data);
-  },
-  "주민등록번호 뒷자리는 7자리 숫자만 가능합니다."
-);
+ 
+
+ 
 
 
 // 주민번호
