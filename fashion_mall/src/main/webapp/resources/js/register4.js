@@ -149,8 +149,6 @@ $(function() {
 		} 
 		
 		
-		
-		
 		// inputCode, code 갖고 오는지 확인
 		console.log('사용자가 입력한 인증번호(inputCode) : ' + inputCode );
 		console.log('발급된 인증번호(code) : ' + code );
@@ -168,16 +166,12 @@ $(function() {
 		
 		e.preventDefault();
 		
-		var inputCode = $(".mail_check_input").val();        // 입력코드    
+		var inputCode = $("#email_check").val();        // 입력코드    
 		
 		const idCheckResult2 = $('#id_check').html();			
 
 		const checkResult2 = $("#mail_check_input_box_warn").html();
 		
-	 	if(inputCode != code){                            // 일치X
-			alert('인증번호를 확인해 주세요.');
-	 	}
-	
 		// 값 넘어오는지 확인용
 		console.log('-----------------------------------')
 		console.log('메일 인증 확인')
@@ -190,9 +184,18 @@ $(function() {
 		console.log('idCheckResult2 값 : ' + idCheckResult2);
 		console.log('');
 		
-		if(inputCode == code && idCheckResult2 == '사용 가능한 아이디입니다.') {
+		console.log(inputCode == code);
+		console.log(idCheckResult2 == '사용 가능한 아이디입니다.');
+		
+		// 따로 떨어져 있던 if문들을 일단 모아줬고 그다음에 checkResult2 != '' 를 추가해서 빈칸이면 false가 뜨게해서 다음 if문으로 넘어가게 해줌
+		if(inputCode == code && idCheckResult2 == '사용 가능한 아이디입니다.' && checkResult2 != '') {
+			console.log('여기는 들어오는지 확인');
 			$('#regist').submit();
-		}
+		}else if(checkResult2 == '') {
+			alert('이메일로 본인 인증을 해주세요');		// 인증번호 입력란에 아무것도 입력하지 않으면 alert창 띄워주기
+		}else if(inputCode != code){                            // 일치X
+			alert('인증번호를 확인해 주세요.');
+	 	}
 		
 //		if(checkResult2 == '인증번호가 일치합니다.' && idCheckResult2 == '사용 가능한 아이디입니다.'){
 //			$('#regist').submit();
@@ -206,16 +209,9 @@ $(function() {
 			
 		} 
 		
-		if(checkResult2 == '') {
-			alert('이메일로 본인 인증을 해주세요');		// 인증번호 입력란에 아무것도 입력하지 않으면 alert창 띄워주기
-		
-		}  
-
 		
 		
 		
-		
-
 
 	});	
 	
