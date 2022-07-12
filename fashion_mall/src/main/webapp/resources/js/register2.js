@@ -1,9 +1,7 @@
 /**
- * regist.jsp 폼 유효성 검증
- * jquery validation plug-in 사용
+ * 중복확인 버튼 클릭 시 아이디 중복 체크
  */
 
-// 중복확인 버튼 클릭 시 아이디 중복 체크
 
 $(function() {
 	
@@ -13,7 +11,9 @@ $(function() {
 		var userid = $("#user_id").val();	// id 값이 "userid"인 입력란의 값을 저장
 					
 		
-		var idCheckResult1 = $('#id_check');		
+		var idCheckResult1 = $('#id_check');	
+		
+		
 					
 					
 			$.ajax({
@@ -43,7 +43,11 @@ $(function() {
 						idCheckResult1.html('사용 가능한 아이디입니다.');
 						idCheckResult1.attr('class', 'id_ok');
 						
-					} else {	// cnt 가 1일 경우 -> 이미 존재하는 아이디
+						
+						
+						
+					} else {	
+						// cnt 가 1일 경우 -> 이미 존재하는 아이디
 						// $('.id_already').css("display", "inline-block");
 						// $('.id_ok').css("display", "none");
 						// alert('아이디를 다시 입력해주세요');
@@ -60,12 +64,16 @@ $(function() {
 				error: function() {
 					alert("에러입니다.");
 				},				
-			});			
+			});
 			
 			
-
-		
-			
+			if(userid == '') {
+				alert('아이디를 입력해주세요');
+				
+				idCheckResult1.html('');
+			}
+						
+						
 	});
 	
 	
@@ -81,15 +89,22 @@ $(function() {
 			$('#regist').submit();
 		} else if(idCheckResult2 == '이미 사용되고 있는 아이디입니다.') {
 			alert('이미 사용되고 있는 아이디입니다. 다른 아이디를 입력해주세요.')
+			
 		} else if(idCheckResult2 == '') {
 			alert('아이디 중복 확인을 해주세요.');		
+			
 		} else {
 			alert('아이디 중복 확인을 체크해주세요.');
 					
 		}
+		
+		// 확인용
+		console.log('-----------------------------------')
+		console.log('아이디 중복 확인')
+		console.log('idCheckResult2 값 : ' + idCheckResult2);
+		
 			
 	});
-	
 	
 })
 

@@ -1,19 +1,87 @@
 /**
- * regist.jsp에서 사용될 자바 스크립트 파일
+ *  register 2(아이디 중복확인) + register 3(메일 인증) 합쳐보기
+ *  (가입완료 버튼 클릭 시 실행되는 액션 합침)
  */
 
-
-
-//---------------------------------------------------------
-//이메일 전송 관련 스크립트
-
-//인증번호 입력란관련 기능 2가지 - 인증번호 전송이 정상적으로 작동했을 때에만 진행.
-// 1) 인증번호 입력란 태그의 속성 disabled 속성 값이 변경
-//    
-// 2) 인증번호 입력란의 배경색 변경
-
-
 $(function() {
+	
+	// ------------------------------------------register2 시작
+	$("#checkId").click(function() {
+		
+		
+		var userid = $("#user_id").val();	// id 값이 "userid"인 입력란의 값을 저장
+					
+		
+		var idCheckResult1 = $('#id_check');	
+		
+		
+					
+					
+			$.ajax({
+				url:'/member/idCheck',	// Controller 에서 요청받을 주소
+				type:'post',	// post 방식으로 전달
+				data:{user_id:userid},
+				beforeSend:function(xhr){
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
+//				success:function(cnt) {	// 컨트롤러에서 넘어온 cnt 값을 받는다.
+//					if(cnt == 0) {	// cnt 가 1이 아니면(=0일 경우) -> 사용가능한 아이디
+//						$('.id_ok').css("display", "inline-block");
+//						$('.id_already').css("display", "none");
+//					} else {	// cnt 가 1일 경우 -> 이미 존재하는 아이디
+//						$('.id_already').css("display", "inline-block");
+//						$('.id_ok').css("display", "none");
+//						alert('아이디를 다시 입력해주세요');
+//						$('#userid').val('');
+//					}
+//				},
+				
+				success:function(cnt) {	// 컨트롤러에서 넘어온 cnt 값을 받는다.
+					if(cnt == 0) {	// cnt 가 1이 아니면(=0일 경우) -> 사용가능한 아이디
+						// $('.id_ok').css("display", "inline-block");
+						// $('.id_already').css("display", "none");
+						
+						idCheckResult1.html('사용 가능한 아이디입니다.');
+						idCheckResult1.attr('class', 'id_ok');
+						
+						
+						
+						
+					} else {	
+						// cnt 가 1일 경우 -> 이미 존재하는 아이디
+						// $('.id_already').css("display", "inline-block");
+						// $('.id_ok').css("display", "none");
+						// alert('아이디를 다시 입력해주세요');
+						// $('#userid').val('');
+						
+						idCheckResult1.html('이미 사용되고 있는 아이디입니다.');
+						idCheckResult1.attr('class', 'id_already');
+						alert('아이디를 다시 입력해주세요');
+						$('#userid').val('');
+						
+					}
+				},
+				
+				error: function() {
+					alert("에러입니다.");
+				},				
+			});
+			
+			
+			if(userid == '') {
+				alert('아이디를 입력해주세요');
+				
+				idCheckResult1.html('');
+			}
+						
+						
+	});
+	
+	
+	
+	// ------------------------------------------register2 끝
+	
+	// ------------------------------------------register3 시작
 	
 	//Controller 로 부터 전달받은 인증번호를 뷰에 저장하는 코드.
 	//사용자가 입력한 인증번호와 비교할 수 있도록 하기위해서.
@@ -89,6 +157,12 @@ $(function() {
 		
 	});
 	
+	
+	
+	
+	
+	
+	// 왜 안돼..........
 	// 가입 완료 버튼(#regist_submit) 클릭시 실행
 	$('#regist_submit').click(function(e) {
 		
@@ -104,29 +178,56 @@ $(function() {
 			alert('인증번호를 확인해 주세요.');
 	 	}
 	
-		// 확인용
+		// 값 넘어오는지 확인용
 		console.log('-----------------------------------')
 		console.log('메일 인증 확인')
+		console.log('code : ' + code)
 		console.log('inputCode : ' + inputCode );
 		console.log('checkResult2 값 : ' + checkResult2);
 		// 확인용
 		console.log('-----------------------------------')
 		console.log('아이디 중복 확인')
 		console.log('idCheckResult2 값 : ' + idCheckResult2);
+		console.log('');
 		
-
-
-		if(checkResult2 == '인증번호가 일치합니다.' ){
+		if(inputCode == code && idCheckResult2 == '사용 가능한 아이디입니다.') {
 			$('#regist').submit();
-		} else if(checkResult2 == '') {
-			alert('이메일로 본인 인증을 해주세요');		// 인증번호 입력란에 아무것도 입력하지 않으면 alert창 띄워주기
 		}
 		
+//		if(checkResult2 == '인증번호가 일치합니다.' && idCheckResult2 == '사용 가능한 아이디입니다.'){
+//			$('#regist').submit();
+//		} 
+
+		if(idCheckResult2 == '이미 사용되고 있는 아이디입니다.') {
+			alert('이미 사용되고 있는 아이디입니다. 다른 아이디를 입력해주세요.')
+			
+		} else if(idCheckResult2 == '') {
+			alert('아이디 중복 확인을 해주세요.');		
+			
+		} 
+		
+		if(checkResult2 == '') {
+			alert('이메일로 본인 인증을 해주세요');		// 인증번호 입력란에 아무것도 입력하지 않으면 alert창 띄워주기
+		
+		}  
+
+		
+		
 		
 		
 
 
-	});
+	});	
+	
+	
+	
+	
+	
+	// ------------------------------------------register3 끝
+	
+	
+	
+	
 	
 })
 

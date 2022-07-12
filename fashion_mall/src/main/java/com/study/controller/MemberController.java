@@ -101,7 +101,8 @@ public class MemberController {
         
         
         /* 이메일 보내기 */
-        String setFrom = "mdr111333@gmail.com";		// 아이디말고 이메일 전체 주소		ex) hong123@gmail.com
+        // String setFrom = "mdr111333@gmail.com";		// 아이디말고 이메일 전체 주소		ex) hong123@gmail.com
+        String setFrom = "soooohyuneeee@gmail.com";		// 아이디말고 이메일 전체 주소		ex) hong123@gmail.com
         
         String toMail = email;	// 수신받을 이메일. regist.jsp에서 받은 이메일 주소인 변수 email 사용.
         String title = "KED'LOS 회원가입 인증 이메일 입니다.";	// 보낼 이메일의 제목

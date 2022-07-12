@@ -20,10 +20,15 @@
     
     <!-- validation 사용자 작성 코드 삽입-->
     <script src="/resources/js/register1.js"></script>
+    <!--     
     <script src="/resources/js/register2.js"></script>
+     -->
     
-    <!-- 이메일 인증 관련 자바 스크립트 -->
-	<script src="/resources/js/register3.js"></script>
+    <!-- 이메일 인증 관련 자바 스크립트 
+	<script src="/resources/js/register3.js"></script> -->
+	
+	
+	<script src="/resources/js/register4.js"></script>
 
 
 
@@ -94,7 +99,7 @@
     <div class="input-form-backgroud row">
       <div class="input-form col-md-12 mx-auto">
         <h4 class="mb-3">회원가입</h4>
- 		<form id="regist" method="post" action="/member/regist">
+ 		<form id="regist" method="post" action="/member/regist" onSubmit="return false;">
  			
  		  <!-- 이름 -->
           <div class="row">
