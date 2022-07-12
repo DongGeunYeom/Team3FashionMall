@@ -78,9 +78,6 @@ $(function() {
 		
 		const checkResult2 = $("#mail_check_input_box_warn").html();
 		
-
-
-
 		if(checkResult2 == '인증번호가 일치합니다.'){
 			$('#regist').submit();
 		} else if(checkResult2 == '') {
@@ -88,10 +85,6 @@ $(function() {
 		} else {
 			alert('인증번호를 확인해 주세요.');
 		}
-
-
-		
-
 
 	});
 	
