@@ -29,10 +29,10 @@
 		<!-- remember-me -->
 		<security:remember-me data-source-ref="ds" token-validity-seconds="604800"/>
 		
-		 <!-- <security:intercept-url pattern="/user-page" access="hasRole('ROLE_USER')"/> -->
-      <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
-       <security:access-denied-handler error-page="/access-denied" />  
-       <security:access-denied-handler ref="customAccessDeniedHandler" /> 
+		<!-- <security:intercept-url pattern="/user-page" access="hasRole('ROLE_USER')"/> -->
+        <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <security:access-denied-handler error-page="/access-denied" />  
+        <security:access-denied-handler ref="customAccessDeniedHandler" /> 
 	</security:http>
 	
 	<security:authentication-manager>
