@@ -3,14 +3,86 @@
  */
 $(function(){
 	
-	//사진 가져오기부터 해보자
-	
-	
-	function searchImage(){
-		let searchimg=$("#search-img");
+
+	//첨부파일 가져오기 - 무조건 실행
+	//bno 안 넘겨주고 그냥 모든 리스트 다 가져오기
+	/*$.getJSON({
+		url:'getSearchAttachList',
+		data:{p_code:pcode},
+		success:function(data){
+			console.log('성공?'+data);
+			showUploadFile(data);
+		}
+	})*/
+	$(function(){
+		let p_codeAll=[];
+		let pcodeAll = document.querySelectorAll(".pcode");
+		console.log("매번 p_code를 보내냐?222222"+pcodeAll);
 		
-	}
+	/*	 pcodeAll.len.forEach(element => {
+	           console.log(element);
+			p_codeAll=element.value;
+	     });*/
+
+		for (var i = 0; i < pcodeAll.length; i++) {
+		  p_codeAll[i] = pcodeAll[i].value;  // Calling myNodeList.item(i) isn't necessary in JavaScript
+		}
+		
+		console.log("뭔가 되긴 하는거임?");
+		console.log(p_codeAll);
+		
+		for (var i = 0; i < p_codeAll.length; i++) {
+			$.ajax({
+					url:'getSearchAttachList',
+					dataType:'json',
+					data:{p_code:p_codeAll[i]},
+					success:function(data){
+						console.log('성공?'+p_codeAll[i]);
+						console.log(data);
+						showUploadFile(data);
+					}
+				})
+		  
+		}
+		
+		
+		
+	})
 	
+	
+	
+/*	$.ajax({
+				url:'getSearchAttachList',
+				dataType:'json',
+				data:{p_code:element},
+				success:function(data){
+					console.log('성공?');
+					console.log(data);
+					showUploadFile(data);
+				}
+			})
+				*/
+       
+	
+	
+/*	pcodeAll.forEach(element => {
+            
+			$.ajax({
+				url:'getSearchAttachList',
+				dataType:'json',
+				data:{p_code:element},
+				success:function(data){
+					console.log('성공?');
+					console.log(data);
+					showUploadFile(data);
+				}
+			})
+				
+        });*/
+	
+	
+	
+	// p_code 여기다 받아서 하고  스크립트 자체를 c:if로 돌려서 해주기
 	
 	//페이지 이동 버튼 클릭 활성화
 	let actionForm = $("#actionForm");
@@ -98,6 +170,82 @@ $(function(){
 		//검색 폼 전송
 		searchForm.submit();
 	})
+	
+	function showUploadFile(result){
+		//업로드 결과 영역 가져오기
+		let uploadResult = $(".productImg");
+		
+		let str = "";
+		
+		$(result).each(function(idx,obj){
+				var ImgClass="productImg"
+			
+				//썸네일 이미지 보여주기
+				
+				//썸네일 이미지 경로 
+				console.log("업로드 패스가 어떻게 들어가는데?");
+				let fileCallPath =  encodeURIComponent(obj.uploadpath+"\\"+obj.uuid+"_"+obj.filename);			
+			
+			    //원본파일 이미지 경로
+                let oriPath = obj.uploadpath+"\\"+obj.uuid+"_"+obj.filename;
+			    oriPath = oriPath.replace(new RegExp(/\\/g),"/");		
+				str += "<img src='/displayindex?fileName="+fileCallPath+"' width='230px'>";
+			
+			ImgClass+=obj.p_code;
+			console.log("어떻게불러와지냐아"+ImgClass);
+			console.log(str);
+			append_to_div(ImgClass,str,obj.p_code);
+			
+		});		
+		
+		console.log("업로드 파일 경로");
+		console.log(str);
+		
+		uploadResult.append(str);
+	}//showUploadFile 종료
+	
+	
+	//div에다 html 추가하는 함수
+	function append_to_div(div_name, data,p_code){
+			//document.querySelectorAll(".pcode").innerHTML += data;
+            document.getElementById(div_name).innerHTML += data;
+        	
+	}
+
+              
+			
+			
+			
+			
+			
+			
+/*			 <div class="part">
+			 <input type="hidden" value="${dto.p_code}" id="pcode"/>
+			 
+			 <a href="/board/productDetail?bno=${dto.bno}">
+			 	<img src="" alt="" />
+			 </a>	
+			 
+			 <div id="productImg"></div>
+			 	<div class="text1">${dto.p_name}</div>
+			 	<div class="text2">${dto.p_price}</div>
+			 	<c:if test="${dto.p_disprice == 0}">
+				 	<div class="text3">번호: ${dto.p_code}</div>	 	
+			 	</c:if>
+			 </div>*/
+			
+	
+	
+	
+            append_to_div("productImg",str);
+
+			
+           
+         
+		
+
+
+	
 })
 
 

@@ -7,16 +7,14 @@
 <div class="container">
             <div class="row">
                 <div class="col-lg-12" style="width:100%;">
-                    <h1 class="page-header">Board Read</h1>
+                    <h1 class="page-header">상품 관리</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>            
             <div class="row">
                 <div class="col-lg-12" style="width:100%;">
                 	<div class="panel panel-default">
-                        <div class="panel-heading">
-                           Board Read Page
-                        </div>
+                       
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                 			<form action="" role="form">

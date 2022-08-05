@@ -98,6 +98,7 @@ public class AdminServiceImpl implements AdminService {
 			return attachMapper.list(p_code);
 		}
 
+		//옵션 고쳐주는거 여기서 해야된다.
 		@Override
 		public void updateAdmin(ProductDTO insertDto) {
 			//product update
@@ -111,7 +112,7 @@ public class AdminServiceImpl implements AdminService {
 				}
 			
 			//option update
-			//옵션 개수만큼 루프 돌기
+			//옵션 개수만큼 루프 돌기  -------------------------얘 한번 고쳐봐라
 			insertDto.getOptList().forEach(opt -> {
 						//옵션 삽입
 				adminMapper.updateOpt(opt);	
@@ -119,10 +120,10 @@ public class AdminServiceImpl implements AdminService {
 			
 			//amount update
 			//옵션 개수만큼 루프 돌기
-//			insertDto.getOptList().forEach(opt -> {
-//						//옵션 삽입
-//				adminMapper.updateAmount(opt);	
-//			});	
+		insertDto.getOptList().forEach(opt -> {
+					//옵션 삽입
+			adminMapper.updateAmount(opt);	
+			});	
 			
 		}
 

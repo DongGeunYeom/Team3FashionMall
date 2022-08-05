@@ -37,4 +37,10 @@ public class SearchServiceImpl implements SearchService {
 		return mapper.selectAttach();
 	}
 
+	@Override
+	public List<ProductAttachDTO> selectAttachOne(int p_code) {
+		
+		return mapper.selectAttachOne(p_code);
+	}
+
 }

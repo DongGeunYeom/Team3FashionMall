@@ -105,11 +105,7 @@ public class adminController {
 		return "redirect:/admin/admin_read";
 	}
 	
-	@GetMapping("/accessDenied")
-    public String accessDenied(){
-		log.info("접근제한");
-        return "accessDenied";
-    }
+	
 	
 	
 	

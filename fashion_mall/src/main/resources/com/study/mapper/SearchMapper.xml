@@ -71,13 +71,16 @@
 		<include refid="criteria"></include>
 	</select>
 	
-	<!-- 사진 한개 불러오는거 -->
+	<!-- 사진 여러개 불러오는거 -->
  	<select id="selectAttach" resultType="com.study.dto.ProductAttachDTO">
 		select filename,p_code,uuid,uploadpath from PRODUCTATTACH
 		where rowid in (select max(rowid) from PRODUCTATTACH group by p_code)
 	</select> 
 	
-	
-	 
+	<!-- 이게 진짜 사진 한개만 불러오는거 -->
+	 <select id="selectAttachOne" resultType="com.study.dto.ProductAttachDTO">
+	 	select filename,p_code,uuid,uploadpath from PRODUCTATTACH
+		where rowid in (select max(rowid) from PRODUCTATTACH group by p_code) and p_code=#{p_code}
+	 </select>
 	
 </mapper>

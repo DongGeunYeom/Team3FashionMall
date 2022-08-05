@@ -7,7 +7,7 @@ pageEncoding="UTF-8"%>
 <div class="container">
 			<div class="row">
 		  <div class="col-lg-12">
-		    <h1 class="page-header">Board List</h1>
+		    <h1 class="page-header">상품 등록</h1>
 		  </div>
 		  <!-- /.col-lg-12 -->
 		</div>
@@ -18,7 +18,7 @@ pageEncoding="UTF-8"%>
 		      <div class="panel-heading">
 		        Admin List Page
 		        <button id="regBtn" type="button" class="btn btn-xs pull-right">
-		          Register New Board
+		          Regist New Product
 		        </button>
 		      </div>
 		      <!-- /.panel-heading -->
@@ -37,7 +37,7 @@ pageEncoding="UTF-8"%>
 		          <tbody>
 		          	<!-- 게시판 리스트 반복문 -->
 		            <c:forEach var="dto" items="${list}">
-			          	<tr>
+			          	<tr style="font-size:12pt;">
 			          		<td>${dto.p_code }</td>
 			          		<td>${dto.p_type}</td>
 			          		<td>

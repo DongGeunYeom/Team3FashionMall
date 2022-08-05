@@ -1,10 +1,16 @@
 package com.study.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -125,5 +131,18 @@ public class BoardController {
 		
 		
 	}
+	
+	
+	//첨부파일 가져오기
+	@GetMapping("/getSearchAttachList")
+	public ResponseEntity<List<ProductAttachDTO>> getSearchAttachList(int p_code){
+		log.info("첨부파일 불러오기+List에서 쓸거");
+		
+		log.info("값을. 잘 가져오긴 합니까?"+searchService.selectAttachOne(p_code));
+		return new ResponseEntity<List<ProductAttachDTO>>(searchService.selectAttachOne(p_code),HttpStatus.OK);
+	}
+		
+	
+
 
 }

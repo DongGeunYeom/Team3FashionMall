@@ -66,7 +66,7 @@
                 				
                 				
 		                				<div class="form-group" style="display:flex;">
-		                					<table style="letter-spacing:5px; border-collapse: separate; border-spacing: 20px;">
+		                					<table style="letter-spacing:5px; font-size:11pt; border-collapse: separate; border-spacing: 20px;">
 		                						<tr>
 		                							<td><label>사이즈</label>
 		                							<div>
@@ -194,25 +194,6 @@
 			}
 		})	 */
     </script>
- <!--  <script>
-        function append_to_div(div_name, data){
-            document.getElementById(div_name).innerText += data;
-        }
-          
-        document.getElementById("my_button")
-                .addEventListener('click', function() {
-              
-            var user_name = document.getElementById("name");
-            var value = user_name.value.trim();
-              
-            if(!value)
-                alert("Name Cannot be empty!");
-            else
-                append_to_div("my_div", value+"\n");
-              
-            user_name.value = "";
-        });
-    </script> -->
  
    	<script> 
  		let csrfHeaderName="${_csrf.headerName}";

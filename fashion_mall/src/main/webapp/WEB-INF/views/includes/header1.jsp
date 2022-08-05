@@ -88,7 +88,7 @@
                 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }" />
                 </form>
                 
-                <form action="/admin/search" methos="post" id ="searchForm">    
+                <form action="/board/search" methos="post" id ="searchForm">    
 				     <!--  
 				     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }" />
 				     -->

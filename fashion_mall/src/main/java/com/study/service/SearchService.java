@@ -11,5 +11,7 @@ public interface SearchService {
 	public List<ProductDTO> searchList(AdminCriteria cri);
 	public int searchTotalCnt(AdminCriteria cri);
 	public List<ProductAttachDTO> selectAttach();
+	//제품 사진 한개만 불러오기
+	public List<ProductAttachDTO>selectAttachOne(int p_code);
 	
 }
