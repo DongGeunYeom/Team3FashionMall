@@ -65,7 +65,9 @@ select * from qna;
 
 select count(userid) from Member;
 
-select * from member;
+select * from auth;
+
+update auth set auth = 'ROLE_ADMIN' where user_id = 'aadd29'
 
 -- Product 테이블에 reg_date 컬럼 추가
 ALTER TABLE Product ADD reg_date 	date default sysdate;
