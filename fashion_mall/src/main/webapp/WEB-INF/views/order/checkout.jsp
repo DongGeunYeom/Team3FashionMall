@@ -135,17 +135,17 @@ pageEncoding="UTF-8"%>
         </li>
       </ul>
       
-      <button class="btn btn-lg btn-outline-primary" id="checkorder">
+      <button class="btn btn-outline-primary" id="checkorder">
       	  주문시 확인 사항
       </button>
       
       <a href="/order/cart">
-      	<button class="btn btn-lg btn-outline-success">
+      	<button class="btn btn-outline-success">
     	      장바구니
       	</button>
 	  </a>
 	  
-      <button class="btn btn-lg btn-outline-dark">
+      <button class="btn btn-outline-dark">
           결제
       </button>
       
