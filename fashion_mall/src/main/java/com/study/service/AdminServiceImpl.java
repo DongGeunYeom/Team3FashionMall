@@ -36,9 +36,8 @@ public class AdminServiceImpl implements AdminService {
 		adminMapper.insertBoard(insertDto);
 		/* adminMapper.updateBno(); */
 		
-		if(	
-				insertDto.getOptList() == null || insertDto.getOptList().size() <= 0) {
-				return;
+		if(insertDto.getOptList() == null || insertDto.getOptList().size() <= 0) {
+			return;
 			}
 			
 		//옵션 개수만큼 루프 돌기
@@ -56,18 +55,17 @@ public class AdminServiceImpl implements AdminService {
 		
 		//첨부파일이 없다면 되돌려 보내기 (왜 되돌려 보내는거지?)
 		log.info("첨부파일 리스트 봐봐"+insertDto.getAttachList());
-				if(
-					
-					insertDto.getAttachList() == null || insertDto.getAttachList().size() <= 0) {
-					return;
-				}
+		
+		if(insertDto.getAttachList() == null || insertDto.getAttachList().size() <= 0) {
+			return;
+		}
 
-				//첨부 파일 개수만큼 루프 돌기
-				insertDto.getAttachList().forEach(attach -> {
-					attach.setP_code(insertDto.getP_code());
-					//첨부파일 삽입
-					attachMapper.insert(attach);			
-				});			
+		//첨부 파일 개수만큼 루프 돌기
+		insertDto.getAttachList().forEach(attach -> {
+			attach.setP_code(insertDto.getP_code());
+			//첨부파일 삽입
+			attachMapper.insert(attach);			
+		});			
 				
 	}
 	

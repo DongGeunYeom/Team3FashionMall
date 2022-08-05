@@ -387,7 +387,7 @@ function updateinfo(){
 		var price = $(this).find("#price").text();
 		price = Number(price);
 		
-		alert(productName,size,color,amount,code,price);
+		
 		
 		//판매량 증가 및 재고 감소 및 총 재고량 감소
 		$.getJSON({
