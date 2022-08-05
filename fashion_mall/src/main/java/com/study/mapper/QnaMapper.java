@@ -37,4 +37,16 @@ public interface QnaMapper {
 	
 	// 답변글 삭제
 	public int qnaDelete(QnaDTO deleteDto);
+	
+	
+	// 관리자 기능
+	// 비밀글 공개
+	public int qnaAdminSecretOpen(QnaDTO openDto);
+	
+	// 문의글 수정
+	public int qnaAdminChange(QnaDTO changeDto);	
+		
+	// 답변글 수정
+	public int qnaAdminModify(QnaDTO modifyDto);
+	
 }

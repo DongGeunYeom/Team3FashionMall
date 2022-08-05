@@ -110,7 +110,7 @@ public class ReviewUploadAjaxController {
 		
 		try {
 			// 썸네일 삭제
-			File file = new File("d:\\upload\\"+URLDecoder.decode(fileName, "utf-8"));
+			File file = new File("c:\\upload\\"+URLDecoder.decode(fileName, "utf-8"));
 			file.delete(); 
 			
 			//원본 파일 삭제

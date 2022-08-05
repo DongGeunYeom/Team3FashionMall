@@ -1,7 +1,6 @@
 package com.study.dto;
 
 import java.util.Date;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +23,6 @@ public class QnaDTO {
 	
 	// 문의 답변 컬럼
 	private String q_answer;
-	private String quser_id;
 	private Date update_date;
 	private boolean qna_level;
 	private boolean qna_secret;

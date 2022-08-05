@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.study.mapper.QnaMapper">
 	
-	<!-- select bno, qno, q_title, q_content, user_id, reg_date, q_answer, qreg_date, quser_id, qna_level
-		from (select /*+ordered use_nl(q a) INDEX_DESC(qna idx_qna)*/ rownum rn, bno, q.qno, q_title, q_content, q.user_id, reg_date, q_answer, qreg_date, quser_id, qna_level 
+	<!-- select bno, qno, q_title, q_content, user_id, reg_date, q_answer, qreg_date, qna_level
+		from (select /*+ordered use_nl(q a) INDEX_DESC(qna idx_qna)*/ rownum rn, bno, q.qno, q_title, q_content, q.user_id, reg_date, q_answer, qreg_date, qna_level 
 			  from qna q left join qnaanswer a on q.qno = a.qno 
 	 		  where bno = '${bno}' and
 	 		  q.qno > 0 and rownum <= ('${cri.pageNum}' * '${cri.amount}')) 
@@ -13,8 +13,8 @@
 	<select id="qnaGetList" resultType="com.study.dto.QnaDTO">
 		
 		<![CDATA[
-		select bno, qno, q_title, q_content, user_id, reg_date, q_answer, update_date, quser_id, qna_level, qna_secret
-		from (select /*+INDEX_DESC(qna idx_qna)*/ rownum rn, bno, qno, q_title, q_content, user_id, reg_date, q_answer, update_date, quser_id, qna_level, qna_secret
+		select bno, qno, q_title, q_content, user_id, reg_date, q_answer, update_date, qna_level, qna_secret
+		from (select /*+INDEX_DESC(qna idx_qna)*/ rownum rn, bno, qno, q_title, q_content, user_id, reg_date, q_answer, update_date, qna_level, qna_secret
 			  from qna where bno = '${bno}' and
 	 		  qno > 0 and rownum <= ('${cri.pageNum}' * '${cri.amount}')) 
 		where rn > ('${cri.pageNum}' - 1 ) * '${cri.amount}'
@@ -26,8 +26,8 @@
 	<select id="qnaGetAllList" resultType="com.study.dto.QnaDTO">
 		
 		<![CDATA[
-		select bno, qno, q_title, q_content, user_id, reg_date, q_answer, update_date, quser_id, qna_level
-		from (select /*+INDEX_DESC(qna idx_qna)*/ rownum rn, bno, qno, q_title, q_content, user_id, reg_date, q_answer, update_date, quser_id, qna_level
+		select bno, qno, q_title, q_content, user_id, reg_date, q_answer, update_date, qna_level
+		from (select /*+INDEX_DESC(qna idx_qna)*/ rownum rn, bno, qno, q_title, q_content, user_id, reg_date, q_answer, update_date, qna_level
 			  from qna where bno = '${bno}' and
 	 		  qno > 0 and rownum <= ('${cri.pageNum}' * '${cri.amount}')) 
 		where rn > ('${cri.pageNum}' - 1 ) * '${cri.amount}'
@@ -70,19 +70,40 @@
 
 	<!-- 문의글 답변 -->
 	<update id="qnaAnswer">
-		update qna set quser_id='${quser_id}', q_answer='${q_answer}', qna_level=1, update_date=sysdate 
+		update qna set q_answer='${q_answer}', qna_level=1, update_date=sysdate 
 		where qno = '${qno}'
 	</update>
 	
 	<!--  문의글 답변 수정 -->
 	<update id="qnaModify">
 		update qna set q_answer='${q_answer}', update_date=sysdate 
-		where qno = '${qno}' and quser_id='${quser_id}'
+		where qno = '${qno}'
 	</update>
 	
 	<!-- 문의글 삭제  -->
 	<delete id="qnaDelete"> 
 		delete from qna where qno='${qno}'
 	</delete>
+	
+	<!-- 관리자 관련 기능들 -->
+	
+	<!-- 비밀 글 공개 -->
+	<update id="qnaAdminSecretOpen">
+		update qna set qna_secret=0, update_date=sysdate 
+		where qno = '${qno}'
+	</update>
+	
+	<!-- 문의글 수정 -->
+	<update id="qnaAdminChange">
+		update qna set q_title='${q_title}', q_content='${q_content}', update_date=sysdate 
+		where qno = '${qno}'
+	</update>
+	
+	<!--  문의글 답변 수정 -->
+	<update id="qnaAdminModify">
+		update qna set q_answer='${q_answer}', update_date=sysdate 
+		where qno = '${qno}'
+	</update>
+	
 	
 </mapper> 

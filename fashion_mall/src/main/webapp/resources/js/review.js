@@ -188,8 +188,6 @@ function showLargeUploadFile(result){
 		str += "<a href=\"javascript:showImage(\'"+oriPath+"\')\">";
 		str += "<img src='/display?fileName="+fileCallPath+"'></a>";
 		str += "<div class='hideimages' style='display:none;'>"+obj.r_filename;
-		str += " <button type='button' class='btn btn-warning btn-circle' data-file='"+fileCallPath+"' data-type='image'>";
-		str += "<i class='fa fa-times'></i></button>";
 		str += "</div></li>";
 	});
 	uploadResult.append(str);
@@ -241,7 +239,8 @@ $(function(){
 			
 				$(list).each(function(idx, item){
 					let date = qnaService.displayTime(item.reg_date);
-					str += " <tr data-rno='"+item.rno+"' > "
+					str += " <tr data-rno='"+item.rno+"' data-r_title='"+item.r_title+"' data-ruser_id='"
+					    + item.user_id+"' data-r_content='"+item.r_content+"'> "
 						+  " <td class='td1'>"+item.rno+"</td> "
 						+  " <td class='td2'>"+item.r_title+"</td> "
 						+  " <td class='td1'>"+item.user_id+"</td> "
@@ -306,11 +305,21 @@ $(function(){
 	// 리뷰 페이지 rno 넘기기
 	$("#reviewList").on("click","tr",function(){
 		let rno = $(this).data("rno");
+		let rtitle = $(this).data("r_title");
+		let rcontent = $(this).data("r_content");
+		let ruser_id = $(this).data("ruser_id");
+		
+		$("#rno9").val(rno);
+		$("#r_title9").val(rtitle);
+		$("#r_content9").val(rcontent);
+		$("#ruser_id9").val(ruser_id);
+		
 		console.log("rno 확인 "+rno);
 		$(".hideimages").show();
 		$("#rno").val(rno);
 		$(".review_fn ul li").remove();
 		$("#modalReviewInsertBtn").hide();
+		$("#modalReviewConfirmBtn").hide();
 		$("#modalReviewModifyBtn").show();
 		$("#modalReviewDeleteBtn").show();
 		
@@ -330,7 +339,7 @@ $(function(){
 				$(".review_fn").show();
 				$("#r_title").val(data.r_title);
 				$("#r_content").val(data.r_content);
-				$("#ruser_id").val(user_id);
+				$("#ruser_id").val(data.user_id);
 				$("#r_title").attr("readonly", true);
 				$("#r_content").attr("readonly", true);
 				$("#reviewModal").fadeIn();
@@ -392,7 +401,9 @@ $(function(){
 				$("#r_title").val("");
 				$("#r_content").val("");
 			}
+			setTimeout(function() {
 			reviewShowList(1);
+			}, 100);
 		})
 		$(".hideimages").hide();
 		$("#reviewModal").fadeOut();
@@ -424,7 +435,9 @@ $(function(){
 			}
 		})	
 		$("#reviewModal").fadeOut();
-		reviewShowList(1);
+		setTimeout(function() {
+			reviewShowList(1);
+		}, 100);
 	}); // 리뷰 삭제 종료
 	
 	// 리뷰 수정 누를 시 빈칸 만들기
@@ -433,13 +446,11 @@ $(function(){
 		$("#reviewModal").fadeIn();
 		
 		$('#modalReviewModifyBtn').hide();
-		
+
 		$("#addAttach").show();
 		$('#modalReviewConfirmBtn').show();
 		$(".hideimages").show();
 
-		$("#r_title").val("");
-		$("#r_content").val("");
 		$("#r_title").attr("readonly", false);
 		$("#r_content").attr("readonly", false);
 	});
@@ -466,10 +477,20 @@ $(function(){
 		let r_content = $('#r_content').val();
 		console.log("리뷰 글 수정 전 밸류 추적 "+bno+" "+r_content);
 		
-			if(user_id.value == ""){
-				alert('로그인 한 후에 이용 가능합니다.');
-				return;
-			};
+		if(user_id.value == ""){
+			alert('로그인 한 후에 이용 가능합니다.');
+			return;
+		};
+		
+		if(r_title == ""){
+			alert('리뷰 제목을 적어주세요.');
+			return;
+		}
+		
+		if(r_content == ""){
+			alert('리뷰 내용을 적어주세요.');
+			return;
+		}
 		
 		let param ={
 			rno : rno,
@@ -499,7 +520,9 @@ $(function(){
 		$('#modalReviewConfirmBtn').hide();
 		$('#modalReviewModifyBtn').show();
 		$("#reviewModal").fadeOut();
-		reviewShowList(1);
+		setTimeout(function() {
+			reviewShowList(1);
+		}, 100);
 	}); // 리뷰 수정 종료
 
 

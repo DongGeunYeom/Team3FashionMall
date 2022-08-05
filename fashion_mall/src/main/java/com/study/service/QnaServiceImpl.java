@@ -77,5 +77,20 @@ public class QnaServiceImpl implements QnaService {
 		return mapper.qnaSecretOpen(openDto);
 	}
 
+	@Override
+	public int qnaAdminSecretOpen(QnaDTO openDto) {
+		return mapper.qnaAdminSecretOpen(openDto);
+	}
+
+	@Override
+	public int qnaAdminChange(QnaDTO changeDto) {
+		return mapper.qnaAdminChange(changeDto);
+	}
+
+	@Override
+	public int qnaAdminModify(QnaDTO answerDto) {
+		return mapper.qnaAdminModify(answerDto);
+	}
+
 	
 }

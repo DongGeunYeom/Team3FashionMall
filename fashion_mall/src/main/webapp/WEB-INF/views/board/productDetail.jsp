@@ -13,12 +13,16 @@ pageEncoding="UTF-8"%>
 />
 <link rel="stylesheet" href="/resources/css/main2.css" />
 <link rel="stylesheet" href="/resources/css/getdetail.css" />
+<script defer src="/resources/js/getdetail.js"></script>
+<script defer src="/resources/js/upload.js"></script>
+<script defer src="/resources/js/review.js"></script>
+<script defer src="/resources/js/qna.js"></script>
 <!-- 필요한 정보 받기 -->
 <input type="hidden" id="user_id" name="user_id" value="${user_id}" />
-<input type="hidden" id="bno" name="bno" value="${readDto.bno}">
-<input type="hidden" id="pcode" name="pcode" value="${productDto.p_code}">
-<input type="hidden" id="pprice" name="pprice" value="${productDto.p_price}">
-<input type="hidden" id="pname" name="pname" value="${productDto.p_name}">
+<input type="hidden" id="bno" name="bno" value="${readDto.bno}"/>
+<input type="hidden" id="pcode" name="pcode" value="${productDto.p_code}"/>
+<input type="hidden" id="pprice" name="pprice" value="${productDto.p_price}"/>
+<input type="hidden" id="pname" name="pname" value="${productDto.p_name}"/>
 <main>
 <!-- 상품번호 받기 -->
   <div class="container">
@@ -30,7 +34,7 @@ pageEncoding="UTF-8"%>
               <!-- 목록으로 돌아가기 숏컷 -->
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/index">홈으로 돌아가기</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><a href="/admin/search?keyword=${productDto.p_type}">${productDto.p_type}</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="/admin/search?cate=${productDto.p_type}">${productDto.p_type}</a></li>
               </ol>
             </nav>
           </div>
@@ -161,7 +165,7 @@ pageEncoding="UTF-8"%>
             <!-- End Pagination -->	
             
               <div class="fnbtnwrapper">
-                <button type="button" class="btn fnbtn" onclick="fn_Review()" >
+                <button type="button" class="btn fnbtn2" onclick="fn_Review()" >
                   상품평 등록
                 </button>
               </div>
@@ -172,7 +176,7 @@ pageEncoding="UTF-8"%>
               <div id="div3" class="ec-base-table typeList">
                 <br />
                 <h2 class="qnatitle">상품문의</h2>
-                <table align="center" class="board_list">
+                <table style="align:center;" class="board_list">
 					<colgroup>
 						<col width="9%" />
 						<col>
@@ -192,7 +196,7 @@ pageEncoding="UTF-8"%>
 				</table>
 				
 				<table class="board_list2">
-					<tbody id="board_list1" name="board_list1">
+					<tbody id="board_list1">
 					<colgroup>
 						<col width="9%" />
 						<col>
@@ -214,6 +218,11 @@ pageEncoding="UTF-8"%>
                 <button type="button" class="btn fnbtn" onclick="fn_Qna()">
                   상품문의
                 </button>
+		    	<sec:authorize access="hasRole('ROLE_ADMIN')"> 
+	            	<button type="button" class="btn fnbtn get_secret" onclick="openPopUp()">
+		              비밀글 확인
+		            </button>
+			    </sec:authorize>
               </div>
             <!-- QNA End -->
           </div>
@@ -257,13 +266,15 @@ pageEncoding="UTF-8"%>
 	     <div class="review_fn" style="display:none;">
 	   		 <label for="rno">리뷰 번호</label>
 	      	 <input type="text" name="rno" id="rno" class="form-control" readonly/>
+	      	 <input type="hidden" name="rno9" id="rno9" />
 	      	 <label id="imagelabel" for="images">리뷰 사진</label>
 	      	 <!-- 사진 보여주는 곳 -->
-	      	 <ul></ul>
+	      	 <ul class="modal-picture"></ul>
 	   	</div>
  
       	<div class="form-group">
       		<label for="r_title">리뷰 제목</label>
+      		<input type="hidden" name="r_title9" id="r_title9" />
       		<input type="text" name="r_title" id="r_title" class="form-control" placeholder="리뷰 제목을 입력해주세요"/>
       	</div>
       	 
@@ -273,11 +284,13 @@ pageEncoding="UTF-8"%>
 		
       	<div class="form-group">
       		<label for="r_content" class="r_contentlabel">리뷰 내용</label>
-      		<textarea name="r_content" id="r_content" rows="6" cols="35"  style="border: none">리뷰 내용을 적어주세요.</textarea>
+      		<input type="hidden" name="r_content9" id="r_content9" />
+      		<textarea name="r_content" id="r_content" rows="6" style="border:none; width:100%;" >리뷰 내용을 적어주세요.</textarea>
      	</div>
      	
      	<div class="form-group">
       		<label for="ruser_id">작성자</label>
+      		<input type="hidden" name="ruser_id9" id="ruser_id9" />
       		<input type="text" name="ruser_id" id="ruser_id" class="form-control" value="" readonly/>
       	</div>
       	
@@ -323,12 +336,15 @@ pageEncoding="UTF-8"%>
       	<div class="form-group">
       		<label for="q_title">상품문의 제목</label>
       		<input type="text" name="q_title" id="q_title" class="form-control" placeholder="상품문의 제목"/>
+      		<input type="hidden" name="q_user2" id="hiddenq_user2" />
+      		<input type="hidden" name="q_title2" id="hiddentitle2" />
       	</div>
       	 	
       	<div class="form-group">
       		<label for="q_content" class="q_contentlabel">상품문의 내용</label>
+      		<input type="hidden" name="q_content2" id="hiddencontent2" />
       		</br>
-      		<textarea name="q_content" id="q_content" rows="2" cols="40"  style="border: none">상품문의 내용을 적어주세요.</textarea>
+      		<textarea name="q_content" id="q_content" rows="2" style="padding-bottom:5%; width:100%;">상품문의 내용을 적어주세요.</textarea>
      	</div>
      	
       </div>
@@ -341,15 +357,16 @@ pageEncoding="UTF-8"%>
    		 
    		 <label for="q_answer" id="answerLabel">상품문의 답변</label>
    		 </br>
-   		 <textarea name="q_answer" id="q_answer" rows="2" cols="40"  style="border: none">문의 답변을 적어주세요.</textarea> 
+   		 <textarea name="q_answer" id="q_answer" rows="2" style="padding-bottom:5%; width:100%;" >문의 답변을 적어주세요.</textarea>
+		 <input type="hidden" name="q_answer2" id="hiddenanswer2" />
    	  </div>
    	  
       <div class="modal-footer">
         <button type="button" class="btn btn-warning" id="modalQnaInsertBtn">문의글 등록</button>
         <button type="button" class="btn" id="modalQnaInsertSecretBtn">문의글 비밀등록</button>
         <button type="button" class="btn btn-info" id="modalQnaChangeBtn" >문의글 수정</button>
-        <button type="button" class="btn" id="modalQnaAnswerBtn" style="display:none;">답변글 등록</button>
-        <button type="button" class="btn btn-info" id="modalQnaModifyBtn" style="display:none;">답변글 수정</button>
+        <!--  <button type="button" class="btn" id="modalQnaAnswerBtn" style="display:none;">답변글 등록</button>
+        <button type="button" class="btn btn-info" id="modalQnaModifyBtn" style="display:none;">답변글 수정</button>  -->
         <button type="button" class="btn btn-primary" id="modalQnaCancleBtn">작성 종료</button>
       </div>
     </div>
@@ -373,7 +390,7 @@ pageEncoding="UTF-8"%>
       	<div class="form-group">
       		<label for="q_content9" class="q_contentlabel">상품문의 내용</label>
       		</br>
-      		<textarea name="q_content9" id="q_content9" rows="2" cols="40"  style="border: none">상품문의 내용을 적어주세요.</textarea>
+      		<textarea name="q_content9" id="q_content9" rows="2" style="padding-bottom:5%; width:100%;" >상품문의 내용을 적어주세요.</textarea>
      	</div>
      	
      	
@@ -385,20 +402,19 @@ pageEncoding="UTF-8"%>
 	      	 
 	      	 <label for="hiddenuser9">상품문의 아이디</label>
 	      	 <input type="text" name="hiddenuser9" id="hiddenuser9" class="form-control" readonly/>
-	      	 <input type="hidden" name="quser_id9" id="quser_id9"/>
 	  		 </br>
 	   		 
 	   		 <label for="q_answer9" id="answerLabel9">상품문의 답변</label>
 	   		 </br>
-	   		 <textarea name="q_answer9" id="q_answer9" rows="2" cols="40"  style="border: none; padding-bottom:5%;">문의 답변을 적어주세요.</textarea> 
+	   		 <textarea name="q_answer9" id="q_answer9" rows="2" style="padding-bottom:5%; width:100%;">문의 답변을 적어주세요.</textarea> 
 	   	  </div>
    	  
       </div>
       
       <div class="modal-footer">
         <button type="button" class="btn btn-warning" id="secret1" >비밀글 수정</button>
-        <button type="button" class="btn" id="secret2"> 답변글 등록</button>
-        <button type="button" class="btn btn-info" id="secret3" style="display:none;">답변글 수정</button>
+        <!--  <button type="button" class="btn" id="secret2"> 답변글 등록</button> 
+        <button type="button" class="btn btn-info" id="secret3" style="display:none;">답변글 수정</button> -->
         <button type="button" class="btn btn-primary" id="secret4">비밀글 종료</button>
         <button type="button" class="btn btn-success" id="secretopen" >비밀글 공개</button>
         <button type="button" class="btn btn-danger" id="secretdelete" >비밀글 삭제</button>
@@ -437,10 +453,7 @@ pageEncoding="UTF-8"%>
 	<!-- csrf 토큰 -->
 	let csrfHeaderName = "${_csrf.headerName}";
 	let csrfTokenValue = "${_csrf.token}";	
+
 </script>
-<script src="/resources/js/getdetail.js"></script>
-<script src="/resources/js/upload.js"></script>
-<script src="/resources/js/review.js"></script>
-<script src="/resources/js/qna.js"></script>
 </main>
 <%@include file="../includes/footer.jsp" %>

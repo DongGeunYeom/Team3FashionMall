@@ -5,8 +5,8 @@
 	<!-- 리뷰글 최신순, 페이징 -->
 	<select id="reviewGetList" resultType="com.study.dto.ReviewDTO">
 		<![CDATA[
-		select bno, rno, r_title, user_id, reg_date
-		from (select /*+INDEX_DESC(review idx_review)*/ rownum rn, bno, rno, r_title, user_id, reg_date
+		select bno, rno, r_title, r_content, user_id, reg_date
+		from (select /*+INDEX_DESC(review idx_review)*/ rownum rn, bno, rno, r_title, r_content, user_id, reg_date
 			  from review where bno = '${bno}' and
 	 		  rno > 0 and rownum <= ('${cri.rvpageNum}' * '${cri.rvamount}')) 
 		where rn > ('${cri.rvpageNum}' - 1 ) * '${cri.rvamount}'

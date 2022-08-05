@@ -35,4 +35,15 @@ public interface QnaService {
 	
 	// 문의 글 삭제
 	public int qnaDelete(QnaDTO deleteDto);
+	
+	// 관리자 기능
+	// 비밀 글 공개
+	public int qnaAdminSecretOpen(QnaDTO openDto);
+	
+	// 문의 글 수정
+	public int qnaAdminChange(QnaDTO changeDto);
+	
+	// 문의 답변 수정 
+	public int qnaAdminModify(QnaDTO answerDto);
+		
 }

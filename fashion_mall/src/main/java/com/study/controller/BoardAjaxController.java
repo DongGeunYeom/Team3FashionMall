@@ -243,5 +243,36 @@ public class BoardAjaxController {
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 	
-
+	// 관리자 ajax
+	@PutMapping(path="/qnaAdminSecretOpen/{qno}")
+	public ResponseEntity<Integer> qnaAdminSecretOpen(@PathVariable("qno") int qno, @RequestBody QnaDTO changeDto){
+		log.info("비밀글 공개 요청 "+changeDto+" "+qno);
+		
+		int result = qnaService.qnaAdminSecretOpen(changeDto);
+		
+		log.info("비밀글 공개 확인 "+result);
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
+	}
+	
+	@PutMapping(path="/qnaAdminModify/{qno}")
+	public ResponseEntity<Integer> qnaAdminModify(@PathVariable("qno") int qno, @RequestBody QnaDTO modifyDto){
+		log.info("답변글 수정 요청 "+modifyDto+" "+qno);
+		
+		int result = qnaService.qnaAdminModify(modifyDto);
+		
+		log.info("답변글 수정 확인 "+result);
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
+	}
+	
+	@PutMapping(path="/qnaAdminChange/{qno}")
+	public ResponseEntity<Integer> qnaAdminChange(@PathVariable("qno") int qno, @RequestBody QnaDTO changeDto){
+		log.info("문의글 수정 요청 "+changeDto+" "+qno);
+		
+		int result = qnaService.qnaAdminChange(changeDto);
+		
+		log.info("문의글 수정 확인 "+result);
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
+	}
+	
+	
 }

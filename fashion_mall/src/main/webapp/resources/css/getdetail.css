@@ -98,12 +98,24 @@ body {
 }
 
 .fnbtn{
-	width:10%;
+	width:110px;
 	background-color: black;
 	color:white;
 	font-size: 15px;
 	font-weight: bold;
 }
+
+.fnbtn2{
+	width:110px;
+	background-color: black;
+	color:white;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+
+
+
 #cartBtns button{
 	background-color: black;
 	padding-left:2%;
@@ -171,6 +183,7 @@ body {
   justify-content: center;
   align-items: center;
   cursor: zoom-in;
+  padding-right:5%;
 }
 
 .bigPictureWrapper2{
@@ -490,29 +503,71 @@ th {
 /* 모달 css
 */
 
-.modal-dialog {
-	top: 30%;
+#reviewModal{
+  top: 35%;
+  left: -5%;
+  width: 100%;
+  height: 100%;
+  margin-top: -20%;
+  text-align: center;
+  justify-content: center;
+  z-index:999;
+  position:fixed;
+  overflow:auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
+#reviewModal::-webkit-scrollbar {
+	display: none;  /* Chrome, Safari, Opera */
+} 
+
+#chkModal{
+  top: 30%;
+  left: -5%;
+}
+
+#modal {
+  top: 30%;
+}
+/*
+.modal-dialog{
+	position: fixed;
+	top: 40%;
+	left: 48%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+} */
+
+.modal-picture{
+	padding:0;
+	margin:0;
+}
+
+.modal-content{
+	width: 130%;
+	display: flex;
+}
 .modal-body h3{
 	text-align: center;
 	font-weight: bold;
 }
 
 .modal-footer{
-	padding-right: 6%;
 	justify-content: center;
 	align-content:center;
 	display: flex;
 }
 
 .modal-footer button{
-	display: flex;
-	justify-content: center;
+	justify-content:center;
 	align-content:center;
 	background-color: black;
 	color:white;
-	width:auto;
+	width:40%;
 }
 
 .modal-body2{
@@ -552,36 +607,6 @@ th {
 
 /* 리뷰 모달 css
 */
-
-#reviewModal{
-  width: auto;
-  height: auto;
-  margin-top: -20%;
-  text-align: center;
-  justify-content: center;
-  z-index:999;
-  position:fixed;
-  overflow:auto;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-.modal-dialog{
-	height: auto;
-}
-
-#reviewModal::-webkit-scrollbar {
-	display: none; /* Chrome, Safari, Opera*/
-}
-
-#reviewModal.modal-dialog {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  justify-content: center;
-}
 
 .modal-body3{
 	padding: 0 5%;
