@@ -125,6 +125,7 @@ function fn_Review(){
 		return;
 	};
 	
+	
 	$('#rno').val("");
 	$("#r_title").val("");
 	$("#r_content").val("");
@@ -442,6 +443,17 @@ $(function(){
 	
 	// 리뷰 수정 누를 시 빈칸 만들기
 	$('#modalReviewModifyBtn').click(function(){
+		let ruser_id = $("#ruser_id9").val();
+		if (user_id == "") {
+			alert('로그인 한 후에 이용 가능합니다.');
+			return;
+		};
+	
+		if(user_id != ruser_id){
+			alert('리뷰 수정은 작성자 본인만 가능합니다.');
+			return;
+		};
+		
 		$("#reviewModal").fadeOut();
 		$("#reviewModal").fadeIn();
 		

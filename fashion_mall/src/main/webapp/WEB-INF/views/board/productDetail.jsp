@@ -34,7 +34,7 @@ pageEncoding="UTF-8"%>
               <!-- 목록으로 돌아가기 숏컷 -->
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/index">홈으로 돌아가기</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><a href="/admin/search?cate=${productDto.p_type}">${productDto.p_type}</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="/board/search?cate=${productDto.p_type}">${productDto.p_type}</a></li>
               </ol>
             </nav>
           </div>
@@ -336,13 +336,13 @@ pageEncoding="UTF-8"%>
       	<div class="form-group">
       		<label for="q_title">상품문의 제목</label>
       		<input type="text" name="q_title" id="q_title" class="form-control" placeholder="상품문의 제목"/>
-      		<input type="hidden" name="q_user2" id="hiddenq_user2" />
-      		<input type="hidden" name="q_title2" id="hiddentitle2" />
+      		<input type="hidden" name="q_user2" id="hiddenq_user2" value=""/>
+      		<input type="hidden" name="q_title2" id="hiddentitle2" value=""/>
       	</div>
       	 	
       	<div class="form-group">
       		<label for="q_content" class="q_contentlabel">상품문의 내용</label>
-      		<input type="hidden" name="q_content2" id="hiddencontent2" />
+      		<input type="hidden" name="q_content2" id="hiddencontent2" value=""/>
       		</br>
       		<textarea name="q_content" id="q_content" rows="2" style="padding-bottom:5%; width:100%;">상품문의 내용을 적어주세요.</textarea>
      	</div>
@@ -352,13 +352,13 @@ pageEncoding="UTF-8"%>
    	  <div class="q_answer" style="display:none; padding:0 5%;">
    		 <label for="qno">상품문의 번호</label>
       	 <input type="text" name="qno" id="qno" class="form-control" readonly/>
-      	 <input type="hidden" name="hiddenqno2" id="hiddenqno2" />
+      	 <input type="hidden" name="hiddenqno2" id="hiddenqno2"  value=""/>
   		 </br>
    		 
    		 <label for="q_answer" id="answerLabel">상품문의 답변</label>
    		 </br>
    		 <textarea name="q_answer" id="q_answer" rows="2" style="padding-bottom:5%; width:100%;" >문의 답변을 적어주세요.</textarea>
-		 <input type="hidden" name="q_answer2" id="hiddenanswer2" />
+		 <input type="hidden" name="q_answer2" id="hiddenanswer2"  value=""/>
    	  </div>
    	  
       <div class="modal-footer">

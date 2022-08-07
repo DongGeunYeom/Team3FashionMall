@@ -255,17 +255,19 @@ function fn_QnaChange() {
 		alert('로그인 한 후에 이용 가능합니다.');
 		return;
 	};
-
+	
 	let fnQno = $("#hiddenqno2").val();
+	let q_user = $("#hiddenq_user2").val();
 	let q_title = $("#hiddentitle2").val();
 	let q_content = $("#hiddencontent2").val();
-	console.log("문의글 변수 확인"+q_title+" "+q_content)
 	
+	console.log("문의글 변수 확인"+q_title+" "+q_content+"글 작성자"+q_user);
+	
+	$("#hiddenuser").val(q_user);
 	$("#qno").val(fnQno);
 	$("#q_title").val(q_title);
 	$("#q_content").val(q_content);
 	
-	// console.log("비밀글 버튼을 누른 시점의 qno"+fnQno);
 
 	$(".modal-body2").show();
 	$("#modalQnaChangeBtn").show();
@@ -579,16 +581,15 @@ $(function() {
 		$("#hiddenqno").val(qno);
 		$("#hiddenqno2").val(qno);
 
-		$("#hiddenuser").val(get_id);
+		$("#hiddenq_user2").val(get_id);
 		
 		$("#hiddentitle2").val(get_title);
 		$("#hiddencontent2").val(get_content);
 		$("#hiddenanswer2").val(get_answer);
 		
-		let chkHiddenUser = $("#hiddenuser").val();
+		let chkHiddenUser = $("#hiddenq_user2").val();
 
 		let viewSecret = document.getElementById(get_cnt);
-		console.log("뷰시크릿 왜했지?"+viewSecret+"cnt는 머지?"+get_cnt);
 		console.log("비밀글작성자/" + chkHiddenUser + "/로그인아이디/" + user_id);
 		console.log("qno 확인 및 아이디 확인 qno/" + qno + "/비밀글작성자/" + chkHiddenUser + "/비밀여부/" + get_sc);
 
@@ -685,7 +686,8 @@ $(function() {
 		let q_title = $('#q_title').val();
 		let q_content = $('#q_content').val();
 		let quser_id = $("#hiddenuser").val();
-
+		
+		console.log("글 작성자"+quser_id+"로그인 아이디"+user_id)
 		if (user_id.value == "") {
 			alert('로그인 한 후에 이용 가능합니다.');
 			return;
@@ -954,16 +956,13 @@ $(function() {
 		let get_qanswer = $(this).data("q_answer");
 
 		$("#qno9").val(qno);
-		$("#hiddenuser9").val(get_id);
 		$('#q_title9').val(get_qtitle);
 		$('#q_content9').val(get_qcontent);
 		$('#q_answer9').val(get_qanswer);
-
-		let chkHiddenQno = $("#qno9").val();
-		let chkHiddenUser = $("#hiddenuser9").val();
-		let chkHiddenTitle = $("#q_title9").val();
-		let chkHiddenContent = $("#q_content9").val();
-		let chkHiddenAnswer = $("#q_answer9").val();
+		$("#hiddenq_user2").val(get_id);
+		
+		let quser_id = $("#hiddenq_user2").val();
+		console.log("아이디 추적"+quser_id+" 기존 밸류 "+get_id);
 	})// qno 넘기기를 여기서 받는다면~ 어떻게 될까요~? 
 
 	$("#secret1").click(function() {
