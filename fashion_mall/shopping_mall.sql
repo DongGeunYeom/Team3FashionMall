@@ -424,11 +424,18 @@ CREATE TABLE  Review  (
     bno    NUMBER(10)   NOT NULL,
     r_title    VARCHAR2(100)   NOT NULL,
     r_content    VARCHAR2(2000)   NOT NULL,
-    user_id    VARCHAR2(200)   NOT NULL,
+    user_id    VARCHAR2(50)   NOT NULL,
     reg_date    date default sysdate,
     constraint fk_board_review foreign key(bno) 
     references ProductBoard(bno) on delete cascade
 );
+
+
+ALTER TABLE Review ADD user_id VARCHAR2(50) NOT NULL;
+--컬럼 삭제
+ALTER TABLE Review DROP COLUMN replyer;
+
+select * from review;
 
 select * from ProductBoard;
 
