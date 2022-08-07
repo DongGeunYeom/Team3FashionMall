@@ -88,10 +88,10 @@ public class BoardController {
    }
    
    @GetMapping("/get_secret")
-	public void getSecret(int bno, Model model) {
-		log.info("비밀 문의글 리스트 호출"+bno);
-		model.addAttribute("bno", bno);
-	}
+   public void getSecret(int bno, Model model) {
+      log.info("비밀 문의글 리스트 호출"+bno);
+      model.addAttribute("bno", bno);
+   }
    
    @GetMapping("/checkout")
    public void getCheckout() {
