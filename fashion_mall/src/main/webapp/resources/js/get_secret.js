@@ -343,7 +343,7 @@ $(function(){
 									+ " <button type='button' class='btn btn-primary' onclick='fn_QnaChange()'  data-user_id='" + item.user_id + "' data-qno='"
 									+ item.qno +"' data-q_content='"+item.q_content+"' data-q_title='"+item.q_title+"'>문의수정</button>"
 									+ " <button type='button' class='btn btn-info' onclick='fn_QnaModify()' data-qno='" + item.qno + "' data-user_id='"+ item.user_id 
-									+ "' data-q_title='"+item.q_title+"' data-q_content='"+item.q_content+"' data-q_answer='"+item.q_answer+"'>답변수정</button></div>"
+									+ "' data-q_title='"+item.q_title+"' data-q_content='"+item.q_content+"' data-q_answer='"+item.q_answer+"'>답변등록</button></div>"
 									+ "<h4 style='color:blue;'> 이 글은 비공개 글입니다. </h4>"
 									+ " </td>"
 									+ " </tr>"
@@ -368,7 +368,7 @@ $(function(){
 									+ " <button type='button' class='btn btn-primary' onclick='fn_QnaChange()'  data-user_id='" + item.user_id + "' data-qno='"
 									+ item.qno +"' data-q_content='"+item.q_content+"' data-q_title='"+item.q_title+"'>문의수정</button>"
 									+ " <button type='button' class='btn btn-info' onclick='fn_QnaModify()' data-qno='" + item.qno + "' data-user_id='"+ item.user_id 
-									+ "' data-q_title='"+item.q_title+"' data-q_content='"+item.q_content+"' data-q_answer='"+item.q_answer+"'>답변수정</button></div>"
+									+ "' data-q_title='"+item.q_title+"' data-q_content='"+item.q_content+"' data-q_answer='"+item.q_answer+"'>답변등록</button></div>"
 									+ " </td>"
 									+ " </tr>"
 									+ " </div> ";

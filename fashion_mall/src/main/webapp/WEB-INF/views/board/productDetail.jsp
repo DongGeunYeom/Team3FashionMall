@@ -357,7 +357,7 @@ pageEncoding="UTF-8"%>
    		 
    		 <label for="q_answer" id="answerLabel">상품문의 답변</label>
    		 </br>
-   		 <textarea name="q_answer" id="q_answer" rows="2" style="padding-bottom:5%; width:100%;" >문의 답변을 적어주세요.</textarea>
+   		 <textarea name="q_answer" id="q_answer" rows="2" style="padding-bottom:5%; width:100%;" readonly>문의 답변을 적어주세요.</textarea>
 		 <input type="hidden" name="q_answer2" id="hiddenanswer2"  value=""/>
    	  </div>
    	  
@@ -406,7 +406,7 @@ pageEncoding="UTF-8"%>
 	   		 
 	   		 <label for="q_answer9" id="answerLabel9">상품문의 답변</label>
 	   		 </br>
-	   		 <textarea name="q_answer9" id="q_answer9" rows="2" style="padding-bottom:5%; width:100%;">문의 답변을 적어주세요.</textarea> 
+	   		 <textarea name="q_answer9" id="q_answer9" rows="2" style="padding-bottom:5%; width:100%;" readonly>문의 답변을 적어주세요.</textarea> 
 	   	  </div>
    	  
       </div>
