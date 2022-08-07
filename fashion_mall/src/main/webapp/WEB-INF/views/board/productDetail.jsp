@@ -351,7 +351,7 @@ pageEncoding="UTF-8"%>
       
    	  <div class="q_answer" style="display:none; padding:0 5%;">
    		 <label for="qno">상품문의 번호</label>
-      	 <input type="text" name="qno" id="qno" class="form-control" readonly/>
+      	 <input type="text" name="qno" id="qno" class="form-control"  value="" readonly/>
       	 <input type="hidden" name="hiddenqno2" id="hiddenqno2"  value=""/>
   		 </br>
    		 

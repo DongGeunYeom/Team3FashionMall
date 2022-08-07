@@ -287,10 +287,11 @@ function fn_QnaModify() {
 		alert('로그인 한 후에 이용 가능합니다.');
 		return;
 	};
-
+	let q_user = $("#hiddenq_user2").val();
 	let q_answer = $("#hiddenanswer2").val();
 	
 	$("#q_answer").val(q_answer);
+	$("#hiddenuser").val(q_user);
 	
 	$(".modal-body2").hide();
 	$("#modalQnaInsertBtn").hide();
@@ -311,7 +312,9 @@ function fn_QnaDelete() {
 		alert('로그인 한 후에 이용 가능합니다.');
 		return;
 	};
-
+	let q_user = $("#hiddenq_user2").val();
+	$("#hiddenuser").val(q_user);
+	
 	$("#modalChkCancleBtn").show();
 	$("#modalDeleteBtn").show();
 	$("#modalCloseBtn").hide();
@@ -323,12 +326,34 @@ function fn_QnaDelete() {
 // 상품 문의글 관련 모달 종료
 
 function fn_checkReply() {
+	let fn_qno = $("#hiddenqno2").val();
+	let q_user = $("#hiddenq_user2").val();
+	let q_title = $("#hiddentitle2").val();
+	let q_content = $("#hiddencontent2").val();
+	$("#hiddenuser").val(q_user);
+	$("#qno").val(fn_qno);
+	$("#q_title").val(q_title);
+	$("#q_content").val(q_content);
+	$("#hiddenuser9").val(q_user);
+	
 	$("#secret2").hide();
 	$("#secret3").show();
 	$("#qnaModal2").fadeIn();
 };
 
 function fn_checkReply2() {
+	let fn_qno = $("#hiddenqno2").val();
+	let q_user = $("#hiddenq_user2").val();
+	let q_title = $("#hiddentitle2").val();
+	let q_content = $("#hiddencontent2").val();
+	console.log("qno 추적"+fn_qno);
+	
+	$("#hiddenuser9").val(q_user);
+	$("#hiddenuser").val(q_user);
+	$("#hiddenqno").val(fn_qno);
+	$("#q_title").val(q_title);
+	$("#q_content").val(q_content);
+	
 	$("#secret3").hide();
 	$("#secret2").show();
 	$("#qnaModal2").fadeIn();
@@ -781,15 +806,15 @@ $(function() {
 	// 모달 답변 삭제 버튼 
 	$('#modalDeleteBtn').click(function() {
 
-		let hiddenuser = $("#hiddenuser9").val();
-
+		let quser_id = $("#hiddenuser").val();
+	
 		if (user_id.value == "") {
 			alert('로그인 한 후에 이용 가능합니다.');
 			return;
 		};
 
-		console.log("작성자 비교 로그인아이디/" + user_id + "/숨겨진아이디/" + hiddenuser);
-		if (user_id != hiddenuser) {
+		console.log("작성자 비교 로그인아이디/" + user_id + "/숨겨진아이디/" + quser_id);
+		if (user_id != quser_id) {
 			alert('문의글 삭제는 작성자만 가능합니다.');
 			return;
 		};
@@ -967,9 +992,9 @@ $(function() {
 
 	$("#secret1").click(function() {
 		// 비밀 수정
-
+		
 		let secretQno = $("#qno9").val();
-		let secretUser = $("#hiddenuser9").val();
+		let secretUser = $("#hiddenuser").val();
 		let current_user_id = user_id;
 
 		let q_title = $('#q_title9').val();
@@ -981,8 +1006,8 @@ $(function() {
 			q_content: q_content,
 			user_id: secretUser,
 		};
-		console.log("지금 니 아이디가 모여" + current_user_id + "/글작성자/" + param.user_id);
-		console.log("비밀 수정글 변수 추적 답변글번호/" + param.qno + "/문의아이디/" + param.user_id + "/문의내용/" + param.q_content);
+		console.log("지금 니 아이디가 모여" + current_user_id + "/글작성자/" + secretUser);
+		console.log("비밀 수정글 변수 추적 답변글번호/"  + secretQno + "/문의아이디/" + secretUser + "/문의내용/" + q_title+"/"+q_content);
 
 		if (current_user_id.value == "") {
 			alert('로그인 한 후에 이용 가능합니다.');
@@ -1101,8 +1126,8 @@ $(function() {
 	$("#secretopen").click(function() {
 		// 비밀글 공개	
 		let current_user_id = user_id;
-		let qno = $("#qno9").val();
-		let secretUser = $("#hiddenuser9").val();
+		let secretQno = $("#qno9").val();
+		let secretUser = $("#hiddenuser").val();
 
 		if (current_user_id == "") {
 			alert('로그인 한 후에 이용 가능합니다.');
@@ -1115,7 +1140,7 @@ $(function() {
 		};
 
 		let param = {
-			qno: qno,
+			qno: secretQno,
 			user_id: secretUser,
 		};
 
