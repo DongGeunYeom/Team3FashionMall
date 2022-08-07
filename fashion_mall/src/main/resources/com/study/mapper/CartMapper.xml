@@ -35,10 +35,10 @@
 	
 	<!-- 카트 테이블 가져오기 -->
 	<select id="selectCart" resultType="com.study.dto.CartDTO">
-		select row_num, user_id, p_code, p_name, p_price, valid_price, po_size, po_color, p_amount, uuid, uploadpath, filename 
+		select row_num, user_id, p_code, p_name, p_price, valid_price, po_size, po_color, p_amount, uuid, uploadpath, filename, bno
 		from
-		(select ROW_NUMBER() OVER(PARTITION BY cart.p_code, cart.po_size, cart.po_color order by cart.p_code, cart.po_size, cart.po_color) row_num, cart.user_id,cart.p_code, p_name, p_price, valid_price, po_size, po_color, p_amount, uuid, uploadpath, filename
-		from Cart cart left join ProductAttach attach on cart.p_code = attach.p_code
+		(select ROW_NUMBER() OVER(PARTITION BY cart.p_code, cart.po_size, cart.po_color order by cart.p_code, cart.po_size, cart.po_color) row_num, cart.user_id,cart.p_code, p_name, p_price, valid_price, po_size, po_color, bno, p_amount, uuid, uploadpath, filename
+		from Cart cart left join ProductAttach attach on cart.p_code = attach.p_code left join ProductBoard board on attach.p_code = board.p_code
 		where user_id = '${user_id}')
 		where row_num = 1
 	</select>

@@ -59,7 +59,7 @@ CREATE TABLE  QnA  (
      references member(user_id) on delete cascade
 );
 
-
+select * from qna;
 drop table qna;
 select * from qna;
 
@@ -102,15 +102,16 @@ select * from auth;
 insert into auth(user_id,auth) values('admin01','ROLE_ADMIN');
 
 select user_id, name from member;
-
-CREATE TABLE  Member  (
-	 userid 	VARCHAR2(50)	NOT NULL,
-	 password 	VARCHAR2(100)	NOT NULL,
-	 name 	VARCHAR2(20)	NOT NULL,
-	 email 	VARCHAR2(50)	NULL,
-	 phone_num 	VARCHAR2(15)	NOT NULL,
-	 address 	VARCHAR2(1000)	NULL
-);
+sele
+-- 사용 x
+--CREATE TABLE  Member  (
+--	 userid 	VARCHAR2(50)	NOT NULL,
+--	 password 	VARCHAR2(100)	NOT NULL,
+--	 name 	VARCHAR2(20)	NOT NULL,
+--	 email 	VARCHAR2(50)	NULL,
+--	 phone_num 	VARCHAR2(15)	NOT NULL,
+--	 address 	VARCHAR2(1000)	NULL
+--);
 
 -- 주민번호 컬럼 삭제(0626 오후 4시 37분) 
 alter table member drop column person_num1;
@@ -173,15 +174,15 @@ CREATE TABLE  ProductBoard  (
 	 reg_date 	date default sysdate
 );
 
-CREATE TABLE  Review  (
-	 rno 	NUMBER(10)	NOT NULL,
-	 bno 	NUMBER(10)	NOT NULL,
-	 r_title 	VARCHAR2(50)	NOT NULL,
-	 r_content 	VARCHAR2(2000)	NOT NULL,
-	 replyer 	VARCHAR2(1000)	NOT NULL,
-	 rv_image 	VARCHAR2(100)	NOT NULL,
-	 reg_date 	date default sysdate
-);
+--CREATE TABLE  Review  (
+--	 rno 	NUMBER(10)	NOT NULL,
+--	 bno 	NUMBER(10)	NOT NULL,
+--	 r_title 	VARCHAR2(50)	NOT NULL,
+--	 r_content 	VARCHAR2(2000)	NOT NULL,
+--	 replyer 	VARCHAR2(1000)	NOT NULL,
+--	 rv_image 	VARCHAR2(100)	NOT NULL,
+--	 reg_date 	date default sysdate
+--);
 
 CREATE TABLE  ProductAttach  (
      p_code     Number(10)    NOT NULL,
@@ -401,6 +402,69 @@ from productattach p_a left outer join product p on p_a.p_code = p.p_code
 where t_amount > 0
 order by p.p_sale desc;
 
-
-
 select * from member;
+
+-- 리뷰 문의 댓글 지우고 다시할거면 실행
+--drop table Reivew;
+--drop table ReviewAttach;
+--drop table QnA;
+--drop sequence review_seq;
+--drop sequence qna_seq;
+--drop index idx_review;
+--drop index idx_qna;
+
+
+
+select * from qna;
+
+-- 문의 리뷰 테이블은 무조건 아래 있는 테이블을 사용할 것 2022년 8월 7일 오후 3시 47분 이후 
+
+CREATE TABLE  Review  (
+    rno    NUMBER(10)   NOT NULL primary key,
+    bno    NUMBER(10)   NOT NULL,
+    r_title    VARCHAR2(100)   NOT NULL,
+    r_content    VARCHAR2(2000)   NOT NULL,
+    user_id    VARCHAR2(200)   NOT NULL,
+    reg_date    date default sysdate,
+    constraint fk_board_review foreign key(bno) 
+    references ProductBoard(bno) on delete cascade
+);
+
+select * from ProductBoard;
+
+create index idx_review on review(bno desc, rno asc);
+
+create sequence review_seq;
+
+CREATE TABLE  ReviewAttach  (
+    rno    NUMBER(10)   NOT NULL,
+     r_uuid    varchar2(100) NOT NULL,
+     r_uploadpath varchar2(200) NOT NULL,
+    r_filename    varchar2(200) NOT NULL,
+     constraint fk_customer_attach foreign key(rno) 
+     references Review(rno) on delete cascade
+);
+
+CREATE TABLE  QnA  (
+    qno    NUMBER(10)   NOT NULL primary key,
+    bno    NUMBER(10)   NOT NULL,
+    user_id    VARCHAR2(50)   NOT NULL,
+    q_title    VARCHAR2(100) NOT NULL,
+    q_content    VARCHAR2(1000) NOT NULL,
+    q_answer VARCHAR2(1000),
+    reg_date     date default sysdate,
+    update_date date default sysdate,
+    qna_level char(1) default '0',
+    qna_secret char(1) default '0',
+    constraint fk_board_qna foreign key(bno) 
+    references ProductBoard(bno) on delete cascade,
+    constraint fk_member_qna foreign key(user_id) 
+    references member(user_id) on delete cascade
+);
+-- bno, userid 기본키 설정
+ALTER TABLE member ADD CONSTRAINT user_id PRIMARY KEY (user_id)
+ALTER TABLE ProductBoard ADD CONSTRAINT bno PRIMARY KEY (bno)
+
+create index idx_qna on qna(bno desc, qno asc);
+    
+create sequence qna_seq;

@@ -237,15 +237,7 @@ $(function(){
 	
 	
 	
-            append_to_div("productImg",str);
-
-			
-           
-         
-		
-
-
-	
+            append_to_div("productImg",str);	
 })
 
 

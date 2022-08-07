@@ -47,6 +47,11 @@ pageEncoding="UTF-8"%>
                     <c:param name="filePath" value="${product.uploadpath}"/>
                 </c:url>
                 
+                <!-- 상품 상페 페이지로 넘어가기 -->
+                <c:url var="board_url" value="/board/productDetail?">
+                	<c:param name="bno" value="${product.bno}" />
+                </c:url>
+                
               <tr id="orderlist">
                     <td>
                         <div class="product-item">
@@ -54,7 +59,7 @@ pageEncoding="UTF-8"%>
                         </div>
                     </td>
                     <td>
-                    	<h3><a href="#">${product.p_name}</a></h3>
+                    	<h3><a href="${board_url}">${product.p_name}</a></h3>
                     </td>
                 	<td>
 						<h4>${product.p_code}</h4>

@@ -20,6 +20,9 @@ public class CartDTO {
 	// 필요에 맞게
 	private int valid_price; // validprice = p_amount * p_price
 	
+	// 상품 상세 페이지로 가기
+	private int bno;
+	
 	// 사진 가져오기
 	private String uuid;
 	private String uploadpath;
