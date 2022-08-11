@@ -449,7 +449,7 @@ pageEncoding="UTF-8"%>
 	</sec:authorize>
 
 	console.log(user_id);	
-	
+	 
 	<!-- csrf 토큰 -->
 	let csrfHeaderName = "${_csrf.headerName}";
 	let csrfTokenValue = "${_csrf.token}";	
