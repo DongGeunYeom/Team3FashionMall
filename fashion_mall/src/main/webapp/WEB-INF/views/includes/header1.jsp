@@ -63,6 +63,7 @@
           <ul id="aa" class="nav navbar-nav">
           
             <!-- 메뉴 => 판매자  : 나중에 관리자만 들어올 수 있게 시큐리티 설정 해주기 -->
+            <sec:authorize access="hasAnyRole({'ROLE_ADMIN'})">
             <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color: #000;"> 
                 <i class="bi bi-person-lines-fill" style="font-size:25px; color:#fff;"></i>
@@ -72,6 +73,7 @@
                 <li><a href="/admin/admin_list">상품 관리</a></li>
               </ul>
             </li>
+            </sec:authorize>
             <!-- 메뉴 => 사용자 -->
             <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color: #000;">

@@ -1,5 +1,7 @@
 -- DB업데이트시 날짜와 시간을 적어주세용~
 
+select * from auth;
+
 CREATE TABLE  Product  (
 	 p_code 	Number(10)	NOT NULL,
 	 p_name 	VARCHAR2(100)	NOT NULL,
