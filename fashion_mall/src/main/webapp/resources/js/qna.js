@@ -250,18 +250,21 @@ function fn_QnaAnswer() {
 };
 
 function fn_QnaChange() {
-
-	if (user_id.value == "") {
-		alert('로그인 한 후에 이용 가능합니다.');
-		return;
-	};
 	
 	let fnQno = $("#hiddenqno2").val();
 	let q_user = $("#hiddenq_user2").val();
 	let q_title = $("#hiddentitle2").val();
 	let q_content = $("#hiddencontent2").val();
 	
-	console.log("문의글 변수 확인"+q_title+" "+q_content+"글 작성자"+q_user);
+	if (user_id == "") {
+		alert('로그인 한 후에 이용 가능합니다.');
+		return;
+	};
+	
+	if (user_id != q_user) {
+		alert('문의글 작성자만 문의 수정이 가능합니다.');
+		return;
+	};
 	
 	$("#hiddenuser").val(q_user);
 	$("#qno").val(fnQno);
