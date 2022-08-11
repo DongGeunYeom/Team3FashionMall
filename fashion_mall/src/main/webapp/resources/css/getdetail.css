@@ -559,7 +559,15 @@ th {
 .modal-footer{
 	justify-content: center;
 	align-content:center;
+	text-align: center;
 	display: flex;
+	margin:auto;
+}
+
+.chckwrapper {
+	justify-content: center;
+	align-content:center;
+	text-align: center;
 }
 
 .modal-footer button{
@@ -567,7 +575,7 @@ th {
 	align-content:center;
 	background-color: black;
 	color:white;
-	width:40%;
+	width:55%;
 }
 
 .modal-body2{

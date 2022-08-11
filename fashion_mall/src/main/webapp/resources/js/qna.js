@@ -739,6 +739,8 @@ $(function() {
 				$("#q_title").val("");
 				$("#q_content").val("");
 				$("#checkmsg2").remove();
+				$("#modalDeleteBtn").hide();
+				$("#modalCloseBtn").show()
 				str1 = "<h3 id='checkmsg2'>문의 글 수정이 완료되었습니다.</h3>";
 				$("#chkModalBody").html(str1);
 				$("#chkModal").fadeIn();

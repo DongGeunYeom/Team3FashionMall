@@ -405,6 +405,7 @@ $(function(){
 			let str1 = "";
 			if(result >= 1){
 				$("#checkmsg").remove();
+				$("#modalContinueBtn").hide();
 				str1 = "<h3 id='checkmsg'>이전에 이 상품을 이미 담으셨습니다.</h3>";
 				$(".modal-body").html(str1);
 				$("#modal").fadeIn();

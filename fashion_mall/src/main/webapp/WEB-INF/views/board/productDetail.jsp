@@ -243,8 +243,8 @@ pageEncoding="UTF-8"%>
       <div class="modal-footer">
         <button type="button" id="modalCartBtn" onclick="location.href='/order/cart'">장바구니이동</button>
         <button type="button" id="modalShopBtn">쇼핑계속하기</button>
-        <form action="/order/checkout" method="post">
-        	<button type="submit" id="modalContinueBtn" style="display:none;" >확인</button>
+        <form action="/order/checkout" method="post" class="chckwrapper">
+        	<button type="submit" id="modalContinueBtn" style="width:100%; font-size:20px; ">확인</button>
         	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }" />
         	<input type="hidden" name="totalPrice" id="totalPrice" value=0 />
         </form>
