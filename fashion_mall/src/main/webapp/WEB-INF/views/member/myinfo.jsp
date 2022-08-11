@@ -32,7 +32,7 @@
 		  <div class="col-2">
 		    <div class="list-group" id="list-tab" role="tablist">
 		      <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#" role="tab" aria-controls="home">내 정보</a>
-		      <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#" role="tab" aria-controls="home">회원 정보 수정</a>
+		      <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#" role="tab" aria-controls="home">비밀 번호 수정</a>
 		      <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#" role="tab" aria-controls="home">최근 구매 내역</a>
 		    </div>
 		  </div>
