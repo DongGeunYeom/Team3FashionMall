@@ -321,13 +321,6 @@ body {
 	margin-top: 0;
 }
 
-#div3{
-	border-top: solid 1px gray;
-	width : 100%;
-	margin-top: 0;
-}
-
-
 /* 상품문의 */
 .board_list th {
 	padding: 14px 0;
@@ -504,7 +497,7 @@ th {
 */
 
 #reviewModal{
-  top: 30%;
+  top: 40%;
   left: -5%;
   width: 100%;
   height: 95%;
@@ -519,6 +512,20 @@ th {
 }
 
 #reviewModal::-webkit-scrollbar {
+	display: none;  /* Chrome, Safari, Opera */
+} 
+
+#qnaModal2{
+  text-align: center;
+  justify-content: center;
+  z-index:999;
+  position:fixed;
+  overflow:auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+#qnaModal2::-webkit-scrollbar {
 	display: none;  /* Chrome, Safari, Opera */
 } 
 
@@ -548,7 +555,8 @@ th {
 }
 
 .modal-content{
-	width: 130%;
+	width: 150%;
+	height : 100%;
 	display: flex;
 }
 .modal-body h3{
@@ -556,17 +564,15 @@ th {
 	font-weight: bold;
 }
 
-.modal-footer{
-	justify-content: center;
-	align-content:center;
-	text-align: center;
-	display: flex;
-	margin:auto;
-}
 
 .chckwrapper {
 	justify-content: center;
 	align-content:center;
+	text-align: center;
+}
+
+.modal-footer{
+	justify-content:center;
 	text-align: center;
 }
 
@@ -575,7 +581,9 @@ th {
 	align-content:center;
 	background-color: black;
 	color:white;
-	width:55%;
+	display: flex;
+	font-size:0.8em;
+	width:32%;
 }
 
 .modal-body2{

@@ -5,8 +5,8 @@
 
 	 
 	<select id="searchList"  resultType="com.study.dto.ProductDTO">
-		 	select p_code,p_name,p_price,p_content,p_type,reg_date,bno
-		 	from (select /*+INDEX_DESC(product pk_product)*/ rownum rn, p.p_code,p_name,p_price,p_content,p_type,b.reg_date,b.bno 
+		 	select p_code,p_name,p_price,p_disprice,p_content,p_type,reg_date,bno
+		 	from (select /*+INDEX_DESC(product pk_product)*/ rownum rn, p.p_code,p_name,p_disprice,p_price,p_content,p_type,b.reg_date,b.bno 
 	  		  from product p 
 	  		  left outer join productboard b on p.p_code = b.p_code 
 			 	<include refid="criteria"></include>

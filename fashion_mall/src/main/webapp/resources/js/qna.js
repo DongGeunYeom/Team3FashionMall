@@ -944,6 +944,7 @@ $(function() {
 			if (result) {
 				$("#chkModal").fadeIn();
 				$("#checkmsg2").remove();
+				$("#modalDeleteBtn").hide();
 				str1 = "<h3 id='checkmsg2'>비밀 글 등록이 완료되었습니다.</h3>";
 				$("#chkModalBody").html(str1);
 				$("#q_title").val("");
@@ -951,6 +952,7 @@ $(function() {
 			} else {
 				$("#chkModal").fadeIn();
 				$("#checkmsg2").remove();
+				$("#modalDeleteBtn").hide();
 				str1 = "<h3 id='checkmsg2'>비밀 글 등록을 실패하였습니다.</h3>";
 				$("#chkModalBody").html(str1);
 				$("#q_title").val("");

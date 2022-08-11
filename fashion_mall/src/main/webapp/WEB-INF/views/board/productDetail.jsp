@@ -172,7 +172,7 @@ pageEncoding="UTF-8"%>
        
             <!-- Review End -->
             <!-- QNA Start -->
-            <div class="xans-element- xans-product xans-product-qna">
+            <div class="xans-element- xans-product xans-product-qna" style="border-top:solid 1px grey;">
               <div id="div3" class="ec-base-table typeList">
                 <br />
                 <h2 class="qnatitle">상품문의</h2>
@@ -241,8 +241,8 @@ pageEncoding="UTF-8"%>
       <!-- 메세지 들어갈 공간 -->
       </div>
       <div class="modal-footer">
-        <button type="button" id="modalCartBtn" onclick="location.href='/order/cart'">장바구니이동</button>
-        <button type="button" id="modalShopBtn">쇼핑계속하기</button>
+        <button type="button" id="modalCartBtn" onclick="location.href='/order/cart'">장바구니 이동</button>
+        <button type="button" id="modalShopBtn">쇼핑 계속하기</button>
         <form action="/order/checkout" method="post" class="chckwrapper">
         	<button type="submit" id="modalContinueBtn" style="width:100%; font-size:20px; ">확인</button>
         	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }" />
@@ -376,7 +376,7 @@ pageEncoding="UTF-8"%>
 <!-- 비밀글 모달 -->
 <div id="qnaModal2" class="modal" tabindex="-1" data-qno="1" >
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content" style="padding:5%;">
       <div class="modal-header">
           <h5 class="modal-title">상품문의작성</h5>
       </div>

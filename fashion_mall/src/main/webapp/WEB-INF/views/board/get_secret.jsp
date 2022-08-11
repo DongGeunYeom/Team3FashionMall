@@ -84,7 +84,7 @@ pageEncoding="UTF-8"%>
 <!-- 비밀글 모달 -->
 <div id="qnaModal2" class="modal" tabindex="-1" data-qno="1" >
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content" style="padding:5%;">
       <div class="modal-header">
           <h5 class="modal-title">상품문의작성</h5>
       </div>

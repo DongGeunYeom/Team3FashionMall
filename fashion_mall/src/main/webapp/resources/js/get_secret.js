@@ -521,10 +521,9 @@ $(function(){
 			}
 		})
 		$("#qnaModal").fadeOut();
-		qnaShowList(1);
 		setTimeout(function() {
 			qnaShowList(1);
-		}, 500);
+		}, 100);
 	}); // 모달 답변 등록 종료
 
 	$('#modalQnaChangeBtn').click(function() {
@@ -566,10 +565,9 @@ $(function(){
 		$("#modalQnaInsertSecretBtn").show();
 
 		$("#q_answer").attr("readonly", false);
-		qnaShowList(1);
 		setTimeout(function() {
 			qnaShowList(1);
-		}, 500);
+		}, 100);
 	}); // 문의 수정 종료
 
 	// 모달 답변 수정 버튼
@@ -601,10 +599,9 @@ $(function(){
 			}
 		})
 		$("#qnaModal").fadeOut();
-		qnaShowList(1);
 		setTimeout(function() {
 			qnaShowList(1);
-		}, 500);
+		}, 100);
 	}); // 모달 답변 수정 종료
 
 	// 모달 답변 삭제 버튼 
@@ -635,10 +632,9 @@ $(function(){
 		$("#modalChkCancleBtn").hide();
 		$("#modalCloseBtn").show();
 		$("#qnaModal").fadeOut();
-		qnaShowList(1);
 		setTimeout(function() {
 			qnaShowList(1);
-		}, 500);
+		}, 100);
 	}); // 상품문의 삭제 종료
 	
 	$("#secret1").click(function() {
@@ -676,7 +672,9 @@ $(function(){
 		})
 
 		$("#qnaModal2").fadeOut();
-		qnaShowList(1);
+		setTimeout(function() {
+			qnaShowList(1);
+		}, 100);
 	}) // 비밀글 문의 수정 종료
 
 	$("#secret4").click(function() {
@@ -713,7 +711,9 @@ $(function(){
 			}
 		})
 		$("#qnaModal2").fadeOut();
-		qnaShowList(1);
+		setTimeout(function() {
+			qnaShowList(1);
+		}, 100);
 	}) //비밀글 답변 등록 종료
 
 	$("#secret3").click(function() {
@@ -743,7 +743,9 @@ $(function(){
 			}
 		})
 		$("#qnaModal2").fadeOut();
-		qnaShowList(1);
+		setTimeout(function() {
+			qnaShowList(1);
+		}, 100);
 	}); // 비밀글 답변 수정 종료
 
 	$("#secretopen").click(function() {
@@ -775,7 +777,9 @@ $(function(){
 			}
 		})
 		$("#qnaModal2").fadeOut();
-		qnaShowList(1);
+		setTimeout(function() {
+			qnaShowList(1);
+		}, 100);
 	}); // 비밀글 공개 성공
 
 	$("#secretdelete").click(function() {
@@ -801,7 +805,9 @@ $(function(){
 			}
 		})
 		$("#qnaModal2").fadeOut();
-		qnaShowList(1);
+		setTimeout(function() {
+			qnaShowList(1);
+		}, 100);
 	});  // 비밀글 삭제 성공
 	
 	$("#modalCloseBtn").click(function() {

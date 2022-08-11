@@ -1,7 +1,4 @@
 -- DB업데이트시 날짜와 시간을 적어주세용~
-
-select * from auth;
-
 CREATE TABLE  Product  (
 	 p_code 	Number(10)	NOT NULL,
 	 p_name 	VARCHAR2(100)	NOT NULL,
@@ -24,8 +21,6 @@ CREATE TABLE  Product  (
     p_sale    NUMBER(10) default 0,
     t_amount    NUMBER(10) default 0
 );
-
-drop table product;
 
 select * from product;
 select * from productOpt;
@@ -424,7 +419,7 @@ select * from qna;
 CREATE TABLE  Review  (
     rno    NUMBER(10)   NOT NULL primary key,
     bno    NUMBER(10)   NOT NULL,
-    r_title    VARCHAR2(100)   NOT NULL,
+    r_title    VARCHAR2(200)   NOT NULL,
     r_content    VARCHAR2(2000)   NOT NULL,
     user_id    VARCHAR2(50)   NOT NULL,
     reg_date    date default sysdate,

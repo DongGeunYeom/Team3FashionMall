@@ -7,7 +7,7 @@
 	<select id="select" resultType="com.study.dto.ProductAttachDTO" >
 		select row_num, uuid, uploadpath, filename, p_code, p_price,p_name,p_type,p_content, bno
 		from 
-		(select ROW_NUMBER() OVER(PARTITION BY p.p_code order by p.p_code) row_num, uuid, uploadpath, filename, p_a.p_code, p_price, p_name, p_type, p.p_content, board.bno
+		(select ROW_NUMBER() OVER(PARTITION BY p.p_code order by p_a.filename) row_num, uuid, uploadpath, filename, p_a.p_code, p_price, p_name, p_type, p.p_content, board.bno
     	from productattach p_a left outer join product p on p_a.p_code = p.p_code INNER JOIN productboard board on p.p_code = board.p_code
     	where t_amount > 0
     	order by p_sale desc)
@@ -18,7 +18,7 @@
 	<select id="selectTop" resultType="com.study.dto.ProductAttachDTO" >
 		select row_num, uuid, uploadpath, filename, p_code, p_price, p_name, p_type, p_content, bno
 		from 
-		(select ROW_NUMBER() OVER(PARTITION BY p.p_code order by p.p_code) row_num, uuid, uploadpath, filename, p_a.p_code, p_price, p_name, p_type, p.p_content, board.bno
+		(select ROW_NUMBER() OVER(PARTITION BY p.p_code order by p_a.filename) row_num, uuid, uploadpath, filename, p_a.p_code, p_price, p_name, p_type, p.p_content, board.bno
     	from productattach p_a left outer join product p on p_a.p_code = p.p_code INNER JOIN productboard board on p.p_code = board.p_code
     	where t_amount > 0 and p_type LIKE '%'||#{p_type}||'%'
     	order by p_sale desc)
@@ -29,7 +29,7 @@
 	<select id="selectNew" resultType="com.study.dto.ProductAttachDTO" >
 		select row_num, uuid, uploadpath, filename, p_code, p_price, p_name, reg_date, p_content, bno
 		from
-		(select ROW_NUMBER() OVER(PARTITION BY p.p_code order by p.p_code) row_num, uuid, uploadpath, filename, p_a.p_code, p_price, p_name, p.reg_date, p.p_content, board.bno
+		(select ROW_NUMBER() OVER(PARTITION BY p.p_code order by p_a.filename) row_num, uuid, uploadpath, filename, p_a.p_code, p_price, p_name, p.reg_date, p.p_content, board.bno
 		from productattach p_a left outer join product p on p_a.p_code = p.p_code INNER JOIN productboard board on p.p_code = board.p_code
 		order by reg_date desc)
 		where row_num = 1
