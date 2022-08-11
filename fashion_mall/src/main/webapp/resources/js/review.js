@@ -315,14 +315,21 @@ $(function(){
 		$("#r_content9").val(rcontent);
 		$("#ruser_id9").val(ruser_id);
 		
-		console.log("rno 확인 "+rno);
 		$(".hideimages").show();
 		$("#rno").val(rno);
 		$(".review_fn ul li").remove();
 		$("#modalReviewInsertBtn").hide();
 		$("#modalReviewConfirmBtn").hide();
-		$("#modalReviewModifyBtn").show();
-		$("#modalReviewDeleteBtn").show();
+		
+		if(user_id == ruser_id){
+			console.log("Pass");
+			$("#modalReviewModifyBtn").show();
+			$("#modalReviewDeleteBtn").show();
+		} else {
+			console.log("Fail");
+			$("#modalReviewModifyBtn").hide();
+			$("#modalReviewDeleteBtn").hide();
+		}
 		
 		reviewService.reviewGetDetail(rno, function(data){
 			if(data){

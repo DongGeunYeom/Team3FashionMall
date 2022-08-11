@@ -314,7 +314,7 @@ pageEncoding="UTF-8"%>
       	  
       <div class="modal-footer">
         <button type="button" class="btn btn-warning" id="modalReviewInsertBtn">리뷰 등록</button>
-        <button type="button" class="btn" id="modalCancleBtn">작성 취소</button>
+        <button type="button" class="btn" id="modalCancleBtn">리뷰 끄기</button>
         <button type="button" class="btn btn-info" id="modalReviewModifyBtn" style="display:none;">리뷰 수정</button>
         <button type="button" class="btn" id="modalReviewConfirmBtn" style="display:none;">수정 확인</button>
         <button type="button" class="btn btn-danger" id="modalReviewDeleteBtn" style="display:none;">리뷰 삭제</button>
