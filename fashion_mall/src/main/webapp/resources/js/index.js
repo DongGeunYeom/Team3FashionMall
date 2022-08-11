@@ -107,7 +107,7 @@ $(function(){
 			//실질적으로 보여지는건 image, fileName	
 			str += "<article class='tossing' style='padding-bottom:0px; border:solid 1px gray;'>";
 			str += "<a href='board/productDetail?bno="+obj.bno+"'>";
-			str += "<img src='/displayindex?fileName="+fileCallPath+"' width='320' height='270' alt=''></a>";
+			str += "<img src='/displayindex?fileName="+fileCallPath+"' width='100%' height='270' alt='' class='mt-3'></a>";
 			str += "<header>";
 			str += "<h3><a href='#'>"+obj.p_name+"</a></h3>";
 			str += "</header>";

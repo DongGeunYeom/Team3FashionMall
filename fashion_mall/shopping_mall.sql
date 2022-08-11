@@ -475,3 +475,5 @@ ALTER TABLE ProductBoard ADD CONSTRAINT bno PRIMARY KEY (bno)
 create index idx_qna on qna(bno desc, qno asc);
     
 create sequence qna_seq;
+
+delete from product;

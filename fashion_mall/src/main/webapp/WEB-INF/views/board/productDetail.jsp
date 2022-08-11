@@ -92,7 +92,7 @@ pageEncoding="UTF-8"%>
                 </div>
                 <div id="cartBtns">
                		<button type="button" id="addcart" class="btn"
-	                  style="margin-right: 10px" >장바구니 담기</button> 
+	                  style="margin-right: 10px;" >장바구니담기</button> 
 	                <button type="button" id="buyproduct" class="btn btn-lg" >구매하기</button>
                 </div>
                	 	<h3 id="hiddenstock">"이 상품은 품절되었습니다."</h3>
