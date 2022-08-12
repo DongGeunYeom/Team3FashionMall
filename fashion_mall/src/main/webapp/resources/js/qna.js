@@ -438,7 +438,7 @@ $(function() {
 								+ " <tr id='show" + cnt1 + "' data-qno='" + item.qno + "' data-user_id='" + item.user_id 
 								+ "' data-sc='" + sc + "' data-cnt='hide" + cnt1 + "'>"
 								+ " <td align='center' > " + item.qno + "</td>"
-								+ " <td class='align_left'> " + item.q_title + "</td>"
+								+ " <td class='align_left'> 비밀글입니다. </td>"
 								+ " <td align='left'> " + item.user_id + "</td>"
 								+ " <td align='center' > " + date + "</td>"
 								+ " <td align='center'> <i class='bi bi-check-circle-fill'></i></td>"
@@ -483,7 +483,7 @@ $(function() {
 								+ " <tr id='show" + cnt1 + "' data-qno='" + item.qno + "' data-user_id='" + item.user_id 
 								+ "' data-sc='" + sc + "' data-cnt='hide" + cnt1 + "'>"
 								+ " <td align='center' > " + item.qno + "</td>"
-								+ " <td class='align_left'> " + item.q_title + "</td>"
+								+ " <td class='align_left'> 비밀글입니다. </td>"
 								+ " <td align='left'> " + item.user_id + "</td>"
 								+ " <td align='center' > " + date + "</td>"
 								+ " <td align='center' width='90px' height='38px'></td>"
