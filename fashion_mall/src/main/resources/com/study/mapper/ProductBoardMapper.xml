@@ -35,11 +35,12 @@
 		<result property="p_price" column="p_price" /> 
 		<result property="p_type" column="p_type" /> 
 		<result property="p_content" column="p_content" /> 
+		<result property="p_disprice" column="p_disprice" /> 
 		<collection property="optList" resultMap="optMap" /> 
 	</resultMap>
 	
 	<select id="getDetailProduct" resultMap="productMap">
-		select p.p_code, p_name, p_price, p_type, p_content, o.po_size, 
+		select p.p_code, p_name, p_price, p_type, p_content, p_disprice, o.po_size, 
 		po_color, p_amount from product p 
 		left join productopt o on p.p_code = o.p_code 
 		where p.p_code='${p_code}'

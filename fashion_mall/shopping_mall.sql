@@ -62,6 +62,8 @@ select * from qna;
 
 select count(userid) from Member;
 
+select * from member;
+
 select * from auth;
 
 update auth set auth = 'ROLE_ADMIN' where user_id = 'aadd29'

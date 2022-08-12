@@ -23,6 +23,7 @@ pageEncoding="UTF-8"%>
 <input type="hidden" id="pcode" name="pcode" value="${productDto.p_code}"/>
 <input type="hidden" id="pprice" name="pprice" value="${productDto.p_price}"/>
 <input type="hidden" id="pname" name="pname" value="${productDto.p_name}"/>
+<input type="hidden" id="disprice" name="disprice" value="${productDto.p_disprice}"/>
 <main>
 <!-- 상품번호 받기 -->
   <div class="container">

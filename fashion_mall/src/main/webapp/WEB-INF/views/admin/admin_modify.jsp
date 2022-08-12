@@ -56,7 +56,7 @@
 		                			<div class="form-inline" style="display:inline-block;">
                 					   <input class="form-control" name="po_size"  value="${dto.po_size}" readonly="readonly" style="width:100px;">
                 					   <input class="form-control" name="po_color"  value="${dto.po_color}" readonly="readonly" style="width:100px;">
-                					   <input class="form-control" name="p_amount"  value="${dto.p_amount}"  style="width:100px;">  				
+                					   <input class="form-control" name="p_amount"  value="${dto.p_amount}" readonly="readonly" style="width:100px;">  				
                 				</div> 
 		                		</c:forEach>
 		                		</ul>
@@ -75,22 +75,7 @@
                 	</div>
                 </div>
             </div>  
-<%-- 파일 첨부 영역 --%>
-<div class="row">
-	<div class="col-lg-12">
-		<div class="panel panel-default">
-			<div class="panel-heading"><i class="fa fas fa-file"></i> 첨부파일</div>
-			<div class="panel-body">				
-				<div class="uploadResult">
-					<ul><!-- 첨부파일 정보 --></ul>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="bigPictureWrapper">
-	<div class="bigPicture"></div>
-</div>               
+             
 
 </div>        
 <%-- modify / list 버튼 클릭시 이동할 폼 --%>            

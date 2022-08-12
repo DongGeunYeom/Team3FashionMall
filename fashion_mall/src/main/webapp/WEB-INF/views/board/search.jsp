@@ -206,7 +206,7 @@
                             <div class="text3 left">\ ${dto.p_price}</div>
                          </c:if>
                          <c:if test="${dto.p_disprice > 0}">
-                            <div class="text3 left">\ ${dto.p_code*dto.p_disprice*0.01}</div>
+                            <div class="text3 left">\ ${dto.p_price-dto.p_price*dto.p_disprice*0.01}</div>
                          </c:if>
                       
                       </div>

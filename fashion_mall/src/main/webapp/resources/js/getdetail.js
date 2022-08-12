@@ -109,9 +109,17 @@ $(function(){
 
 	move_thumbnails()
 	
+	let disprice = $("#disprice").val();
 	// 가격 포매팅
 	let truePrice = $("#pprice").val();
-	let showPrice = new Intl.NumberFormat().format(truePrice);
+	var validprice = 0;	
+	
+		if (disprice > 0){
+			validprice =  truePrice - (truePrice * disprice * 0.01);
+		}else{
+			validprice = truePrice;
+		}
+	let showPrice = new Intl.NumberFormat().format(validprice);
 	str = "";
 	str += "<h3 class='pprice'>가격 : "+showPrice+" 원</h3>"
 	$(".showprice").append(str);
@@ -287,11 +295,20 @@ $(function(){
 		
 		$('.totalprice').remove();
 		
+		let disprice = $("#disprice").val();
 		let amount = $("#pamount").val();
 		let limit = $("#pamount").attr('max');
 		console.log("맥스 속성 값 "+limit+" < "+amount);
 		let price = $('#pprice').val();
-		let validprice = (price * amount);
+		
+		var validprice = 0;
+		
+		if (disprice > 0){
+			validprice =  (price * amount ) - (price * amount * disprice * 0.01);
+		}else{
+			validprice = (price * amount);
+		}
+		console.log("validprice 확인"+validprice);
 		
 		let totalprice = new Intl.NumberFormat().format(validprice);
 		
